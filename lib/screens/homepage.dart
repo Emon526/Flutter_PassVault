@@ -12,6 +12,12 @@ class HomePage extends StatelessWidget {
       body: const Center(
         child: Text('Home Page'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+        ),
+      ),
     );
   }
 }

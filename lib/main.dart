@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:passvault/screens/auth/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/onboardingpage.dart';
 
-void main() {
+int? isviewed;
+void main() async {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isviewed = prefs.getInt('onBoard');
   runApp(const MyApp());
 }
 
@@ -16,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: const OnBoardingSceen(),
+      home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),
     );
   }
 }

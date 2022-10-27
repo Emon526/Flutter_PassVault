@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passvault/screens/homepage.dart';
+import '../widgets/custombutton.dart';
+import 'auth/register.dart';
 
 class OnBoardingSceen extends StatefulWidget {
   const OnBoardingSceen({super.key});
@@ -86,37 +87,23 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
           ),
           Container(
             margin: const EdgeInsets.all(30),
-            child: Material(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(20),
-              child: InkWell(
-                onTap: () {
-                  if (currentIndex == contents.length - 1) {
-                    Navigator.push(
+            child: CustomButton(
+              ontap: () {
+                if (currentIndex == contents.length - 1) {
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
-                  }
-                  _controller.nextPage(
-                    duration: const Duration(
-                      microseconds: 100,
-                    ),
-                    curve: Curves.bounceIn,
-                  );
-                },
-                borderRadius: BorderRadius.circular(20),
-                child: Center(
-                  heightFactor: 3,
-                  child: Text(
-                      currentIndex == contents.length - 1 ? "Continue" : 'Next',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-              ),
+                          builder: (context) => const RegisterPage()));
+                }
+                _controller.nextPage(
+                  duration: const Duration(
+                    microseconds: 100,
+                  ),
+                  curve: Curves.bounceIn,
+                );
+              },
+              buttontext:
+                  currentIndex == contents.length - 1 ? "Continue" : 'Next',
             ),
           )
         ],
