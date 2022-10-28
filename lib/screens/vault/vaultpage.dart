@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/customsearchfield.dart';
+import '../../widgets/customsearchfield.dart';
 import 'addpassword.dart';
 
 class VaultPage extends StatelessWidget {

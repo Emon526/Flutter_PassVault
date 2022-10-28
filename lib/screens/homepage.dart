@@ -3,7 +3,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'generatorpage.dart';
 import 'trashpage.dart';
-import 'vaultpage.dart';
+import 'vault/vaultpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:passvault/widgets/custombutton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widgets/custombutton.dart';
 import '../homepage.dart';
 
 class RegisterPage extends StatefulWidget {
