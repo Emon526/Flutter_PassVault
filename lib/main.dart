@@ -8,6 +8,7 @@ int? isviewed;
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
   ));
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
