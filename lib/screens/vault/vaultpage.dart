@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:passvault/screens/vault/viewpassword.dart';
+import 'package:passvault/services/databaseservice.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/addpasswordmodel.dart';
@@ -46,16 +48,16 @@ class VaultPage extends StatelessWidget {
               Expanded(
                 child: Consumer<AddPasswordProvider>(
                   builder: (context, value, child) {
-                    return ListView.builder(
+                    return ListView.separated(
+                        separatorBuilder: (context, index) => SizedBox(
+                              height: size.height * 0.01,
+                            ),
                         itemCount: value.userPasswords.length,
                         itemBuilder: (context, index) {
                           final data = value.userPasswords[index];
                           return _buildCard(
                             context: context,
                             data: data,
-                            // title: data.title,
-                            // addeddate: 'Added today',
-                            // url: data.url!,
                           );
                         });
                   },
@@ -84,9 +86,6 @@ class VaultPage extends StatelessWidget {
   Widget _buildCard({
     required BuildContext context,
     required AddPasswordModel data,
-    // required String addeddate,
-    // required String title,
-    // required String url,
   }) {
     // var iconUrl = FaviconFinder.getBest('https://www.mashable.com');
 
@@ -100,10 +99,20 @@ class VaultPage extends StatelessWidget {
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
-        onTap: () {},
+        onTap: () {
+          context
+              .read<AddPasswordProvider>()
+              .getPasswordData(id: int.parse(data.id));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ViewPassword(),
+            ),
+          );
+        },
         child: ListTile(
           title: Text(data.title),
-          subtitle: Text(data.password),
+          subtitle: Text(data.username),
           // leading: CircleAvatar(
           //   backgroundImage: NetworkImage('https://${url}'),
           // ),
