@@ -1,5 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+
+import 'package:provider/provider.dart';
+
+import '../../models/addpasswordmodel.dart';
+import '../../provider/addpasswordprovider.dart';
+import '../../services/databaseservice.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({super.key});
@@ -20,15 +28,23 @@ class _AddPasswordState extends State<AddPassword> {
 
   void validate(BuildContext context) async {
     final FormState form = _addPasswordformKey.currentState!;
+    // final DatabaseService _databaseService = DatabaseService();
+
     if (form.validate()) {
-      // await _storeOnboardInfo();
-      // await _savePassword(confirmpasswordController.text.trim());
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const HomePage(),
-      //   ),
-      // );
+      final newPass = AddPasswordModel(
+        title: titlecontroller.text.trim(),
+        url: urlcontroller.text.trim(),
+        username: usernamecontroller.text.trim(),
+        password: passwordcontroller.text.trim(),
+        notes: notescontroller.text.trim(),
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+      );
+      context.read<DatabaseService>().addPassword(
+            password: newPass,
+          );
+      // await _databaseService.addPassword(password: newPass);
+      context.read<AddPasswordProvider>().fatchdata;
+      Navigator.pop(context);
     } else {
       const snackbar = SnackBar(
         content: Text("Please enter all required fields."),
@@ -238,11 +254,6 @@ class _AddPasswordState extends State<AddPassword> {
                   child: ElevatedButton(
                     onPressed: () {
                       validate(context);
-                      print(titlecontroller.text.trim());
-                      print(urlcontroller.text.trim());
-                      print(usernamecontroller.text.trim());
-                      print(passwordcontroller.text.trim());
-                      print(notescontroller.text.trim());
                     },
                     child: const Text('Save'),
                   ),

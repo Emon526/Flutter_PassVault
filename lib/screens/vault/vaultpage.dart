@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/addpasswordmodel.dart';
+import '../../provider/addpasswordprovider.dart';
 import '../../widgets/customsearchfield.dart';
 import 'addpassword.dart';
 
@@ -8,6 +11,7 @@ class VaultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AddPasswordProvider>().fatchdata;
     final size = MediaQuery.of(context).size;
     final searchController = TextEditingController();
     return Scaffold(
@@ -39,16 +43,24 @@ class VaultPage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.03,
               ),
-              _buildCard(
-                  context: context,
-                  title: 'Yahoo',
-                  addeddate: 'Added today',
-                  url: 'www.google.com/favicon.ico'),
-              _buildCard(
-                  context: context,
-                  title: 'Google',
-                  addeddate: 'Added yesterday',
-                  url: 'www.google.com/favicon.ico'),
+              Expanded(
+                child: Consumer<AddPasswordProvider>(
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                        itemCount: value.userPasswords.length,
+                        itemBuilder: (context, index) {
+                          final data = value.userPasswords[index];
+                          return _buildCard(
+                            context: context,
+                            data: data,
+                            // title: data.title,
+                            // addeddate: 'Added today',
+                            // url: data.url!,
+                          );
+                        });
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -71,10 +83,17 @@ class VaultPage extends StatelessWidget {
 
   Widget _buildCard({
     required BuildContext context,
-    required String addeddate,
-    required String title,
-    required String url,
+    required AddPasswordModel data,
+    // required String addeddate,
+    // required String title,
+    // required String url,
   }) {
+    // var iconUrl = FaviconFinder.getBest('https://www.mashable.com');
+
+    // var iconUrl = Favicon(data.url!);
+    // print(iconUrl.url);
+    // var iconUrls = FaviconFinder.getBest(data.url!);
+    // print(iconUrls);
     return Material(
       elevation: 1,
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -83,11 +102,20 @@ class VaultPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         onTap: () {},
         child: ListTile(
-          title: Text(title),
-          subtitle: Text(addeddate),
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage('https://${url}'),
-          ),
+          title: Text(data.title),
+          subtitle: Text(data.password),
+          // leading: CircleAvatar(
+          //   backgroundImage: NetworkImage('https://${url}'),
+          // ),
+          // leading: CachedNetworkImage(
+          //   color: Colors.red,
+          //   fit: BoxFit.cover,
+          //   imageUrl: 'https://${data.url}',
+          //   errorWidget: (context, url, error) => Icon(Icons.language_outlined),
+          // ),
+          // leading: CircleAvatar(
+          //   backgroundImage: NetworkImage(iconUrl.url),
+          // ),
           trailing: Icon(Icons.arrow_forward_ios),
         ),
       ),
