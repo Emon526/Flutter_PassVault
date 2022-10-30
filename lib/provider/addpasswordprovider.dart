@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
 
 import '../models/addpasswordmodel.dart';
@@ -39,12 +40,24 @@ class AddPasswordProvider with ChangeNotifier {
     try {
       final data = await _databaseService.passwords();
       _userPasswords.clear();
-      data.map((e) {
-        _userPasswords.add(e);
-        log(e.toMap().toString());
+      data.map((e) async {
+        var iconUrl = await FaviconFinder.getBest(e.url!);
+
+        final newPass = AddPasswordModel(
+          title: e.title,
+          url: iconUrl!.url,
+          username: e.username,
+          password: e.password,
+          notes: e.notes,
+          id: e.id,
+        );
+
+        _userPasswords.add(newPass);
+        // log(e.toMap().toString());
+        log(newPass.toMap().toString());
+
+        notifyListeners();
       }).toList();
-      // log(data.first.title.toString());
-      // log(userPasswords.s.title);
     } catch (e) {
       print(e.toString());
     }
@@ -64,7 +77,7 @@ class AddPasswordProvider with ChangeNotifier {
       _id = id.toString();
 
       // log(data.first.title.toString());
-      log(data.username);
+      log(data.id);
     } catch (e) {
       print(e.toString());
     }

@@ -19,7 +19,7 @@ class AddPassword extends StatefulWidget {
 
 class _AddPasswordState extends State<AddPassword> {
   final titlecontroller = TextEditingController();
-  final urlcontroller = TextEditingController(text: 'https://');
+  final urlcontroller = TextEditingController();
   final usernamecontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
   final notescontroller = TextEditingController();

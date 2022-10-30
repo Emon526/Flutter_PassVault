@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -37,12 +39,14 @@ class _ViewPasswordState extends State<ViewPassword> {
         username: usernamecontroller.text.trim(),
         password: passwordcontroller.text.trim(),
         notes: notescontroller.text.trim(),
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: context.read<AddPasswordProvider>().id,
       );
-      context.read<DatabaseService>().addPassword(
+      log(newPass.toMap().toString());
+      log(context.read<AddPasswordProvider>().id);
+      context.read<DatabaseService>().updatePassword(
             password: newPass,
           );
-      // await _databaseService.addPassword(password: newPass);
+
       context.read<AddPasswordProvider>().fatchdata;
       Navigator.pop(context);
     } else {
@@ -86,9 +90,9 @@ class _ViewPasswordState extends State<ViewPassword> {
             ),
             color: Theme.of(context).primaryColor,
             onPressed: () {
-              // context.read<AddPasswordProvider>().deletePassword();
-              // context.read<AddPasswordProvider>().fatchdata;
-              // Navigator.pop(context);
+              context.read<AddPasswordProvider>().deletePassword();
+              context.read<AddPasswordProvider>().fatchdata;
+              Navigator.pop(context);
             },
           ),
         ],
@@ -268,7 +272,7 @@ class _ViewPasswordState extends State<ViewPassword> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      // validate(context);
+                      validate(context);
                     },
                     child: const Text('Update'),
                   ),

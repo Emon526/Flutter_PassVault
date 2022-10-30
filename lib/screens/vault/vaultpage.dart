@@ -1,12 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:passvault/screens/vault/viewpassword.dart';
-import 'package:passvault/services/databaseservice.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
 import '../../widgets/customsearchfield.dart';
 import 'addpassword.dart';
+import 'viewpassword.dart';
 
 class VaultPage extends StatelessWidget {
   const VaultPage({super.key});
@@ -87,15 +87,10 @@ class VaultPage extends StatelessWidget {
     required BuildContext context,
     required AddPasswordModel data,
   }) {
-    // var iconUrl = FaviconFinder.getBest('https://www.mashable.com');
-
-    // var iconUrl = Favicon(data.url!);
-    // print(iconUrl.url);
-    // var iconUrls = FaviconFinder.getBest(data.url!);
-    // print(iconUrls);
     return Material(
       elevation: 1,
       color: Theme.of(context).scaffoldBackgroundColor,
+      // color: Colors.amber,
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
@@ -111,21 +106,22 @@ class VaultPage extends StatelessWidget {
           );
         },
         child: ListTile(
-          title: Text(data.title),
+          title: Text(
+            data.title,
+          ),
           subtitle: Text(data.username),
-          // leading: CircleAvatar(
-          //   backgroundImage: NetworkImage('https://${url}'),
-          // ),
-          // leading: CachedNetworkImage(
-          //   color: Colors.red,
-          //   fit: BoxFit.cover,
-          //   imageUrl: 'https://${data.url}',
-          //   errorWidget: (context, url, error) => Icon(Icons.language_outlined),
-          // ),
-          // leading: CircleAvatar(
-          //   backgroundImage: NetworkImage(iconUrl.url),
-          // ),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: CachedNetworkImage(
+            // color: Colors.red,
+            imageBuilder: (context, imageProvider) =>
+                Image(image: NetworkImage(data.url!)),
+            placeholder: (context, url) => const Icon(Icons.language_outlined),
+            imageUrl: data.url!,
+            errorWidget: (context, url, error) => const Icon(
+              Icons.language_outlined,
+              size: 40,
+            ),
+          ),
+          trailing: const Icon(Icons.arrow_forward_ios),
         ),
       ),
     );

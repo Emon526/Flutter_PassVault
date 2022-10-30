@@ -51,14 +51,17 @@ class DatabaseService with ChangeNotifier {
   Future<List<AddPasswordModel>> passwords() async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps = await db.query('passwords');
-    return List.generate(
-        maps.length, (index) => AddPasswordModel.fromMap(maps[index]));
+    return List.generate(maps.length, (index) {
+      notifyListeners();
+      return AddPasswordModel.fromMap(maps[index]);
+    });
   }
 
   Future<AddPasswordModel> selectedPasword(int id) async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps =
         await db.query('passwords', where: 'id = ?', whereArgs: [id]);
+    notifyListeners();
     return AddPasswordModel.fromMap(maps[0]);
   }
 
@@ -69,20 +72,22 @@ class DatabaseService with ChangeNotifier {
       where: 'id = ?',
       whereArgs: [id],
     );
+    notifyListeners();
   }
 
-  // Future<void> updatePassword({required AddPasswordModel password}) async {
-  //   final db = await _databaseService.database;
+  Future<void> updatePassword({required AddPasswordModel password}) async {
+    final db = await _databaseService.database;
 
-  //   await db.update(
-  //     'passwords',
-  //     password.toMap(),
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //     where: 'id = ?',
-  //     whereArgs: [password.id],
-  //   );
-  //   notifyListeners();
-  // }
+    await db.update(
+      'passwords',
+      password.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+      where: 'id = ?',
+      whereArgs: [password.id],
+    );
+    log('${password.id} updated');
+    notifyListeners();
+  }
   // Future<void> clearHistory() async {
   //   final db = await _databaseService.database;
 
