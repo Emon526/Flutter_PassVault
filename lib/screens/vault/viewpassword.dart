@@ -110,9 +110,10 @@ class _ViewPasswordState extends State<ViewPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Edit Password',
-                  style: TextStyle(
+                Text(
+                  // 'Edit Password',
+                  context.read<AddPasswordProvider>().title,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
                   ),
