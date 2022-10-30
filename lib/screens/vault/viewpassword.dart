@@ -34,6 +34,7 @@ class _ViewPasswordState extends State<ViewPassword> {
 
     if (form.validate()) {
       final newPass = AddPasswordModel(
+        addeddate: context.read<AddPasswordProvider>().addeddate,
         title: titlecontroller.text.trim(),
         url: urlcontroller.text.trim(),
         username: usernamecontroller.text.trim(),

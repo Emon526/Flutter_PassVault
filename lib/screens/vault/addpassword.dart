@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
 import '../../services/databaseservice.dart';
+import 'package:intl/intl.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({super.key});
@@ -18,11 +19,12 @@ class AddPassword extends StatefulWidget {
 }
 
 class _AddPasswordState extends State<AddPassword> {
-  final titlecontroller = TextEditingController();
-  final urlcontroller = TextEditingController();
-  final usernamecontroller = TextEditingController();
-  final passwordcontroller = TextEditingController();
-  final notescontroller = TextEditingController();
+  final titlecontroller = TextEditingController(text: 'asfdad');
+  final urlcontroller =
+      TextEditingController(text: 'https://www.facebook.com/emon.asrafulislam');
+  final usernamecontroller = TextEditingController(text: 'faeba');
+  final passwordcontroller = TextEditingController(text: 'iugdsaiuga');
+  final notescontroller = TextEditingController(text: 'ydfvaysd');
   bool isObsecured = true;
   final GlobalKey<FormState> _addPasswordformKey = GlobalKey<FormState>();
 
@@ -31,6 +33,9 @@ class _AddPasswordState extends State<AddPassword> {
     // final DatabaseService _databaseService = DatabaseService();
 
     if (form.validate()) {
+      DateTime now = DateTime.now().toLocal();
+      // DateTime formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+
       final newPass = AddPasswordModel(
         title: titlecontroller.text.trim(),
         url: urlcontroller.text.trim(),
@@ -38,6 +43,7 @@ class _AddPasswordState extends State<AddPassword> {
         password: passwordcontroller.text.trim(),
         notes: notescontroller.text.trim(),
         id: DateTime.now().millisecondsSinceEpoch.toString(),
+        addeddate: now,
       );
       context.read<DatabaseService>().addPassword(
             password: newPass,

@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.deepOrange,
           ),
-          home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),
-          // home: isviewed != 0 ? const OnBoardingSceen() : const VaultPage(),
+          // home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),
+          home: isviewed != 0 ? const OnBoardingSceen() : const VaultPage(),
         );
       },
     );

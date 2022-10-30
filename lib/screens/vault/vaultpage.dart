@@ -87,6 +87,14 @@ class VaultPage extends StatelessWidget {
     required BuildContext context,
     required AddPasswordModel data,
   }) {
+    /// Returns the difference (in full days) between the provided date and today.
+    int calculateDifference(DateTime date) {
+      DateTime now = DateTime.now();
+      // var addeddate = DateTime.parse("2022-10-30 10:09:00");
+      // var addeddate = DateTime.now();
+      return now.difference(date).inDays;
+    }
+
     return Material(
       elevation: 1,
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -108,8 +116,17 @@ class VaultPage extends StatelessWidget {
         child: ListTile(
           title: Text(
             data.title,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          subtitle: Text(data.username),
+          subtitle: Text(
+            calculateDifference(data.addeddate) == 0
+                ? 'Added Today'
+                : calculateDifference(data.addeddate) == 1
+                    ? 'Added Yesterday'
+                    : 'Added ${calculateDifference(data.addeddate)} days ago',
+          ),
           leading: CachedNetworkImage(
             // color: Colors.red,
             imageBuilder: (context, imageProvider) =>

@@ -32,7 +32,7 @@ class DatabaseService with ChangeNotifier {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE passwords(id TEXT PRIMARY KEY, title TEXT, url TEXT,username TEXT,password TEXT,notes TEXT)',
+      'CREATE TABLE passwords(id TEXT PRIMARY KEY, title TEXT, url TEXT,username TEXT,password TEXT,notes TEXT,addeddate TEXT)',
     );
   }
 
@@ -88,11 +88,12 @@ class DatabaseService with ChangeNotifier {
     log('${password.id} updated');
     notifyListeners();
   }
-  // Future<void> clearHistory() async {
-  //   final db = await _databaseService.database;
 
-  //   await db.delete(
-  //     'passwords',
-  //   );
-  // }
+  Future<void> clearHistory() async {
+    final db = await _databaseService.database;
+
+    await db.delete(
+      'passwords',
+    );
+  }
 }

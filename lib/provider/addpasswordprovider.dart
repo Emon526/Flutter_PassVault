@@ -22,6 +22,9 @@ class AddPasswordProvider with ChangeNotifier {
   String _password = '';
   String get password => _password;
 
+  DateTime _addeddate = DateTime.now();
+  DateTime get addeddate => _addeddate;
+
   String? _notes = '';
   String? get notes => _notes;
 
@@ -50,12 +53,18 @@ class AddPasswordProvider with ChangeNotifier {
           password: e.password,
           notes: e.notes,
           id: e.id,
+          addeddate: e.addeddate,
         );
 
         _userPasswords.add(newPass);
-        // log(e.toMap().toString());
-        log(newPass.toMap().toString());
 
+        log(e.toMap().toString());
+
+        // var now = DateTime.now();
+        // var addeddate = DateTime.parse("2022-10-27 10:09:00");
+        // log(now.toString());
+        // log(addeddate.toString());
+        // log(now.difference(addeddate).inDays.toString());
         notifyListeners();
       }).toList();
     } catch (e) {
@@ -75,6 +84,8 @@ class AddPasswordProvider with ChangeNotifier {
       _password = data.password;
       _notes = data.notes;
       _id = id.toString();
+
+      _addeddate = data.addeddate;
 
       // log(data.first.title.toString());
       log(data.id);

@@ -43,6 +43,7 @@ dependencies:
   sqflite: ^2.2.0+2
   cached_network_image: ^3.2.2
   favicon: ^1.1.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
