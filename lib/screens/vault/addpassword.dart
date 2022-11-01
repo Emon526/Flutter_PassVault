@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
 import '../../services/databaseservice.dart';
-import 'package:intl/intl.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({super.key});
@@ -48,7 +47,7 @@ class _AddPasswordState extends State<AddPassword> {
       context.read<DatabaseService>().addPassword(
             password: newPass,
           );
-      // await _databaseService.addPassword(password: newPass);
+      context.read<AddPasswordProvider>().userPasswords = [];
       context.read<AddPasswordProvider>().fatchdata;
       Navigator.pop(context);
     } else {
@@ -74,12 +73,14 @@ class _AddPasswordState extends State<AddPassword> {
             Navigator.pop(context);
           },
         ),
-        // actions: [
-        //   TextButton(
-        //     onPressed: () {},
-        //     child: const Text('Save'),
-        //   )
-        // ],
+        actions: [
+          TextButton(
+            onPressed: () {
+              validate(context);
+            },
+            child: const Text('Save'),
+          )
+        ],
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
       ),

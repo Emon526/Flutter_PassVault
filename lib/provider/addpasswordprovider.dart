@@ -10,6 +10,9 @@ class AddPasswordProvider with ChangeNotifier {
   String _id = '';
   String get id => _id;
 
+  bool _isloading = false;
+  bool get isloading => _isloading;
+
   String _username = '';
   String get username => _username;
 
@@ -28,21 +31,28 @@ class AddPasswordProvider with ChangeNotifier {
   String? _notes = '';
   String? get notes => _notes;
 
-  // set username(String username) {
-  //   _username = username;
-  //   notifyListeners();
-  // }
-
   final DatabaseService _databaseService = DatabaseService();
   List<AddPasswordModel> _userPasswords = [];
 
   List<AddPasswordModel> get userPasswords => _userPasswords;
 
+  set userPasswords(List<AddPasswordModel> userpasswords) {
+    _userPasswords = userpasswords;
+    // log('nulled');
+    notifyListeners();
+  }
+
   Future<void> get fatchdata async {
+    _isloading = true;
     final DatabaseService _databaseService = DatabaseService();
+
     try {
       final data = await _databaseService.passwords();
-      _userPasswords.clear();
+
+      // _userPasswords = [];
+      if (data.isEmpty) {
+        _isloading = false;
+      }
       data.map((e) async {
         var iconUrl = await FaviconFinder.getBest(e.url!);
 
@@ -55,9 +65,9 @@ class AddPasswordProvider with ChangeNotifier {
           id: e.id,
           addeddate: e.addeddate,
         );
-
         _userPasswords.add(newPass);
 
+        log('add passwordproider');
         log(e.toMap().toString());
 
         // var now = DateTime.now();
@@ -65,12 +75,15 @@ class AddPasswordProvider with ChangeNotifier {
         // log(now.toString());
         // log(addeddate.toString());
         // log(now.difference(addeddate).inDays.toString());
+
+        _isloading = false;
         notifyListeners();
       }).toList();
     } catch (e) {
       print(e.toString());
     }
     notifyListeners();
+    log(_isloading.toString());
   }
 
   Future<void> getPasswordData({

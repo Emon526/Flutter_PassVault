@@ -17,6 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isviewed = prefs.getInt('onBoard');
+
   runApp(const MyApp());
 }
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       builder: (context, child) {
+        context.read<AddPasswordProvider>().fatchdata;
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'NepPass',

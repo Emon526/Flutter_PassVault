@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/addpasswordmodel.dart';
@@ -13,7 +14,7 @@ class VaultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AddPasswordProvider>().fatchdata;
+    // context.read<AddPasswordProvider>().fatchdata;
     final size = MediaQuery.of(context).size;
     final searchController = TextEditingController();
     return Scaffold(
@@ -39,29 +40,67 @@ class VaultPage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.03,
               ),
-              CustomSearchField(
-                searchController: searchController,
-              ),
-              SizedBox(
-                height: size.height * 0.03,
-              ),
-              Expanded(
-                child: Consumer<AddPasswordProvider>(
-                  builder: (context, value, child) {
-                    return ListView.separated(
-                        separatorBuilder: (context, index) => SizedBox(
-                              height: size.height * 0.01,
-                            ),
-                        itemCount: value.userPasswords.length,
-                        itemBuilder: (context, index) {
-                          final data = value.userPasswords[index];
-                          return _buildCard(
-                            context: context,
-                            data: data,
-                          );
-                        });
-                  },
-                ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  context.watch<AddPasswordProvider>().isloading
+                      ? Center(
+                          heightFactor: size.height * 0.02,
+                          child: const CircularProgressIndicator(),
+                        )
+                      : Consumer<AddPasswordProvider>(
+                          builder: (context, value, child) {
+                            return !value.isloading &&
+                                    value.userPasswords.isNotEmpty
+                                ? Column(
+                                    children: [
+                                      CustomSearchField(
+                                        searchController: searchController,
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.03,
+                                      ),
+                                      ListView.separated(
+                                          shrinkWrap: true,
+                                          separatorBuilder: (context, index) =>
+                                              SizedBox(
+                                                height: size.height * 0.01,
+                                              ),
+                                          itemCount: value.userPasswords.length,
+                                          itemBuilder: (context, index) {
+                                            final data =
+                                                value.userPasswords[index];
+                                            return _buildCard(
+                                              context: context,
+                                              data: data,
+                                            );
+                                          }),
+                                    ],
+                                  )
+                                : Center(
+                                    child: Column(
+                                      // mainAxisAlignment: MainAxisAlignment.center,
+                                      // crossAxisAlignment:
+                                      //     CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: size.height * 0.1,
+                                        ),
+                                        Lottie.asset(
+                                            'assets/no-data-found-json.json'),
+                                        const Text(
+                                          'No Saved Password Found.',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                          },
+                        ),
+                ],
               ),
             ],
           ),
@@ -116,7 +155,7 @@ class VaultPage extends StatelessWidget {
         child: ListTile(
           title: Text(
             data.title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
             ),
           ),

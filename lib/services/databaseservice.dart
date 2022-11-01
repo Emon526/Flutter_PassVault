@@ -85,7 +85,9 @@ class DatabaseService with ChangeNotifier {
       where: 'id = ?',
       whereArgs: [password.id],
     );
+
     log('${password.id} updated');
+    // log(db.toString());
     notifyListeners();
   }
 
