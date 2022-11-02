@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../provider/addpasswordprovider.dart';
 
 class CustomSearchField extends StatelessWidget {
   const CustomSearchField({
@@ -24,6 +26,9 @@ class CustomSearchField extends StatelessWidget {
             ),
             Expanded(
               child: TextFormField(
+                onChanged: (value) {
+                  context.read<AddPasswordProvider>().controllertext = value;
+                },
                 controller: searchController,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,

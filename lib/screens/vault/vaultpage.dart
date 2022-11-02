@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +20,7 @@ class VaultPage extends StatefulWidget {
 class _VaultPageState extends State<VaultPage> {
   final ScrollController _controller = ScrollController();
   final searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // context.read<AddPasswordProvider>().fatchdata;
@@ -102,37 +101,49 @@ class _VaultPageState extends State<VaultPage> {
                                         CustomSearchField(
                                           searchController: searchController,
                                         ),
-                                        SizedBox(
-                                          height: size.height * 0.03,
-                                        ),
-                                        Expanded(
-                                          child: ListView.separated(
-                                              // shrinkWrap: true,
-                                              separatorBuilder: (context,
-                                                      index) =>
-                                                  SizedBox(
-                                                    height: size.height * 0.01,
+                                        value.searchresult.isEmpty
+                                            ? Expanded(
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Lottie.asset(
+                                                          'assets/no-data-found-json.json'),
+                                                      const Text(
+                                                        'No Matched Password Found.',
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
-                                              itemCount:
-                                                  value.userPasswords.length,
-                                              itemBuilder: (context, index) {
-                                                // final fa = value.userPasswords
-                                                //     .where(
-                                                //       (element) =>
-                                                //           element.title ==
-                                                //           searchController.text
-                                                //               .trim(),
-                                                //     )
-                                                //     .toList();
-                                                final fa = value.userPasswords
-                                                    .contains(
-                                                        searchController.text);
-
-                                                log(fa.toString());
-                                                return const Text(
-                                                    'fa.toString()');
-                                              }),
-                                        ),
+                                                ),
+                                              )
+                                            : Expanded(
+                                                child: ListView.separated(
+                                                    separatorBuilder: (context,
+                                                            index) =>
+                                                        SizedBox(
+                                                          height: size.height *
+                                                              0.01,
+                                                        ),
+                                                    itemCount: value
+                                                        .searchresult.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      // search result
+                                                      final searchdata = value
+                                                          .searchresult[index];
+                                                      return _buildCard(
+                                                        context: context,
+                                                        data: searchdata,
+                                                      );
+                                                    }),
+                                              ),
                                       ],
                                     ),
                                   )

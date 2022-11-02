@@ -41,6 +41,25 @@ class AddPasswordProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  String _controllertext = '';
+  String get controllertext => _controllertext;
+
+  set controllertext(String controllertext) {
+    _searchresult = [];
+    _controllertext = controllertext;
+
+    for (var passwords in _userPasswords) {
+      if (passwords.title.contains(controllertext)) {
+        _searchresult.add(passwords);
+      }
+    }
+    notifyListeners();
+  }
+
+  List<AddPasswordModel> _searchresult = [];
+
+  List<AddPasswordModel> get searchresult => _searchresult;
+
   Future<void> get fatchdata async {
     _isloading = true;
     final DatabaseService _databaseService = DatabaseService();
