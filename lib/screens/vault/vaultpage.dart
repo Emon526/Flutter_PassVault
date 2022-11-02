@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -9,14 +12,21 @@ import '../../widgets/customsearchfield.dart';
 import 'addpassword.dart';
 import 'viewpassword.dart';
 
-class VaultPage extends StatelessWidget {
+class VaultPage extends StatefulWidget {
   const VaultPage({super.key});
 
+  @override
+  State<VaultPage> createState() => _VaultPageState();
+}
+
+class _VaultPageState extends State<VaultPage> {
+  final ScrollController _controller = ScrollController();
+  final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     // context.read<AddPasswordProvider>().fatchdata;
     final size = MediaQuery.of(context).size;
-    final searchController = TextEditingController();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -40,68 +50,110 @@ class VaultPage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.03,
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  context.watch<AddPasswordProvider>().isloading
-                      ? Center(
-                          heightFactor: size.height * 0.02,
-                          child: const CircularProgressIndicator(),
-                        )
-                      : Consumer<AddPasswordProvider>(
-                          builder: (context, value, child) {
-                            return !value.isloading &&
-                                    value.userPasswords.isNotEmpty
-                                ? Column(
-                                    children: [
-                                      CustomSearchField(
-                                        searchController: searchController,
-                                      ),
-                                      SizedBox(
-                                        height: size.height * 0.03,
-                                      ),
-                                      ListView.separated(
-                                          shrinkWrap: true,
-                                          separatorBuilder: (context, index) =>
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                          itemCount: value.userPasswords.length,
-                                          itemBuilder: (context, index) {
-                                            final data =
-                                                value.userPasswords[index];
-                                            return _buildCard(
-                                              context: context,
-                                              data: data,
-                                            );
-                                          }),
-                                    ],
-                                  )
-                                : Center(
+              context.watch<AddPasswordProvider>().isloading
+                  ? Center(
+                      heightFactor: size.height * 0.02,
+                      child: const CircularProgressIndicator(),
+                    )
+                  : Consumer<AddPasswordProvider>(
+                      builder: (context, value, child) {
+                        return !value.isloading &&
+                                value.userPasswords.isNotEmpty
+                            ? searchController.text.isEmpty
+                                ? Expanded(
                                     child: Column(
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      // crossAxisAlignment:
-                                      //     CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          height: size.height * 0.1,
+                                        CustomSearchField(
+                                          searchController: searchController,
                                         ),
-                                        Lottie.asset(
-                                            'assets/no-data-found-json.json'),
-                                        const Text(
-                                          'No Saved Password Found.',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
+                                        SizedBox(
+                                          height: size.height * 0.03,
+                                        ),
+                                        Expanded(
+                                          child: ListView.separated(
+                                              controller: _controller,
+                                              scrollDirection: Axis.vertical,
+                                              physics:
+                                                  const AlwaysScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              separatorBuilder: (context,
+                                                      index) =>
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                              itemCount:
+                                                  value.userPasswords.length,
+                                              itemBuilder: (context, index) {
+                                                final data =
+                                                    value.userPasswords[index];
+
+                                                return _buildCard(
+                                                  context: context,
+                                                  data: data,
+                                                );
+                                              }),
+                                        ),
                                       ],
                                     ),
-                                  );
-                          },
-                        ),
-                ],
-              ),
+                                  )
+                                : Expanded(
+                                    child: Column(
+                                      children: [
+                                        CustomSearchField(
+                                          searchController: searchController,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.03,
+                                        ),
+                                        Expanded(
+                                          child: ListView.separated(
+                                              // shrinkWrap: true,
+                                              separatorBuilder: (context,
+                                                      index) =>
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                              itemCount:
+                                                  value.userPasswords.length,
+                                              itemBuilder: (context, index) {
+                                                // final fa = value.userPasswords
+                                                //     .where(
+                                                //       (element) =>
+                                                //           element.title ==
+                                                //           searchController.text
+                                                //               .trim(),
+                                                //     )
+                                                //     .toList();
+                                                final fa = value.userPasswords
+                                                    .contains(
+                                                        searchController.text);
+
+                                                log(fa.toString());
+                                                return const Text(
+                                                    'fa.toString()');
+                                              }),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                            : Column(
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.1,
+                                  ),
+                                  Lottie.asset(
+                                      'assets/no-data-found-json.json'),
+                                  const Text(
+                                    'No Saved Password Found.',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              );
+                      },
+                    ),
             ],
           ),
         ),
@@ -126,12 +178,19 @@ class VaultPage extends StatelessWidget {
     required BuildContext context,
     required AddPasswordModel data,
   }) {
-    /// Returns the difference (in full days) between the provided date and today.
     int calculateDifference(DateTime date) {
+      // getfavicon(data.url!);
       DateTime now = DateTime.now();
       // var addeddate = DateTime.parse("2022-10-30 10:09:00");
       // var addeddate = DateTime.now();
+
       return now.difference(date).inDays;
+    }
+
+    Future<String> getFavcicoUrl({required String url}) async {
+      var iconUrl = await FaviconFinder.getBest(url);
+
+      return iconUrl!.url;
     }
 
     return Material(
@@ -166,16 +225,22 @@ class VaultPage extends StatelessWidget {
                     ? 'Added Yesterday'
                     : 'Added ${calculateDifference(data.addeddate)} days ago',
           ),
-          leading: CachedNetworkImage(
-            // color: Colors.red,
-            imageBuilder: (context, imageProvider) =>
-                Image(image: NetworkImage(data.url!)),
-            placeholder: (context, url) => const Icon(Icons.language_outlined),
-            imageUrl: data.url!,
-            errorWidget: (context, url, error) => const Icon(
-              Icons.language_outlined,
-              size: 40,
-            ),
+          leading: FutureBuilder<String>(
+            future: getFavcicoUrl(url: data.url!),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return CachedNetworkImage(
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  imageUrl: snapshot.data!,
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error_outline,
+                    size: 40,
+                  ),
+                );
+              }
+              return const CircularProgressIndicator();
+            },
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
         ),
