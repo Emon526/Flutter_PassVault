@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/custombutton.dart';
+import '../widgets/custompageroute.dart';
 import 'auth/register.dart';
 
 class OnBoardingSceen extends StatefulWidget {
@@ -91,9 +92,18 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
               ontap: () {
                 if (currentIndex == contents.length - 1) {
                   Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterPage()));
+                    context,
+                    CustomPageRoute(
+                      transitionduration: const Duration(
+                        milliseconds: 800,
+                      ),
+                      direction: AxisDirection.left,
+                      child: const RegisterPage(),
+                    ),
+                    // MaterialPageRoute(
+                    //   builder: (context) => const RegisterPage(),
+                    // ),
+                  );
                 }
                 _controller.nextPage(
                   duration: const Duration(

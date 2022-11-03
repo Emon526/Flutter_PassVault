@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
 
 import '../models/addpasswordmodel.dart';
@@ -60,23 +59,25 @@ class AddPasswordProvider with ChangeNotifier {
 
   List<AddPasswordModel> get searchresult => _searchresult;
 
+  Future<String> getFavcicoUrl({required String url}) async {
+    var iconUrl = await FaviconFinder.getBest(url);
+    return iconUrl!.url;
+  }
+
   Future<void> get fatchdata async {
     _isloading = true;
     final DatabaseService _databaseService = DatabaseService();
+    _userPasswords = [];
 
     try {
       final data = await _databaseService.passwords();
 
-      // _userPasswords = [];
       if (data.isEmpty) {
         _isloading = false;
       }
       data.map((e) async {
-        // var iconUrl = await FaviconFinder.getBest(e.url!);
-
         final newPass = AddPasswordModel(
           title: e.title,
-          // url: iconUrl!.url,
           url: e.url,
           username: e.username,
           password: e.password,
@@ -86,15 +87,6 @@ class AddPasswordProvider with ChangeNotifier {
         );
         _userPasswords.add(newPass);
 
-        // log('add passwordproider');
-        // log(e.toMap().toString());
-
-        // var now = DateTime.now();
-        // var addeddate = DateTime.parse("2022-10-27 10:09:00");
-        // log(now.toString());
-        // log(addeddate.toString());
-        // log(now.difference(addeddate).inDays.toString());
-
         _isloading = false;
         notifyListeners();
       }).toList();
@@ -102,7 +94,6 @@ class AddPasswordProvider with ChangeNotifier {
       print(e.toString());
     }
     notifyListeners();
-    log(_isloading.toString());
   }
 
   Future<void> getPasswordData({
@@ -118,9 +109,6 @@ class AddPasswordProvider with ChangeNotifier {
       _id = id.toString();
 
       _addeddate = data.addeddate;
-
-      // log(data.first.title.toString());
-      log(data.id);
     } catch (e) {
       print(e.toString());
     }
@@ -130,8 +118,6 @@ class AddPasswordProvider with ChangeNotifier {
   Future<void> deletePassword() async {
     try {
       await _databaseService.deletePassword(_id);
-
-      log('$_id deleted');
     } catch (e) {
       print(e.toString());
     }

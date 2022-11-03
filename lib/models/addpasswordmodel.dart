@@ -8,14 +8,13 @@ class AddPasswordModel {
   final String password;
   final String? notes;
   final DateTime addeddate;
-  // final String date;
+
   const AddPasswordModel({
     required this.id,
     required this.title,
     required this.username,
     required this.password,
     required this.addeddate,
-    // required this.date,
     this.url,
     this.notes,
   });
@@ -45,7 +44,4 @@ class AddPasswordModel {
       // date: DateFormat.yMd().parse(map['date']) ?? '',
     );
   }
-  // @override
-  // String toString() =>
-  //     'trans(id: $id,title: $title, url: $url, username: $username, password: $password, notes: $notes)';
 }

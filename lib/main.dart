@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:passvault/provider/addpasswordprovider.dart';
-import 'package:passvault/screens/vault/vaultpage.dart';
-import 'package:passvault/services/databaseservice.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'provider/addpasswordprovider.dart';
 import 'screens/auth/login.dart';
+import 'screens/homepage.dart';
 import 'screens/onboardingpage.dart';
+import 'services/databaseservice.dart';
 
 int? isviewed;
 void main() async {
@@ -43,8 +44,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.deepOrange,
           ),
-          // home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),
-          home: isviewed != 0 ? const OnBoardingSceen() : const VaultPage(),
+          home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),
+          // home: isviewed != 0 ? const OnBoardingSceen() : const HomePage(),
         );
       },
     );

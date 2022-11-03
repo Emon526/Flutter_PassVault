@@ -5,6 +5,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/custombutton.dart';
+import '../../widgets/custompageroute.dart';
 import '../homepage.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -44,8 +45,15 @@ void validate(BuildContext context) async {
     await _savePassword(confirmpasswordController.text.trim());
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
+      // MaterialPageRoute(
+      //   builder: (context) => const HomePage(),
+      // ),
+      CustomPageRoute(
+        transitionduration: const Duration(
+          milliseconds: 800,
+        ),
+        direction: AxisDirection.left,
+        child: const HomePage(),
       ),
     );
   } else {

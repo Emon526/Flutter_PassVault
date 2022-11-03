@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import 'package:provider/provider.dart';
@@ -18,18 +19,16 @@ class AddPassword extends StatefulWidget {
 }
 
 class _AddPasswordState extends State<AddPassword> {
-  final titlecontroller = TextEditingController(text: 'asfdad');
-  final urlcontroller =
-      TextEditingController(text: 'https://www.facebook.com/emon.asrafulislam');
-  final usernamecontroller = TextEditingController(text: 'faeba');
-  final passwordcontroller = TextEditingController(text: 'iugdsaiuga');
-  final notescontroller = TextEditingController(text: 'ydfvaysd');
+  final titlecontroller = TextEditingController();
+  final urlcontroller = TextEditingController(text: 'https://www.');
+  final usernamecontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  final notescontroller = TextEditingController();
   bool isObsecured = true;
   final GlobalKey<FormState> _addPasswordformKey = GlobalKey<FormState>();
 
   void validate(BuildContext context) async {
     final FormState form = _addPasswordformKey.currentState!;
-    // final DatabaseService _databaseService = DatabaseService();
 
     if (form.validate()) {
       DateTime now = DateTime.now().toLocal();
@@ -83,6 +82,7 @@ class _AddPasswordState extends State<AddPassword> {
         ],
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -134,6 +134,7 @@ class _AddPasswordState extends State<AddPassword> {
                   ],
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
                   controller: titlecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
@@ -246,6 +247,7 @@ class _AddPasswordState extends State<AddPassword> {
                   ),
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
                   maxLines: 3,
                   controller: notescontroller,
                   keyboardType: TextInputType.text,

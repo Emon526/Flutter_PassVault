@@ -30,6 +30,7 @@ class CustomSearchField extends StatelessWidget {
                   context.read<AddPasswordProvider>().controllertext = value;
                 },
                 controller: searchController,
+                textCapitalization: TextCapitalization.sentences,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 decoration: const InputDecoration(

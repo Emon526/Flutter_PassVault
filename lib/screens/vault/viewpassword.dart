@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import 'package:provider/provider.dart';
@@ -105,6 +106,7 @@ class _ViewPasswordState extends State<ViewPassword> {
         ],
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: SingleChildScrollView(
         child: Padding(
