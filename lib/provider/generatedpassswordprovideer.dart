@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:random_password_generator/random_password_generator.dart';
 
 class GeneratedPasswordProvider with ChangeNotifier {
   bool _uppercaseatoz = true;
@@ -45,14 +44,18 @@ class GeneratedPasswordProvider with ChangeNotifier {
   double get minimumnumbers => _minimumnumbers;
 
   void minimumnumberincrement() {
-    if (_minimumnumbers < 5) _minimumnumbers += 1;
-    notifyListeners();
+    if (_minimumnumbers < 5) {
+      _minimumnumbers += 1;
+      notifyListeners();
+    }
   }
 
   void minimumnumberdecrement() {
-    if (_minimumnumbers > 0) _minimumnumbers -= 1;
+    if (_minimumnumbers > 0) {
+      _minimumnumbers -= 1;
 
-    notifyListeners();
+      notifyListeners();
+    }
   }
 
   double _minimumspecial = 0;
@@ -75,47 +78,74 @@ class GeneratedPasswordProvider with ChangeNotifier {
 
   String _generatedpassword = '';
   String get generatedpassword => _generatedpassword;
-  void get generatePassword {
-    // final password = RandomPasswordGenerator();
-    // _generatedpassword = password.randomPassword(
-    //   letters: _lowercaseatoz,
-    //   numbers: _number,
-    //   passwordLength: _length,
-    //   specialChar: _specialchar,
-    //   uppercase: _uppercaseatoz,
-    // );
 
-    _generatedpassword = generaterandomPassword();
+  Future<void> get generatePassword async {
+    try {
+      _generatedpassword = generaterandomPassword(
+        length: _length.toInt(),
+        minimumSpecialCharacterCount: 3,
+      );
 
-    double passwordstrength = checkPasswordStrength(
-      password: _generatedpassword,
-    );
-    print(_generatedpassword);
-    print(passwordstrength.toString());
-    // notifyListeners();
+      // double passwordstrength = checkPasswordStrength(
+      //   password: _generatedpassword,
+      // );
+      print(_generatedpassword);
+      // print(passwordstrength.toString());
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
-  String generaterandomPassword() {
-    final length = _length.toInt();
+  // String generaterandomPassword() {
+  //   final length = _length.toInt();
+  //   const letterLowerCase = "abcdefghijklmnopqrstuvwxyz";
+  //   const letterUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  //   const number = '0123456789';
+  //   const special = '@#%^*>\$@?/[]=+';
+
+  //   String chars = "";
+  //   // if (letter) chars += '$letterLowerCase$letterUpperCase';
+  //   if (_uppercaseatoz) chars += letterUpperCase;
+  //   if (_lowercaseatoz) chars += letterLowerCase;
+  //   if (_number) chars += number;
+  //   if (_specialchar) chars += special;
+  //   return List.generate(
+  //     length,
+  //     (index) {
+  //       final indexRandom = Random.secure().nextInt(chars.length);
+  //       return chars[indexRandom];
+  //     },
+  //   ).join('');
+  // }
+
+  String generaterandomPassword({
+    required int length,
+    required int minimumSpecialCharacterCount,
+  }) {
+    final random = Random.secure();
+
     const letterLowerCase = "abcdefghijklmnopqrstuvwxyz";
     const letterUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const number = '0123456789';
-    const special = '@#%^*>\$@?/[]=+';
+    const special = '@#%^*>\$?/[]=+';
 
-    String chars = "";
-    // if (letter) chars += '$letterLowerCase$letterUpperCase';
-    if (_uppercaseatoz) chars += letterUpperCase;
-    if (_lowercaseatoz) chars += letterLowerCase;
-    if (_number) chars += number;
-    if (_specialchar) chars += special;
+    assert(length >= minimumSpecialCharacterCount);
 
-    return List.generate(
-      length,
-      (index) {
-        final indexRandom = Random.secure().nextInt(chars.length);
-        return chars[indexRandom];
-      },
-    ).join('');
+    const allValidCharacters =
+        '$letterLowerCase$letterUpperCase$number$special';
+
+    var specials = [
+      for (var i = 0; i < minimumSpecialCharacterCount; i += 1)
+        special[random.nextInt(special.length)],
+    ];
+
+    var rest = [
+      for (var i = 0; i < length - minimumSpecialCharacterCount; i += 1)
+        allValidCharacters[random.nextInt(allValidCharacters.length)],
+    ];
+
+    return ((specials + rest)..shuffle(random)).join();
   }
 
   double checkPasswordStrength({required String password}) {

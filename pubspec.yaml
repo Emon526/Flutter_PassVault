@@ -46,8 +46,6 @@ dependencies:
   intl: ^0.17.0
   lottie: ^1.4.3
   path: ^1.8.2
-  random_password_generator: ^0.2.1
-  random_string: ^2.3.1
 
 dev_dependencies:
   flutter_test:

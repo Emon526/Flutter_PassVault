@@ -11,7 +11,8 @@ class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    context.read<GeneratedPasswordProvider>().generatePassword;
+    // context.read<GeneratedPasswordProvider>().generatePassword;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -64,10 +65,16 @@ class GeneratorPage extends StatelessWidget {
                           .generatePassword;
                     },
                     borderRadius: BorderRadius.circular(5),
-                    child: const Center(
+                    child: Center(
                       heightFactor: 3,
-                      child: Text('Regenerate Password',
-                          style: TextStyle(
+                      child: Text(
+                          context
+                                  .watch<GeneratedPasswordProvider>()
+                                  .generatedpassword
+                                  .isEmpty
+                              ? 'Generate Password'
+                              : 'Regenerate Password',
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           )),
