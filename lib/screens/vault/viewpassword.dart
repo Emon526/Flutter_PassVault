@@ -93,6 +93,29 @@ class _ViewPasswordState extends State<ViewPassword> {
         actions: [
           IconButton(
             icon: const Icon(
+              Icons.copy,
+            ),
+            color: Theme.of(context).primaryColor,
+            onPressed: () {
+              Clipboard.setData(
+                ClipboardData(
+                  text: context.read<AddPasswordProvider>().password,
+                ),
+              ).then(
+                (value) {
+                  print(context.read<AddPasswordProvider>().password);
+                  return ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      content: const Text('Password copied to clipboard'),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(
               Icons.delete_forever_outlined,
             ),
             color: Theme.of(context).primaryColor,

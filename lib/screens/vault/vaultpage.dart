@@ -104,6 +104,9 @@ class _VaultPageState extends State<VaultPage> {
                                           CustomSearchField(
                                             searchController: searchController,
                                           ),
+                                          SizedBox(
+                                            height: size.height * 0.03,
+                                          ),
                                           value.searchresult.isEmpty
                                               ? Expanded(
                                                   child: SingleChildScrollView(
@@ -218,6 +221,7 @@ class _VaultPageState extends State<VaultPage> {
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
         onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
           context
               .read<AddPasswordProvider>()
               .getPasswordData(id: int.parse(data.id));

@@ -12,7 +12,6 @@ import '../../services/databaseservice.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({super.key});
-  static const routeName = '/AddPassword';
 
   @override
   State<AddPassword> createState() => _AddPasswordState();

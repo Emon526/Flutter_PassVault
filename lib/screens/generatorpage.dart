@@ -91,8 +91,9 @@ class GeneratorPage extends StatelessWidget {
                             .read<GeneratedPasswordProvider>()
                             .generatedpassword);
                         return ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Copied to Clipboard'),
+                          SnackBar(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            content: const Text('Password copied to clipboard'),
                           ),
                         );
                       },
