@@ -352,6 +352,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.4"
+  random_password_generator:
+    dependency: "direct main"
+    description:
+      name: random_password_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
+  random_string:
+    dependency: "direct main"
+    description:
+      name: random_string
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.1"
   rxdart:
     dependency: transitive
     description:
