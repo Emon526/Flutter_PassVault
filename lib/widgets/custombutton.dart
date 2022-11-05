@@ -13,12 +13,12 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Theme.of(context).primaryColor,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: () {
           ontap();
         },
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(5),
         child: Center(
           heightFactor: 3,
           child: Text(buttontext,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'generatorpage.dart';
-import 'settings.dart';
+import 'settings/settings.dart';
 import 'vault/vaultpage.dart';
 
 class HomePage extends StatefulWidget {
