@@ -11,6 +11,9 @@ class GeneratedPasswordProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  double _passwordstrength = 0;
+  double get passwordstrength => _passwordstrength;
+
   bool _lowercaseatoz = true;
   bool get lowercaseatoz => _lowercaseatoz;
   set lowercaseatoz(bool value) {
@@ -91,7 +94,7 @@ class GeneratedPasswordProvider with ChangeNotifier {
         number: _number,
       );
 
-      double passwordstrength = checkPasswordStrength(
+      _passwordstrength = checkPasswordStrength(
         password: _generatedpassword,
       );
       print(_generatedpassword);

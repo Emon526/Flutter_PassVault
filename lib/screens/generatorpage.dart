@@ -39,17 +39,39 @@ class GeneratorPage extends StatelessWidget {
                 Material(
                   color: Theme.of(context).highlightColor,
                   borderRadius: BorderRadius.circular(5),
-                  child: Center(
-                    heightFactor: 2.5,
-                    child: Text(
-                      context
-                          .watch<GeneratedPasswordProvider>()
-                          .generatedpassword,
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black.withOpacity(0.5),
+                  child: Column(
+                    children: [
+                      Center(
+                        heightFactor: 2.5,
+                        child: Text(
+                          context
+                              .watch<GeneratedPasswordProvider>()
+                              .generatedpassword,
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ),
                       ),
-                    ),
+                      LinearProgressIndicator(
+                        value: context
+                            .watch<GeneratedPasswordProvider>()
+                            .passwordstrength,
+                        backgroundColor: Colors.grey[300],
+                        color: context
+                                    .watch<GeneratedPasswordProvider>()
+                                    .passwordstrength <=
+                                1.6 / 4
+                            ? Colors.red
+                            : context
+                                        .watch<GeneratedPasswordProvider>()
+                                        .passwordstrength <=
+                                    3.4 / 4
+                                ? Colors.yellow
+                                : Colors.green,
+                        minHeight: 3,
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
