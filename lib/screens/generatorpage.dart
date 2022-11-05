@@ -69,7 +69,7 @@ class GeneratorPage extends StatelessWidget {
                                     3.4 / 4
                                 ? Colors.yellow
                                 : Colors.green,
-                        minHeight: 3,
+                        minHeight: 4,
                       ),
                     ],
                   ),
