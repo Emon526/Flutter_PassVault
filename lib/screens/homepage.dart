@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'generatorpage.dart';
-import 'trashpage.dart';
+import 'settings.dart';
 import 'vault/vaultpage.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         screens: const [
           VaultPage(),
           GeneratorPage(),
-          TrashPage(),
+          SettingsPage(),
         ],
         items: _navBarsItems(),
         navBarStyle: NavBarStyle.style6,
@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
         inactiveColorPrimary: Colors.grey.shade600,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.delete_outline),
-        title: "Trash",
+        icon: const Icon(Icons.settings),
+        title: "Settings",
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: Colors.grey.shade600,
       ),
