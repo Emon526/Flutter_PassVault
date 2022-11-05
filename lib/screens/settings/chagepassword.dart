@@ -13,8 +13,8 @@ class ChangePasswordPage extends StatefulWidget {
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
-final passwordController = TextEditingController(text: '1234567@');
-final confirmpasswordController = TextEditingController(text: '1234567@');
+final passwordController = TextEditingController();
+final confirmpasswordController = TextEditingController();
 bool isObsecured = true;
 
 _savePassword(String password) async {
