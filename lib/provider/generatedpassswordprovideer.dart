@@ -26,14 +26,14 @@ class GeneratedPasswordProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool _specialchar = false;
+  bool _specialchar = true;
   bool get specialchar => _specialchar;
   set specialchar(bool value) {
     _specialchar = value;
     notifyListeners();
   }
 
-  double _length = 10;
+  double _length = 15;
   double get length => _length;
   set length(double value) {
     _length = value;
@@ -58,7 +58,7 @@ class GeneratedPasswordProvider with ChangeNotifier {
     }
   }
 
-  double _minimumspecial = 0;
+  double _minimumspecial = 1;
   double get minimumspecial => _minimumspecial;
 
   void minimumnspecialincrement() {
@@ -83,69 +83,78 @@ class GeneratedPasswordProvider with ChangeNotifier {
     try {
       _generatedpassword = generaterandomPassword(
         length: _length.toInt(),
-        minimumSpecialCharacterCount: 3,
+        minimumSpecialCharacterCount: _minimumspecial.toInt(),
+        minimumnumberCount: _minimumnumbers.toInt(),
+        lowercase: _lowercaseatoz,
+        uppercase: _uppercaseatoz,
+        isspecial: _specialchar,
+        number: _number,
       );
 
-      // double passwordstrength = checkPasswordStrength(
-      //   password: _generatedpassword,
-      // );
+      double passwordstrength = checkPasswordStrength(
+        password: _generatedpassword,
+      );
       print(_generatedpassword);
-      // print(passwordstrength.toString());
+      print(passwordstrength.toString());
       notifyListeners();
     } catch (e) {
       print(e.toString());
     }
   }
 
-  // String generaterandomPassword() {
-  //   final length = _length.toInt();
-  //   const letterLowerCase = "abcdefghijklmnopqrstuvwxyz";
-  //   const letterUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  //   const number = '0123456789';
-  //   const special = '@#%^*>\$@?/[]=+';
-
-  //   String chars = "";
-  //   // if (letter) chars += '$letterLowerCase$letterUpperCase';
-  //   if (_uppercaseatoz) chars += letterUpperCase;
-  //   if (_lowercaseatoz) chars += letterLowerCase;
-  //   if (_number) chars += number;
-  //   if (_specialchar) chars += special;
-  //   return List.generate(
-  //     length,
-  //     (index) {
-  //       final indexRandom = Random.secure().nextInt(chars.length);
-  //       return chars[indexRandom];
-  //     },
-  //   ).join('');
-  // }
-
   String generaterandomPassword({
     required int length,
     required int minimumSpecialCharacterCount,
+    required int minimumnumberCount,
+    required bool lowercase,
+    required bool uppercase,
+    required bool number,
+    required bool isspecial,
   }) {
     final random = Random.secure();
 
     const letterLowerCase = "abcdefghijklmnopqrstuvwxyz";
     const letterUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const number = '0123456789';
+    const numbers = '0123456789';
     const special = '@#%^*>\$?/[]=+';
 
-    assert(length >= minimumSpecialCharacterCount);
+    assert(
+        length >= minimumSpecialCharacterCount || length >= minimumnumberCount);
 
-    const allValidCharacters =
-        '$letterLowerCase$letterUpperCase$number$special';
+    String allValidCharacters = '';
+
+    if (uppercase) allValidCharacters += letterUpperCase;
+    if (lowercase) allValidCharacters += letterLowerCase;
 
     var specials = [
       for (var i = 0; i < minimumSpecialCharacterCount; i += 1)
         special[random.nextInt(special.length)],
     ];
-
-    var rest = [
-      for (var i = 0; i < length - minimumSpecialCharacterCount; i += 1)
-        allValidCharacters[random.nextInt(allValidCharacters.length)],
+    var selectednumbers = [
+      for (var i = 0; i < minimumnumberCount; i += 1)
+        numbers[random.nextInt(numbers.length)],
     ];
 
-    return ((specials + rest)..shuffle(random)).join();
+    var specialcount = isspecial && number
+        ? minimumSpecialCharacterCount + minimumnumberCount
+        : isspecial
+            ? minimumSpecialCharacterCount
+            : number
+                ? minimumnumberCount
+                : 0;
+
+    var rest = [
+      for (var i = 0; i < length - specialcount; i += 1)
+        allValidCharacters[random.nextInt(allValidCharacters.length)],
+    ];
+    var mainstring = isspecial && number
+        ? specials + selectednumbers + rest
+        : isspecial
+            ? specials + rest
+            : number
+                ? selectednumbers + rest
+                : rest;
+    return (mainstring..shuffle(random)).join();
   }
 
   double checkPasswordStrength({required String password}) {

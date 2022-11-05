@@ -186,6 +186,7 @@ class GeneratorPage extends StatelessWidget {
                   titletext: '!@#\$^&*',
                 ),
                 _buildCounterOption(
+                  enabled: context.watch<GeneratedPasswordProvider>().number,
                   color: Theme.of(context).primaryColor,
                   titletext: 'Mininum Numbers',
                   hinttext: context
@@ -205,6 +206,8 @@ class GeneratorPage extends StatelessWidget {
                   },
                 ),
                 _buildCounterOption(
+                  enabled:
+                      context.watch<GeneratedPasswordProvider>().specialchar,
                   color: Theme.of(context).primaryColor,
                   titletext: 'Mininum Special',
                   hinttext: context
@@ -285,6 +288,7 @@ class GeneratorPage extends StatelessWidget {
     required VoidCallback onincreament,
     required VoidCallback ondecrement,
     required Color color,
+    required bool enabled,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -297,7 +301,7 @@ class GeneratorPage extends StatelessWidget {
               width: 10,
             ),
             ElevatedButton(
-              onPressed: ondecrement,
+              onPressed: enabled ? ondecrement : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: color,
               ),
@@ -312,7 +316,7 @@ class GeneratorPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: color,
               ),
-              onPressed: onincreament,
+              onPressed: enabled ? onincreament : null,
               child: const Icon(
                 Icons.add,
               ),
