@@ -38,9 +38,9 @@ class _VaultPageState extends State<VaultPage> {
               // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: size.height * 0.03,
-                ),
+                // SizedBox(
+                //   height: size.height * 0.03,
+                // ),
                 const Text(
                   'Vault',
                   style: TextStyle(
@@ -216,7 +216,7 @@ class _VaultPageState extends State<VaultPage> {
 
     return Material(
       elevation: 1,
-      color: Theme.of(context).scaffoldBackgroundColor,
+      // color: Theme.of(context).scaffoldBackgroundColor,
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         borderRadius: BorderRadius.circular(5),

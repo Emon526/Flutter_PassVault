@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/themeprovider.dart';
 import '../../widgets/custompageroute.dart';
 import 'chagepassword.dart';
 
@@ -9,6 +11,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -18,9 +21,9 @@ class SettingsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: size.height * 0.03,
-              ),
+              // SizedBox(
+              //   height: size.height * 0.03,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -31,19 +34,28 @@ class SettingsPage extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.dark_mode,
-                    ),
-                    // color: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      print('change theme');
-                      // context.read<AddPasswordProvider>().deletePassword();
-                      // context.read<AddPasswordProvider>().userPasswords = [];
-                      // context.read<AddPasswordProvider>().fatchdata;
-                      // Navigator.pop(context);
-                    },
-                  ),
+                  InkWell(
+                      onTap: () {
+                        print('change theme');
+                        // context.read<AddPasswordProvider>().deletePassword();
+                        // context.read<AddPasswordProvider>().userPasswords = [];
+                        // context.read<AddPasswordProvider>().fatchdata;
+                        // Navigator.pop(context);
+                        context.read<ThemeProvider>().setTheme =
+                            !context.read<ThemeProvider>().getDarkTheme;
+                      },
+                      child: Icon(
+                        Icons.dark_mode,
+                      )),
+                  // IconButton(
+                  //   icon: const Icon(
+                  //     Icons.dark_mode,
+                  //   ),
+                  //   // color: Theme.of(context).primaryColor,
+                  //   onPressed: () {
+
+                  //   },
+                  // ),
                 ],
               ),
               SizedBox(
@@ -65,6 +77,12 @@ class SettingsPage extends StatelessWidget {
                     ),
                   );
                 },
+              ),
+              _buildSettingList(
+                context: context,
+                title: 'Privacy Policy',
+                icon: Icons.arrow_forward_ios_outlined,
+                ontap: () {},
               ),
             ],
           ),

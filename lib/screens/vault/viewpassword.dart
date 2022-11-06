@@ -85,7 +85,7 @@ class _ViewPasswordState extends State<ViewPassword> {
           icon: const Icon(
             Icons.arrow_back,
           ),
-          color: Colors.black,
+          // color: Colors.black,
           onPressed: () {
             Navigator.pop(context);
           },

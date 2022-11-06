@@ -13,7 +13,7 @@ class CustomSearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color.fromRGBO(238, 238, 238, 1),
+      // color: const Color.fromRGBO(238, 238, 238, 1),
       borderRadius: BorderRadius.circular(
         5,
       ),

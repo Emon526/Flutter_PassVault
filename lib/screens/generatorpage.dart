@@ -23,9 +23,9 @@ class GeneratorPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
+                // SizedBox(
+                //   height: size.height * 0.02,
+                // ),
                 const Text(
                   'Generator',
                   style: TextStyle(
@@ -37,7 +37,7 @@ class GeneratorPage extends StatelessWidget {
                   height: size.height * 0.02,
                 ),
                 Material(
-                  color: Theme.of(context).highlightColor,
+                  // color: Theme.of(context).highlightColor,
                   borderRadius: BorderRadius.circular(5),
                   child: Column(
                     children: [
@@ -47,9 +47,8 @@ class GeneratorPage extends StatelessWidget {
                           context
                               .watch<GeneratedPasswordProvider>()
                               .generatedpassword,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
-                            color: Colors.black.withOpacity(0.5),
                           ),
                         ),
                       ),
@@ -324,9 +323,9 @@ class GeneratorPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: enabled ? ondecrement : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: color,
-              ),
+              // style: ElevatedButton.styleFrom(
+              //   backgroundColor: color,
+              // ),
               child: const Icon(
                 Icons.remove,
               ),
@@ -335,9 +334,9 @@ class GeneratorPage extends StatelessWidget {
               width: 5,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: color,
-              ),
+              // style: ElevatedButton.styleFrom(
+              //   backgroundColor: color,
+              // ),
               onPressed: enabled ? onincreament : null,
               child: const Icon(
                 Icons.add,

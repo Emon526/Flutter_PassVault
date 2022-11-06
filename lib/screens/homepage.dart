@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
         ],
         items: _navBarsItems(),
         navBarStyle: NavBarStyle.style6,
+        backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor!,
       ),
     );
   }
