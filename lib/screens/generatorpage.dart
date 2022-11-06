@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:passvault/widgets/custombutton.dart';
-
 import 'package:provider/provider.dart';
-
 import '../provider/generatedpassswordprovideer.dart';
+import '../widgets/custombutton.dart';
 
 class GeneratorPage extends StatelessWidget {
   const GeneratorPage({super.key});
@@ -15,30 +13,26 @@ class GeneratorPage extends StatelessWidget {
     // context.read<GeneratedPasswordProvider>().generatePassword;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Generator',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.07,
+              horizontal: size.width * 0.04,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(
-                //   height: size.height * 0.02,
-                // ),
-                const Text(
-                  'Generator',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
                 Material(
-                  // color: Theme.of(context).highlightColor,
+                  color: Theme.of(context).highlightColor,
                   borderRadius: BorderRadius.circular(5),
                   child: Column(
                     children: [
@@ -89,7 +83,6 @@ class GeneratorPage extends StatelessWidget {
                             .isEmpty
                         ? 'Generate Password'
                         : 'Regenerate Password'),
-
                 SizedBox(
                   height: size.height * 0.01,
                 ),
@@ -103,13 +96,9 @@ class GeneratorPage extends StatelessWidget {
                       ),
                     ).then(
                       (value) {
-                        print(context
-                            .read<GeneratedPasswordProvider>()
-                            .generatedpassword);
                         return ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            content: const Text('Password copied to clipboard'),
+                          const SnackBar(
+                            content: Text('Password copied to clipboard'),
                           ),
                         );
                       },
@@ -129,7 +118,6 @@ class GeneratorPage extends StatelessWidget {
                       heightFactor: 3,
                       child: Text('Copy Password',
                           style: TextStyle(
-                            // color: Colors.white,
                             fontWeight: FontWeight.w500,
                           )),
                     ),
@@ -196,7 +184,6 @@ class GeneratorPage extends StatelessWidget {
                 ),
                 _buildCounterOption(
                   enabled: context.watch<GeneratedPasswordProvider>().number,
-                  color: Theme.of(context).primaryColor,
                   titletext: 'Mininum Numbers',
                   hinttext: context
                       .watch<GeneratedPasswordProvider>()
@@ -217,7 +204,6 @@ class GeneratorPage extends StatelessWidget {
                 _buildCounterOption(
                   enabled:
                       context.watch<GeneratedPasswordProvider>().specialchar,
-                  color: Theme.of(context).primaryColor,
                   titletext: 'Mininum Special',
                   hinttext: context
                       .watch<GeneratedPasswordProvider>()
@@ -296,7 +282,6 @@ class GeneratorPage extends StatelessWidget {
     required String hinttext,
     required VoidCallback onincreament,
     required VoidCallback ondecrement,
-    required Color color,
     required bool enabled,
   }) {
     return Row(
@@ -311,9 +296,6 @@ class GeneratorPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: enabled ? ondecrement : null,
-              // style: ElevatedButton.styleFrom(
-              //   backgroundColor: color,
-              // ),
               child: const Icon(
                 Icons.remove,
               ),
@@ -322,9 +304,6 @@ class GeneratorPage extends StatelessWidget {
               width: 5,
             ),
             ElevatedButton(
-              // style: ElevatedButton.styleFrom(
-              //   backgroundColor: color,
-              // ),
               onPressed: enabled ? onincreament : null,
               child: const Icon(
                 Icons.add,

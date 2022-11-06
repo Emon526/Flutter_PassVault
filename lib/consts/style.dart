@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,15 +5,20 @@ class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
       scaffoldBackgroundColor: isDarkTheme ? Colors.black : Colors.white,
-      // primarySwatch: Colors.deepOrange,
       appBarTheme: AppBarTheme(
-        // systemOverlayStyle: SystemUiOverlayStyle(
-        //   statusBarBrightness:
-        //       isDarkTheme ? Brightness.light : Brightness.dark,
-        //   statusBarIconBrightness:
-        //       isDarkTheme ? Brightness.light : Brightness.dark,
-        //   statusBarColor: isDarkTheme ? Colors.red : Colors.red,
-        // ),
+        titleTextStyle: TextStyle(
+          color: isDarkTheme ? Colors.white : Colors.black,
+        ),
+        actionsIconTheme: IconThemeData(
+          color: isDarkTheme ? Colors.white : Colors.black,
+        ),
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness:
+              isDarkTheme ? Brightness.light : Brightness.dark,
+          statusBarColor: isDarkTheme ? Colors.black : Colors.white,
+        ),
         iconTheme: IconThemeData(
           color: isDarkTheme ? Colors.white : Colors.black,
         ),
@@ -23,7 +26,6 @@ class Styles {
       iconTheme: IconThemeData(
         color: isDarkTheme ? Colors.white : Colors.black,
       ),
-      // indicatorColor: Colors.orangeAccent,
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
       ),
@@ -92,7 +94,6 @@ class Styles {
       colorScheme: ThemeData().colorScheme.copyWith(
             secondary:
                 isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
-            //     isDarkTheme ? const Color(0xff828282) : const Color(0xff777778),
             brightness: isDarkTheme ? Brightness.dark : Brightness.light,
           ),
       elevatedButtonTheme: ElevatedButtonThemeData(

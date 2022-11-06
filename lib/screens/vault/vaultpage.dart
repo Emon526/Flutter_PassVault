@@ -27,12 +27,21 @@ class _VaultPageState extends State<VaultPage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Vault',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: () => context.read<AddPasswordProvider>().fatchdata,
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.07,
+              horizontal: size.width * 0.04,
             ),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.start,
@@ -41,16 +50,16 @@ class _VaultPageState extends State<VaultPage> {
                 // SizedBox(
                 //   height: size.height * 0.03,
                 // ),
-                const Text(
-                  'Vault',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.03,
-                ),
+                // const Text(
+                //   'Vault',
+                //   style: TextStyle(
+                //     fontSize: 24,
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: size.height * 0.03,
+                // ),
                 context.watch<AddPasswordProvider>().isloading
                     ? Center(
                         heightFactor: size.height * 0.02,

@@ -79,13 +79,11 @@ class _ViewPasswordState extends State<ViewPassword> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      // backgroundColor: Colors.red,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
           ),
-          // color: Colors.black,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -95,7 +93,7 @@ class _ViewPasswordState extends State<ViewPassword> {
             icon: const Icon(
               Icons.copy,
             ),
-            color: Theme.of(context).primaryColor,
+            // color: Theme.of(context).primaryColor,
             onPressed: () {
               Clipboard.setData(
                 ClipboardData(
@@ -103,11 +101,9 @@ class _ViewPasswordState extends State<ViewPassword> {
                 ),
               ).then(
                 (value) {
-                  print(context.read<AddPasswordProvider>().password);
                   return ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      content: const Text('Password copied to clipboard'),
+                    const SnackBar(
+                      content: Text('Password copied to clipboard'),
                     ),
                   );
                 },
@@ -118,7 +114,6 @@ class _ViewPasswordState extends State<ViewPassword> {
             icon: const Icon(
               Icons.delete_forever_outlined,
             ),
-            color: Theme.of(context).primaryColor,
             onPressed: () {
               context.read<AddPasswordProvider>().deletePassword();
               context.read<AddPasswordProvider>().userPasswords = [];
@@ -127,9 +122,6 @@ class _ViewPasswordState extends State<ViewPassword> {
             },
           ),
         ],
-        shadowColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: SingleChildScrollView(
         child: Padding(
