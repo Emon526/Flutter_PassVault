@@ -1,21 +1,34 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
+      scaffoldBackgroundColor: isDarkTheme ? Colors.black : Colors.white,
       // primarySwatch: Colors.deepOrange,
-      // appBarTheme: AppBarTheme(
-      //   systemOverlayStyle: SystemUiOverlayStyle(
-      //     statusBarBrightness: isDarkTheme ? Brightness.light : Brightness.dark,
-      //     statusBarIconBrightness:
-      //         isDarkTheme ? Brightness.light : Brightness.dark,
-      //     statusBarColor: isDarkTheme ? Colors.red : Colors.red,
-      //   ),
-      // ),
+      appBarTheme: AppBarTheme(
+        // systemOverlayStyle: SystemUiOverlayStyle(
+        //   statusBarBrightness:
+        //       isDarkTheme ? Brightness.light : Brightness.dark,
+        //   statusBarIconBrightness:
+        //       isDarkTheme ? Brightness.light : Brightness.dark,
+        //   statusBarColor: isDarkTheme ? Colors.red : Colors.red,
+        // ),
+        iconTheme: IconThemeData(
+          color: isDarkTheme ? Colors.white : Colors.black,
+        ),
+      ),
+      iconTheme: IconThemeData(
+        color: isDarkTheme ? Colors.white : Colors.black,
+      ),
       // indicatorColor: Colors.orangeAccent,
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: Colors.deepOrangeAccent,
       ),
       sliderTheme: SliderThemeData(
         activeTrackColor: Colors.deepOrangeAccent,
@@ -23,8 +36,8 @@ class Styles {
         thumbColor: Colors.deepOrangeAccent,
       ),
       navigationBarTheme: NavigationBarThemeData(
-          backgroundColor: isDarkTheme ? Colors.black : Colors.white),
-
+        backgroundColor: isDarkTheme ? Colors.black : Colors.white,
+      ),
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
@@ -47,15 +60,33 @@ class Styles {
           return null;
         }),
       ),
-
-      inputDecorationTheme: InputDecorationTheme(),
-
-      // iconTheme: IconThemeData(
-      //   color: isDarkTheme ? Colors.white : Colors.black,
-      // ),
-      scaffoldBackgroundColor:
-          //0A1931  // white yellow 0xFFFCF8EC
-          isDarkTheme ? Colors.black : Colors.white,
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: Colors.deepOrangeAccent, //<-- SEE HERE
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(
+          color: Colors.deepOrangeAccent,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 2.0,
+            color: Colors.deepOrangeAccent,
+          ),
+        ),
+        focusColor: Colors.red,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 2.0,
+            color: Colors.deepOrangeAccent,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 2.0,
+            color: Colors.deepOrangeAccent,
+          ),
+        ),
+      ),
       primaryColor:
           isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
       colorScheme: ThemeData().colorScheme.copyWith(
@@ -71,6 +102,12 @@ class Styles {
               isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.deepOrangeAccent,
+        ),
+      ),
+
       // buttonColor:
       //     isDarkTheme ? const Color(0xffD5D5D5) : const Color(0xffD5D5D5),
       // cardColor:

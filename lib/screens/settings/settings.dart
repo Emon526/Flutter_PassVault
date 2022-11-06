@@ -24,39 +24,12 @@ class SettingsPage extends StatelessWidget {
               // SizedBox(
               //   height: size.height * 0.03,
               // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Settings',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  InkWell(
-                      onTap: () {
-                        print('change theme');
-                        // context.read<AddPasswordProvider>().deletePassword();
-                        // context.read<AddPasswordProvider>().userPasswords = [];
-                        // context.read<AddPasswordProvider>().fatchdata;
-                        // Navigator.pop(context);
-                        context.read<ThemeProvider>().setTheme =
-                            !context.read<ThemeProvider>().getDarkTheme;
-                      },
-                      child: Icon(
-                        Icons.dark_mode,
-                      )),
-                  // IconButton(
-                  //   icon: const Icon(
-                  //     Icons.dark_mode,
-                  //   ),
-                  //   // color: Theme.of(context).primaryColor,
-                  //   onPressed: () {
-
-                  //   },
-                  // ),
-                ],
+              const Text(
+                'Settings',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               SizedBox(
                 height: size.height * 0.03,
@@ -83,6 +56,19 @@ class SettingsPage extends StatelessWidget {
                 title: 'Privacy Policy',
                 icon: Icons.arrow_forward_ios_outlined,
                 ontap: () {},
+              ),
+              _buildSettingList(
+                context: context,
+                title: context.watch<ThemeProvider>().getDarkTheme
+                    ? 'Dark Theme'
+                    : "Light Theme",
+                icon: context.watch<ThemeProvider>().getDarkTheme
+                    ? Icons.dark_mode_outlined
+                    : Icons.light_mode_outlined,
+                ontap: () {
+                  context.read<ThemeProvider>().setTheme =
+                      !context.read<ThemeProvider>().getDarkTheme;
+                },
               ),
             ],
           ),

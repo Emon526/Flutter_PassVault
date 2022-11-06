@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:passvault/widgets/custombutton.dart';
 
 import 'package:provider/provider.dart';
 
@@ -76,32 +77,19 @@ class GeneratorPage extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Material(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(5),
-                  child: InkWell(
-                    onTap: () {
+                CustomButton(
+                    ontap: () {
                       context
                           .read<GeneratedPasswordProvider>()
                           .generatePassword;
                     },
-                    borderRadius: BorderRadius.circular(5),
-                    child: Center(
-                      heightFactor: 3,
-                      child: Text(
-                          context
-                                  .watch<GeneratedPasswordProvider>()
-                                  .generatedpassword
-                                  .isEmpty
-                              ? 'Generate Password'
-                              : 'Regenerate Password',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          )),
-                    ),
-                  ),
-                ),
+                    buttontext: context
+                            .watch<GeneratedPasswordProvider>()
+                            .generatedpassword
+                            .isEmpty
+                        ? 'Generate Password'
+                        : 'Regenerate Password'),
+
                 SizedBox(
                   height: size.height * 0.01,
                 ),

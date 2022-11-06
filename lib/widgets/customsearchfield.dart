@@ -35,7 +35,11 @@ class CustomSearchField extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 decoration: const InputDecoration(
                   hintText: ' Search For Passwords',
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide.none),
                   border: OutlineInputBorder(borderSide: BorderSide.none),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide.none),
                 ),
               ),
             ),

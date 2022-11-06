@@ -69,7 +69,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     },
                     child: const Icon(
                       Icons.arrow_back,
-                      color: Colors.black,
                     ),
                   ),
                   SizedBox(
@@ -93,7 +92,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     validator: passwordValidator,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      border: const OutlineInputBorder(),
+                      // border: const OutlineInputBorder(),
                       suffix: InkWell(
                         child: Icon(
                           isObsecured ? Icons.visibility : Icons.visibility_off,
@@ -119,7 +118,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         .validateMatch(val!, passwordController.text.trim()),
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
-                      border: const OutlineInputBorder(),
+                      // border: const OutlineInputBorder(),
                       suffix: InkWell(
                         child: Icon(
                           isObsecured ? Icons.visibility : Icons.visibility_off,

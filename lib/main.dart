@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'consts/consts.dart';
 import 'consts/style.dart';
 import 'provider/addpasswordprovider.dart';
 import 'provider/generatedpassswordprovideer.dart';
@@ -66,10 +67,7 @@ class _MyAppState extends State<MyApp> {
         //context.read<GeneratedPasswordProvider>().generatePassword;
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'NepPass',
-          // theme: ThemeData(
-          //   primarySwatch: Colors.deepOrange,
-          // ),
+          title: Consts.APP_NAME,
           theme: Styles.themeData(
               context.watch<ThemeProvider>().getDarkTheme, context),
           // home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),

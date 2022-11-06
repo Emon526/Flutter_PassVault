@@ -66,7 +66,6 @@ class _AddPasswordState extends State<AddPassword> {
           icon: const Icon(
             Icons.arrow_back,
           ),
-          color: Colors.black,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -79,9 +78,9 @@ class _AddPasswordState extends State<AddPassword> {
             child: const Text('Save'),
           )
         ],
-        shadowColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        // shadowColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
+        // systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SingleChildScrollView(
         child: Padding(
