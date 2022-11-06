@@ -28,7 +28,6 @@ class AddPasswordModel {
       'password': password,
       'notes': notes,
       'addeddate': DateFormat.yMd().format(addeddate).toString(),
-      // 'date': DateFormat.yMd().format(date).toString(),
     };
   }
 
@@ -40,8 +39,9 @@ class AddPasswordModel {
       username: map['username'] ?? '',
       password: map['password'] ?? '',
       notes: map['notes'] ?? '',
-      addeddate: DateFormat.yMd().parse(map['addeddate']),
-      // date: DateFormat.yMd().parse(map['date']) ?? '',
+      addeddate: DateFormat.yMd().parse(
+        map['addeddate'],
+      ),
     );
   }
 }
