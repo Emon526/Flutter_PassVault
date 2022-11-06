@@ -49,6 +49,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Change Password',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -60,27 +69,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: size.height * 0.03,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.03,
-                  ),
-                  const Text(
-                    'Change Password',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
                   SizedBox(
                     height: size.height * 0.07,
                   ),

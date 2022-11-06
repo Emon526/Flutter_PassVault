@@ -13,27 +13,22 @@ class SettingsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Settings',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.07,
+            horizontal: size.width * 0.04,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(
-              //   height: size.height * 0.03,
-              // ),
-              const Text(
-                'Settings',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.03,
-              ),
               _buildSettingList(
                 context: context,
                 title: 'Change Password',
@@ -51,11 +46,17 @@ class SettingsPage extends StatelessWidget {
                   );
                 },
               ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
               _buildSettingList(
                 context: context,
                 title: 'Privacy Policy',
                 icon: Icons.arrow_forward_ios_outlined,
                 ontap: () {},
+              ),
+              SizedBox(
+                height: size.height * 0.01,
               ),
               _buildSettingList(
                 context: context,
@@ -83,18 +84,22 @@ class SettingsPage extends StatelessWidget {
     required BuildContext context,
     required VoidCallback ontap,
   }) {
-    return ListTile(
-      tileColor: Theme.of(context).highlightColor,
-      onTap: ontap,
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
+    return Material(
+      color: Theme.of(context).highlightColor,
+      borderRadius: BorderRadius.circular(10),
+      child: ListTile(
+        // tileColor: Theme.of(context).highlightColor,
+        onTap: ontap,
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
-      trailing: Icon(
-        icon,
-        color: Theme.of(context).iconTheme.color,
+        trailing: Icon(
+          icon,
+          color: Theme.of(context).iconTheme.color,
+        ),
       ),
     );
   }
