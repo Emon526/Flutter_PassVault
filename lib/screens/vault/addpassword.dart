@@ -1,7 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import 'package:provider/provider.dart';
@@ -57,10 +54,19 @@ class _AddPasswordState extends State<AddPassword> {
   }
 
   @override
+  void dispose() {
+    titlecontroller.dispose();
+    urlcontroller.dispose();
+    usernamecontroller.dispose();
+    passwordcontroller.dispose();
+    notescontroller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      // backgroundColor: Colors.red,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
@@ -78,9 +84,6 @@ class _AddPasswordState extends State<AddPassword> {
             child: const Text('Save'),
           )
         ],
-        // shadowColor: Colors.transparent,
-        // backgroundColor: Colors.transparent,
-        // systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SingleChildScrollView(
         child: Padding(
