@@ -17,7 +17,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
   bool isObsecured = true;
-
+  final focus = FocusNode();
   _savePassword(String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('password', password);
@@ -65,75 +65,81 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.07,
-          ),
-          child: Form(
-            key: _loginformKey,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height * 0.04,
-                ),
-                TextFormField(
-                  obscureText: isObsecured,
-                  controller: passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.next,
-                  validator: passwordValidator,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    // border: const OutlineInputBorder(),
-                    suffix: InkWell(
-                      child: Icon(
-                        isObsecured ? Icons.visibility : Icons.visibility_off,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: size.width * 0.07,
+            ),
+            child: Form(
+              key: _loginformKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height * 0.04,
+                  ),
+                  TextFormField(
+                    onFieldSubmitted: (value) {
+                      FocusScope.of(context).requestFocus(focus);
+                    },
+                    obscureText: isObsecured,
+                    controller: passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    validator: passwordValidator,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      // border: const OutlineInputBorder(),
+                      suffix: InkWell(
+                        child: Icon(
+                          isObsecured ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            isObsecured = !isObsecured;
+                          });
+                        },
                       ),
-                      onTap: () {
-                        setState(() {
-                          isObsecured = !isObsecured;
-                        });
-                      },
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.03,
-                ),
-                TextFormField(
-                  obscureText: isObsecured,
-                  controller: confirmpasswordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      MatchValidator(errorText: 'passwords do not match')
-                          .validateMatch(val!, passwordController.text.trim()),
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                    // border: const OutlineInputBorder(),
-                    suffix: InkWell(
-                      child: Icon(
-                        isObsecured ? Icons.visibility : Icons.visibility_off,
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  TextFormField(
+                    focusNode: focus,
+                    obscureText: isObsecured,
+                    controller: confirmpasswordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    validator: (val) => MatchValidator(
+                            errorText: 'passwords do not match')
+                        .validateMatch(val!, passwordController.text.trim()),
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      // border: const OutlineInputBorder(),
+                      suffix: InkWell(
+                        child: Icon(
+                          isObsecured ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            isObsecured = !isObsecured;
+                          });
+                        },
                       ),
-                      onTap: () {
-                        setState(() {
-                          isObsecured = !isObsecured;
-                        });
-                      },
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.04,
-                ),
-                CustomButton(
-                  ontap: () {
-                    validate(context);
-                  },
-                  buttontext: 'Change Password',
-                ),
-              ],
+                  SizedBox(
+                    height: size.height * 0.04,
+                  ),
+                  CustomButton(
+                    ontap: () {
+                      validate(context);
+                    },
+                    buttontext: 'Change Password',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
