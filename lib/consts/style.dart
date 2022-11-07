@@ -26,14 +26,18 @@ class Styles {
       iconTheme: IconThemeData(
         color: isDarkTheme ? Colors.white : Colors.black,
       ),
+
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
       ),
+
+      indicatorColor: Colors.red,
       snackBarTheme: const SnackBarThemeData(
-          backgroundColor: Colors.deepOrangeAccent,
-          contentTextStyle: TextStyle(
-            color: Colors.white,
-          )),
+        backgroundColor: Colors.deepOrangeAccent,
+        contentTextStyle: TextStyle(
+          color: Colors.white,
+        ),
+      ),
       sliderTheme: SliderThemeData(
         activeTrackColor: Colors.deepOrangeAccent,
         inactiveTrackColor: Colors.deepOrangeAccent.withOpacity(0.5),
@@ -65,7 +69,8 @@ class Styles {
         }),
       ),
       textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: Colors.deepOrangeAccent, //<-- SEE HERE
+        cursorColor: Colors.deepOrangeAccent,
+        selectionHandleColor: Colors.deepOrangeAccent,
       ),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(
