@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/addpasswordmodel.dart';
@@ -47,19 +47,6 @@ class _VaultPageState extends State<VaultPage> {
               // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(
-                //   height: size.height * 0.03,
-                // ),
-                // const Text(
-                //   'Vault',
-                //   style: TextStyle(
-                //     fontSize: 24,
-                //     fontWeight: FontWeight.w500,
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: size.height * 0.03,
-                // ),
                 context.watch<AddPasswordProvider>().isloading
                     ? Center(
                         heightFactor: size.height * 0.02,
@@ -120,12 +107,20 @@ class _VaultPageState extends State<VaultPage> {
                                               ? Expanded(
                                                   child: SingleChildScrollView(
                                                     child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
                                                       children: [
-                                                        Lottie.asset(
-                                                            'assets/no-data-found-json.json'),
+                                                        SizedBox(
+                                                          height:
+                                                              size.height * 0.1,
+                                                        ),
+                                                        SvgPicture.asset(
+                                                          'assets/empty.svg',
+                                                          height:
+                                                              size.height * 0.4,
+                                                        ),
+                                                        SizedBox(
+                                                          height: size.height *
+                                                              0.01,
+                                                        ),
                                                         const Text(
                                                           'No Matched Password Found.',
                                                           style: TextStyle(
@@ -164,21 +159,28 @@ class _VaultPageState extends State<VaultPage> {
                                         ],
                                       ),
                                     )
-                              : Column(
-                                  children: [
-                                    SizedBox(
-                                      height: size.height * 0.1,
-                                    ),
-                                    Lottie.asset(
-                                        'assets/no-data-found-json.json'),
-                                    const Text(
-                                      'No Saved Password Found.',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                              : Expanded(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: size.height * 0.1,
                                       ),
-                                    )
-                                  ],
+                                      SvgPicture.asset(
+                                        'assets/not_found.svg',
+                                        height: size.height * 0.4,
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.01,
+                                      ),
+                                      const Text(
+                                        'No Saved Password Found.',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 );
                         },
                       ),
