@@ -16,51 +16,50 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-final passwordController = TextEditingController(text: '1234567@');
-_checkPassword(String password, BuildContext context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final masterpassword = prefs.getString('password');
-  if (masterpassword == password) {
-    Navigator.pushReplacement(
-      context,
-      CustomPageRoute(
-        transitionduration: const Duration(
-          milliseconds: 800,
-        ),
-        direction: AxisDirection.left,
-        child: const HomePage(),
-      ),
-    );
-  } else {
-    const snackbar = SnackBar(
-      content: Text("Password not matched"),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
-  }
-}
-
-void validate(String password, BuildContext context) async {
-  final FormState form = _loginformKey.currentState!;
-  if (form.validate()) {
-    await _checkPassword(password, context);
-  } else {
-    const snackbar = SnackBar(
-      content: Text("Invalid form data"),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
-  }
-}
-
-final passwordValidator = MultiValidator([
-  RequiredValidator(errorText: 'password is required'),
-  MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
-  PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-      errorText: 'passwords must have at least one special character')
-]);
-bool isObsecured = true;
-final GlobalKey<FormState> _loginformKey = GlobalKey<FormState>();
-
 class _LoginPageState extends State<LoginPage> {
+  final passwordController = TextEditingController(text: '1234567@');
+  _checkPassword(String password, BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final masterpassword = prefs.getString('password');
+    if (masterpassword == password) {
+      Navigator.pushReplacement(
+        context,
+        CustomPageRoute(
+          transitionduration: const Duration(
+            milliseconds: 800,
+          ),
+          direction: AxisDirection.left,
+          child: const HomePage(),
+        ),
+      );
+    } else {
+      const snackbar = SnackBar(
+        content: Text("Password not matched"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+  }
+
+  void validate(String password, BuildContext context) async {
+    final FormState form = _loginformKey.currentState!;
+    if (form.validate()) {
+      await _checkPassword(password, context);
+    } else {
+      const snackbar = SnackBar(
+        content: Text("Invalid form data"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+  }
+
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
+    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+    PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+        errorText: 'passwords must have at least one special character')
+  ]);
+  bool isObsecured = true;
+  final GlobalKey<FormState> _loginformKey = GlobalKey<FormState>();
   @override
   void dispose() {
     passwordController.dispose();
@@ -71,8 +70,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: size.width * 0.07,
@@ -137,19 +136,18 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const Divider(
                     thickness: 1,
-                    color: Colors.black,
                   ),
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  Text(
+                  const Text(
                     'Once you save a password in NepPass. you\'ll '
                     'always have it when you need it. logging in is fast '
                     'and easy.',
                     style: TextStyle(
                       // fontWeight: FontWeight.bold,
                       fontSize: 14,
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.grey,
                     ),
                   ),
                 ],

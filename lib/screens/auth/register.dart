@@ -16,57 +16,59 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-final passwordController = TextEditingController(text: '1234567@');
-final confirmpasswordController = TextEditingController(text: '1234567@');
-bool isObsecured = true;
-_storeOnboardInfo() async {
-  int isViewed = 0;
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setInt('onBoard', isViewed);
-}
-
-_savePassword(String password) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('password', password);
-}
-
-final GlobalKey<FormState> _loginformKey = GlobalKey<FormState>();
-
-final passwordValidator = MultiValidator([
-  RequiredValidator(errorText: 'password is required'),
-  MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
-  PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-      errorText: 'passwords must have at least one special character')
-]);
-
-void validate(BuildContext context) async {
-  final FormState form = _loginformKey.currentState!;
-  if (form.validate()) {
-    await _storeOnboardInfo();
-    await _savePassword(confirmpasswordController.text.trim());
-    Navigator.pushReplacement(
-      context,
-      CustomPageRoute(
-        transitionduration: const Duration(
-          milliseconds: 800,
-        ),
-        direction: AxisDirection.left,
-        child: const HomePage(),
-      ),
-    );
-  } else {
-    const snackbar = SnackBar(
-      content: Text("Form is invalid"),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
-  }
-}
-
 class _RegisterPageState extends State<RegisterPage> {
+  final focus = FocusNode();
+  final passwordController = TextEditingController(text: '1234567@');
+  final confirmpasswordController = TextEditingController(text: '1234567@');
+  bool isObsecured = true;
+  _storeOnboardInfo() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('onBoard', isViewed);
+  }
+
+  _savePassword(String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('password', password);
+  }
+
+  final GlobalKey<FormState> _registerformKey = GlobalKey<FormState>();
+
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
+    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+    PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+        errorText: 'passwords must have at least one special character')
+  ]);
+
+  void validate(BuildContext context) async {
+    final FormState form = _registerformKey.currentState!;
+    if (form.validate()) {
+      await _storeOnboardInfo();
+      await _savePassword(confirmpasswordController.text.trim());
+      Navigator.pushReplacement(
+        context,
+        CustomPageRoute(
+          transitionduration: const Duration(
+            milliseconds: 800,
+          ),
+          direction: AxisDirection.left,
+          child: const HomePage(),
+        ),
+      );
+    } else {
+      const snackbar = SnackBar(
+        content: Text("Form is invalid"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+  }
+
   @override
   void dispose() {
     passwordController.dispose();
     confirmpasswordController.dispose();
+    focus.dispose();
     super.dispose();
   }
 
@@ -74,14 +76,14 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: size.width * 0.07,
             ),
             child: Form(
-              key: _loginformKey,
+              key: _registerformKey,
               child: Column(
                 children: [
                   SizedBox(
@@ -106,6 +108,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: size.height * 0.07,
                   ),
                   TextFormField(
+                    onFieldSubmitted: (value) {
+                      FocusScope.of(context).requestFocus(focus);
+                    },
                     obscureText: isObsecured,
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
@@ -130,6 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: size.height * 0.03,
                   ),
                   TextFormField(
+                    focusNode: focus,
                     obscureText: isObsecured,
                     controller: confirmpasswordController,
                     keyboardType: TextInputType.visiblePassword,
@@ -171,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  Text(
+                  const Text(
                     'Note that if the master password is lost,the stored '
                     'data cannot be recovered because of the missing '
                     'sync option. it is strongly recommended that you '
@@ -179,7 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     style: TextStyle(
                       // fontWeight: FontWeight.bold,
                       fontSize: 13,
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.grey,
                     ),
                   ),
                 ],
