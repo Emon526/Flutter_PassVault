@@ -43,9 +43,11 @@ class Styles {
         inactiveTrackColor: Colors.deepOrangeAccent.withOpacity(0.5),
         thumbColor: Colors.deepOrangeAccent,
       ),
+
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: isDarkTheme ? Colors.black : Colors.white,
       ),
+
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
@@ -114,8 +116,8 @@ class Styles {
       //     isDarkTheme ? const Color(0xffD5D5D5) : const Color(0xffD5D5D5),
       // cardColor:
       //     isDarkTheme ? const Color(0xff141416) : const Color(0xffFFFFFF),
-      // canvasColor:
-      //     isDarkTheme ? const Color(0xff212121) : const Color(0xffE5E0E0),
+      canvasColor:
+          isDarkTheme ? const Color(0xff212121) : const Color(0xffE5E0E0),
       // buttonTheme: Theme.of(context).buttonTheme.copyWith(
       //       buttonColor: isDarkTheme ? Colors.green : Colors.blue,
       //       colorScheme: isDarkTheme
