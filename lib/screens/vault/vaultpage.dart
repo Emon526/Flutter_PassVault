@@ -37,6 +37,7 @@ class _VaultPageState extends State<VaultPage> {
         ),
       ),
       body: RefreshIndicator(
+        color: Theme.of(context).primaryColor,
         onRefresh: () => context.read<AddPasswordProvider>().fatchdata,
         child: SafeArea(
           child: Padding(
