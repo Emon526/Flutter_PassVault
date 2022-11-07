@@ -54,9 +54,15 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: size.height * 0.07,
+                        ),
                         SvgPicture.asset(
                           contents[index].image,
-                          height: size.height * 0.4,
+                          height: size.height * 0.2,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.07,
                         ),
                         Text(
                           contents[index].title,
