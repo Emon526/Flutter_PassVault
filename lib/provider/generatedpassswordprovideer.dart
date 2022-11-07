@@ -82,9 +82,9 @@ class GeneratedPasswordProvider with ChangeNotifier {
   String _generatedpassword = '';
   String get generatedpassword => _generatedpassword;
 
-  Future<void> get generatePassword async {
+  void get generatePassword {
     try {
-      _generatedpassword = generaterandomPassword(
+      var randompass = generaterandomPassword(
         length: _length.toInt(),
         minimumSpecialCharacterCount: _minimumspecial.toInt(),
         minimumnumberCount: _minimumnumbers.toInt(),
@@ -93,16 +93,15 @@ class GeneratedPasswordProvider with ChangeNotifier {
         isspecial: _specialchar,
         number: _number,
       );
+      _generatedpassword = randompass;
 
       _passwordstrength = checkPasswordStrength(
         password: _generatedpassword,
       );
-      print(_generatedpassword);
-      print(passwordstrength.toString());
-      notifyListeners();
     } catch (e) {
       print(e.toString());
     }
+    notifyListeners();
   }
 
   String generaterandomPassword({
