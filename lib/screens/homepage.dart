@@ -39,20 +39,20 @@ class _HomePageState extends State<HomePage> {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.lock_outline),
         title: "Vault",
-        // activeColorPrimary: Theme.of(context).primaryColor,
-        // inactiveColorPrimary: Colors.grey.shade600,
+        activeColorPrimary: Theme.of(context).primaryColor,
+        inactiveColorPrimary: Colors.grey.shade600,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.generating_tokens_outlined),
         title: "Generator",
-        // activeColorPrimary: Theme.of(context).primaryColor,
-        // inactiveColorPrimary: Colors.grey.shade600,
+        activeColorPrimary: Theme.of(context).primaryColor,
+        inactiveColorPrimary: Colors.grey.shade600,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.settings),
         title: "Settings",
-        // activeColorPrimary: Theme.of(context).primaryColor,
-        // inactiveColorPrimary: Colors.grey.shade600,
+        activeColorPrimary: Theme.of(context).primaryColor,
+        inactiveColorPrimary: Colors.grey.shade600,
       ),
     ];
   }
