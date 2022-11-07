@@ -36,7 +36,6 @@ class AddPasswordProvider with ChangeNotifier {
 
   set userPasswords(List<AddPasswordModel> userpasswords) {
     _userPasswords = userpasswords;
-    // log('nulled');
     notifyListeners();
   }
 
@@ -88,7 +87,6 @@ class AddPasswordProvider with ChangeNotifier {
         _userPasswords.add(newPass);
 
         _isloading = false;
-        notifyListeners();
       }).toList();
     } catch (e) {
       print(e.toString());
