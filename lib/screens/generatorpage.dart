@@ -10,8 +10,6 @@ class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // context.read<GeneratedPasswordProvider>().generatePassword;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -87,23 +85,32 @@ class GeneratorPage extends StatelessWidget {
                   height: size.height * 0.01,
                 ),
                 InkWell(
-                  onTap: () {
-                    Clipboard.setData(
-                      ClipboardData(
-                        text: context
-                            .read<GeneratedPasswordProvider>()
-                            .generatedpassword,
-                      ),
-                    ).then(
-                      (value) {
-                        return ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Password copied to clipboard'),
-                          ),
-                        );
-                      },
-                    );
-                  },
+                  onTap: context
+                          .watch<GeneratedPasswordProvider>()
+                          .generatedpassword
+                          .isEmpty
+                      ? () => ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please generate password'),
+                            ),
+                          )
+                      : () {
+                          Clipboard.setData(
+                            ClipboardData(
+                              text: context
+                                  .read<GeneratedPasswordProvider>()
+                                  .generatedpassword,
+                            ),
+                          ).then(
+                            (value) {
+                              return ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Password copied to clipboard'),
+                                ),
+                              );
+                            },
+                          );
+                        },
                   borderRadius: BorderRadius.circular(5),
                   child: Container(
                     decoration: BoxDecoration(
