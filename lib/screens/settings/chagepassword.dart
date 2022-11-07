@@ -49,6 +49,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   void dispose() {
     passwordController.dispose();
     confirmpasswordController.dispose();
+    focus.dispose();
     super.dispose();
   }
 
