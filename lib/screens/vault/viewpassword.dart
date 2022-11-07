@@ -12,7 +12,6 @@ import '../../services/databaseservice.dart';
 
 class ViewPassword extends StatefulWidget {
   const ViewPassword({super.key});
-  static const routeName = '/AddPassword';
 
   @override
   State<ViewPassword> createState() => _ViewPasswordState();
@@ -29,7 +28,6 @@ class _ViewPasswordState extends State<ViewPassword> {
 
   void validate(BuildContext context) async {
     final FormState form = _viewPasswordformKey.currentState!;
-    // final DatabaseService _databaseService = DatabaseService();
 
     if (form.validate()) {
       final newPass = AddPasswordModel(
@@ -41,9 +39,6 @@ class _ViewPasswordState extends State<ViewPassword> {
         notes: notescontroller.text.trim(),
         id: context.read<AddPasswordProvider>().id,
       );
-
-      // log(newPass.toMap().toString());
-      // log(context.read<AddPasswordProvider>().id);
       context
           .read<DatabaseService>()
           .updatePassword(
@@ -71,8 +66,17 @@ class _ViewPasswordState extends State<ViewPassword> {
     urlcontroller.text = context.read<AddPasswordProvider>().url!;
     passwordcontroller.text = context.read<AddPasswordProvider>().password;
     notescontroller.text = context.read<AddPasswordProvider>().notes!;
-
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    titlecontroller.dispose();
+    urlcontroller.dispose();
+    usernamecontroller.dispose();
+    passwordcontroller.dispose();
+    notescontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,6 +84,13 @@ class _ViewPasswordState extends State<ViewPassword> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          context.read<AddPasswordProvider>().title,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -93,7 +104,6 @@ class _ViewPasswordState extends State<ViewPassword> {
             icon: const Icon(
               Icons.copy,
             ),
-            // color: Theme.of(context).primaryColor,
             onPressed: () {
               Clipboard.setData(
                 ClipboardData(
@@ -133,24 +143,6 @@ class _ViewPasswordState extends State<ViewPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  // 'Edit Password',
-                  context.read<AddPasswordProvider>().title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.03,
-                ),
-                // const Text(
-                //   'Fill in the details below to update the password',
-                //   style: TextStyle(
-                //     fontSize: 15,
-                //     color: Colors.grey,
-                //   ),
-                // ),
                 Row(
                   children: const [
                     Text(
@@ -283,7 +275,7 @@ class _ViewPasswordState extends State<ViewPassword> {
                   ),
                 ),
                 TextFormField(
-                  maxLines: 3,
+                  maxLines: 2,
                   controller: notescontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
