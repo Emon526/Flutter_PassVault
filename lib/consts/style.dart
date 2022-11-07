@@ -30,8 +30,10 @@ class Styles {
         color: isDarkTheme ? Colors.deepOrangeAccent : Colors.deepOrangeAccent,
       ),
       snackBarTheme: const SnackBarThemeData(
-        backgroundColor: Colors.deepOrangeAccent,
-      ),
+          backgroundColor: Colors.deepOrangeAccent,
+          contentTextStyle: TextStyle(
+            color: Colors.white,
+          )),
       sliderTheme: SliderThemeData(
         activeTrackColor: Colors.deepOrangeAccent,
         inactiveTrackColor: Colors.deepOrangeAccent.withOpacity(0.5),
