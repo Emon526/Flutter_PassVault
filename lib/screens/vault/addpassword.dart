@@ -249,7 +249,7 @@ class _AddPasswordState extends State<AddPassword> {
                 ),
                 TextFormField(
                   textCapitalization: TextCapitalization.sentences,
-                  maxLines: 3,
+                  maxLines: 2,
                   controller: notescontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
