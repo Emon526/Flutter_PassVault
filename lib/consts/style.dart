@@ -74,18 +74,23 @@ class Styles {
         cursorColor: Colors.deepOrangeAccent,
         selectionHandleColor: Colors.deepOrangeAccent,
       ),
-      inputDecorationTheme: const InputDecorationTheme(
-        labelStyle: TextStyle(
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: const TextStyle(
           color: Colors.deepOrangeAccent,
         ),
         focusColor: Colors.red,
-        border: OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: isDarkTheme ? Colors.grey : Colors.grey,
+          ),
+        ),
+        border: const OutlineInputBorder(
           borderSide: BorderSide(
             width: 2.0,
             color: Colors.deepOrangeAccent,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             width: 2.0,
             color: Colors.deepOrangeAccent,
@@ -116,8 +121,8 @@ class Styles {
       //     isDarkTheme ? const Color(0xffD5D5D5) : const Color(0xffD5D5D5),
       // cardColor:
       //     isDarkTheme ? const Color(0xff141416) : const Color(0xffFFFFFF),
-      canvasColor:
-          isDarkTheme ? const Color(0xff212121) : const Color(0xffE5E0E0),
+      // canvasColor:
+      //     isDarkTheme ? const Color(0xff212121) : const Color(0xffE5E0E0),
       // buttonTheme: Theme.of(context).buttonTheme.copyWith(
       //       buttonColor: isDarkTheme ? Colors.green : Colors.blue,
       //       colorScheme: isDarkTheme
