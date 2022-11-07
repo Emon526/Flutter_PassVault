@@ -23,9 +23,7 @@ class _VaultPageState extends State<VaultPage> {
 
   @override
   Widget build(BuildContext context) {
-    // context.read<AddPasswordProvider>().fatchdata;
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -45,7 +43,6 @@ class _VaultPageState extends State<VaultPage> {
               horizontal: size.width * 0.04,
             ),
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 context.watch<AddPasswordProvider>().isloading
@@ -194,9 +191,6 @@ class _VaultPageState extends State<VaultPage> {
         onPressed: () {
           Navigator.push(
             context,
-            // MaterialPageRoute(
-            //   builder: (context) => const AddPassword(),
-            // ),
             CustomPageRoute(
               transitionduration: const Duration(
                 milliseconds: 800,
@@ -218,7 +212,6 @@ class _VaultPageState extends State<VaultPage> {
     required AddPasswordModel data,
   }) {
     int calculateDifference(DateTime date) {
-      // getfavicon(data.url!);
       DateTime now = DateTime.now();
       // var addeddate = DateTime.parse("2022-10-30 10:09:00");
       // var addeddate = DateTime.now();
@@ -228,7 +221,6 @@ class _VaultPageState extends State<VaultPage> {
 
     return Material(
       elevation: 1,
-      // color: Theme.of(context).scaffoldBackgroundColor,
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
@@ -239,9 +231,6 @@ class _VaultPageState extends State<VaultPage> {
               .getPasswordData(id: int.parse(data.id));
           Navigator.push(
             context,
-            // MaterialPageRoute(
-            //   builder: (context) => const ViewPassword(),
-            // ),
             CustomPageRoute(
               transitionduration: const Duration(
                 milliseconds: 800,
