@@ -15,6 +15,7 @@ class AddPassword extends StatefulWidget {
 }
 
 class _AddPasswordState extends State<AddPassword> {
+  final focus = FocusNode();
   final titlecontroller = TextEditingController();
   final urlcontroller = TextEditingController(text: 'https://www.');
   final usernamecontroller = TextEditingController();
@@ -60,6 +61,7 @@ class _AddPasswordState extends State<AddPassword> {
     usernamecontroller.dispose();
     passwordcontroller.dispose();
     notescontroller.dispose();
+    focus.dispose();
     super.dispose();
   }
 
@@ -221,6 +223,9 @@ class _AddPasswordState extends State<AddPassword> {
                   controller: passwordcontroller,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).requestFocus(focus);
+                  },
                   validator:
                       RequiredValidator(errorText: 'Password is required'),
                   decoration: InputDecoration(
@@ -250,6 +255,7 @@ class _AddPasswordState extends State<AddPassword> {
                 TextFormField(
                   textCapitalization: TextCapitalization.sentences,
                   maxLines: 2,
+                  focusNode: focus,
                   controller: notescontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
