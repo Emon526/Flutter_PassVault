@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import '../consts/consts.dart';
 import '../widgets/custombutton.dart';
 import '../widgets/custompageroute.dart';
 import 'auth/register.dart';
@@ -32,91 +34,90 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _controller,
-              onPageChanged: (int index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              itemCount: contents.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.07,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        contents[index].image,
-                        height: size.height * 0.4,
-                      ),
-                      Text(
-                        contents[index].title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 24,
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.07,
-                      ),
-                      Text(
-                        contents[index].description,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              contents.length,
-              (index) => buildDots(index, context),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(30),
-            child: CustomButton(
-              ontap: () {
-                if (currentIndex == contents.length - 1) {
-                  Navigator.pushReplacement(
-                    context,
-                    CustomPageRoute(
-                      transitionduration: const Duration(
-                        milliseconds: 800,
-                      ),
-                      direction: AxisDirection.left,
-                      child: const RegisterPage(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: _controller,
+                onPageChanged: (int index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemCount: contents.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.07,
                     ),
-                    // MaterialPageRoute(
-                    //   builder: (context) => const RegisterPage(),
-                    // ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset(
+                          contents[index].image,
+                          height: size.height * 0.4,
+                        ),
+                        Text(
+                          contents[index].title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 24,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.07,
+                        ),
+                        Text(
+                          contents[index].description,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
                   );
-                }
-                _controller.nextPage(
-                  duration: const Duration(
-                    microseconds: 100,
-                  ),
-                  curve: Curves.bounceIn,
-                );
-              },
-              buttontext:
-                  currentIndex == contents.length - 1 ? "Continue" : 'Next',
+                },
+              ),
             ),
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                contents.length,
+                (index) => buildDots(index, context),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(30),
+              child: CustomButton(
+                ontap: () {
+                  if (currentIndex == contents.length - 1) {
+                    Navigator.pushReplacement(
+                      context,
+                      CustomPageRoute(
+                        transitionduration: const Duration(
+                          milliseconds: 800,
+                        ),
+                        direction: AxisDirection.left,
+                        child: const RegisterPage(),
+                      ),
+                    );
+                  }
+                  _controller.nextPage(
+                    duration: const Duration(
+                      microseconds: 100,
+                    ),
+                    curve: Curves.bounceIn,
+                  );
+                },
+                buttontext:
+                    currentIndex == contents.length - 1 ? "Continue" : 'Next',
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -149,17 +150,13 @@ class OnBoardingContent {
 
 List<OnBoardingContent> contents = [
   OnBoardingContent(
-    image: 'assets/logo.png',
-    title: 'Welcome to NepPass!',
-    description: 'NepPass is the most secure way to '
-        'store and protect your passwords '
-        'from cybercriminals.',
+    image: 'assets/vault.svg',
+    title: Consts.TITLE_1,
+    description: Consts.SUBTITLE_1,
   ),
   OnBoardingContent(
-    image: 'assets/encrypted.png',
-    title: 'Trusted and Secure',
-    description: 'NepPass uses a zero-knowledge '
-        'encryption means your data remains '
-        'private even from us.',
+    image: 'assets/secure.svg',
+    title: Consts.TITLE_2,
+    description: Consts.SUBTITLE_2,
   ),
 ];
