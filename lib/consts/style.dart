@@ -69,12 +69,6 @@ class Styles {
         labelStyle: TextStyle(
           color: Colors.deepOrangeAccent,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 2.0,
-            color: Colors.deepOrangeAccent,
-          ),
-        ),
         focusColor: Colors.red,
         border: OutlineInputBorder(
           borderSide: BorderSide(
