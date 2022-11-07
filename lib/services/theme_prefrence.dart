@@ -9,6 +9,7 @@ class ThemePrefrences {
 
   Future<bool> getTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(Consts.THEME_STATUS) ?? false;
+    return prefs.getBool(Consts.THEME_STATUS) ??
+        false; // faslse for defalut light theme
   }
 }
