@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'consts/consts.dart';
@@ -11,10 +12,9 @@ import 'screens/onboardingpage.dart';
 import 'services/databaseservice.dart';
 
 int? isviewed;
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  isviewed = prefs.getInt('onBoard');
+void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -29,6 +29,10 @@ class _MyAppState extends State<MyApp> {
   ThemeProvider themeProvider = ThemeProvider();
   void checkCurrentTheme() async {
     themeProvider.setTheme = await themeProvider.themePrefrences.getTheme();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isviewed = prefs.getInt('onBoard');
+    await Future.delayed(const Duration(seconds: 3));
+    FlutterNativeSplash.remove();
   }
 
   @override
