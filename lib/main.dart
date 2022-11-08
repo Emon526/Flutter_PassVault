@@ -55,7 +55,6 @@ class _MyAppState extends State<MyApp> {
         }),
       ],
       builder: (context, child) {
-        context.read<AddPasswordProvider>().fatchdata;
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: Consts.APP_NAME,
