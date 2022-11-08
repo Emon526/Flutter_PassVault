@@ -86,19 +86,28 @@ class SettingsPage extends StatelessWidget {
   }) {
     return Material(
       color: Theme.of(context).highlightColor,
-      borderRadius: BorderRadius.circular(10),
-      child: ListTile(
-        // tileColor: Theme.of(context).highlightColor,
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(5),
         onTap: ontap,
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
+        child: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+              Icon(
+                icon,
+                color: Theme.of(context).iconTheme.color,
+              ),
+            ],
           ),
-        ),
-        trailing: Icon(
-          icon,
-          color: Theme.of(context).iconTheme.color,
         ),
       ),
     );
