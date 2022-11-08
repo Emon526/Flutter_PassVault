@@ -35,22 +35,25 @@ A new Flutter Password Vault and Generator project using Sqflite and Provider.
 <!-- This is a complete functional application that works on both Android and iOS devices. -->
 
 
-<!-- # Pass Vault App Final UI
+# Pass Vault App Final UI
 
 
-**Home Screen** -->
+**Light Mode**
 
-<!-- <img src="preview/home.png" alt="drawing" width="350"/> -->
+<img src="preview/light_mode.png" alt="light_mode"/> 
 
-<!-- **Profile Screen**
-<br> -->
+<br>
 
-<!-- <img src="preview/profile.png" alt="drawing" width="350"/> -->
+<br>
 
-<!-- **User Screen**
-<br> -->
+**Night Mode**
 
-<!-- <img src="preview/user.png" alt="drawing" width="350"/> -->
+<img src="preview/dark_mode.png" alt="dark_mode" /> 
+
+<br>
+
+<br>
+
 
 <br>
 <br>
