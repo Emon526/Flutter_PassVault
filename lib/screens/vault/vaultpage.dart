@@ -22,6 +22,19 @@ class _VaultPageState extends State<VaultPage> {
   final searchController = TextEditingController();
 
   @override
+  void initState() {
+    context.read<AddPasswordProvider>().fatchdata;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
