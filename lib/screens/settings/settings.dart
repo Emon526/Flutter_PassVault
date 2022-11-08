@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
               _buildSettingList(
                 context: context,
                 title: 'Change Password',
-                icon: Icons.arrow_forward_ios_outlined,
+                icon: Icons.password_outlined,
                 ontap: () {
                   Navigator.push(
                     context,
@@ -52,8 +52,44 @@ class SettingsPage extends StatelessWidget {
               _buildSettingList(
                 context: context,
                 title: 'Privacy Policy',
-                icon: Icons.arrow_forward_ios_outlined,
-                ontap: () {},
+                icon: Icons.policy_outlined,
+                ontap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              _buildSettingList(
+                context: context,
+                title: 'Backup Data',
+                icon: Icons.backup_outlined,
+                ontap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              _buildSettingList(
+                context: context,
+                title: 'Restore Data',
+                icon: Icons.restore_outlined,
+                ontap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
+                    ),
+                  );
+                },
               ),
               SizedBox(
                 height: size.height * 0.01,
