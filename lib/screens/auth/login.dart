@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../provider/themeprovider.dart';
 import '../../widgets/custombutton.dart';
 import '../../widgets/custompageroute.dart';
 import '../homepage.dart';
@@ -17,7 +20,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final passwordController = TextEditingController(text: '1234567@');
+  final passwordController = TextEditingController();
   _checkPassword(String password, BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final masterpassword = prefs.getString('password');
@@ -69,88 +72,100 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.07,
-            ),
-            child: Form(
-              key: _loginformKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.07,
-                  ),
-                  SvgPicture.asset(
-                    'assets/secure_login.svg',
-                    height: size.height * 0.2,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  Text(
-                    'Enter master password and login',
-                    style: TextStyle(
-                      // fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Colors.grey.shade600,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: context.watch<ThemeProvider>().getDarkTheme
+            ? Colors.black
+            : Colors.white,
+        statusBarIconBrightness: context.watch<ThemeProvider>().getDarkTheme
+            ? Brightness.light
+            : Brightness.dark,
+      ),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.07,
+              ),
+              child: Form(
+                key: _loginformKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.07,
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.07,
-                  ),
-                  TextFormField(
-                    obscureText: isObsecured,
-                    controller: passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                    validator: passwordValidator,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: const OutlineInputBorder(),
-                      suffix: InkWell(
-                        child: Icon(
-                          isObsecured ? Icons.visibility : Icons.visibility_off,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            isObsecured = !isObsecured;
-                          });
-                        },
+                    SvgPicture.asset(
+                      'assets/secure_login.svg',
+                      height: size.height * 0.2,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    Text(
+                      'Enter master password and login',
+                      style: TextStyle(
+                        // fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Colors.grey.shade600,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  CustomButton(
-                    ontap: () {
-                      validate(passwordController.text.trim(), context);
-                    },
-                    buttontext: 'Login',
-                  ),
-                  SizedBox(
-                    height: size.height * 0.1,
-                  ),
-                  const Divider(
-                    thickness: 1,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  const Text(
-                    'Once you save a password in NepPass. you\'ll '
-                    'always have it when you need it. logging in is fast '
-                    'and easy.',
-                    style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.grey,
+                    SizedBox(
+                      height: size.height * 0.07,
                     ),
-                  ),
-                ],
+                    TextFormField(
+                      obscureText: isObsecured,
+                      controller: passwordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.done,
+                      validator: passwordValidator,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: const OutlineInputBorder(),
+                        suffix: InkWell(
+                          child: Icon(
+                            isObsecured
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              isObsecured = !isObsecured;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    CustomButton(
+                      ontap: () {
+                        validate(passwordController.text.trim(), context);
+                      },
+                      buttontext: 'Login',
+                    ),
+                    SizedBox(
+                      height: size.height * 0.1,
+                    ),
+                    const Divider(
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    const Text(
+                      'Once you save a password in NepPass. you\'ll '
+                      'always have it when you need it. logging in is fast '
+                      'and easy.',
+                      style: TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

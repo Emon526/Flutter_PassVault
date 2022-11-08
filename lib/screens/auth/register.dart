@@ -18,8 +18,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final focus = FocusNode();
-  final passwordController = TextEditingController(text: '1234567@');
-  final confirmpasswordController = TextEditingController(text: '1234567@');
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
   bool isObsecured = true;
   _storeOnboardInfo() async {
     int isViewed = 0;
