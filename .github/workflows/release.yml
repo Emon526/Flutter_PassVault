@@ -5,12 +5,22 @@ on:
       - master
 
 jobs:
-  changelog:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
+      # Add Flutter setup step if necessary
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      # Rest of the steps for generating changelog and creating release
       - name: conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3.7.1
