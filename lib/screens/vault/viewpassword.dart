@@ -145,8 +145,8 @@ class _ViewPasswordState extends State<ViewPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       'Title ',
                       style: TextStyle(
@@ -194,8 +194,8 @@ class _ViewPasswordState extends State<ViewPassword> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       'User Name ',
                       style: TextStyle(
@@ -226,8 +226,8 @@ class _ViewPasswordState extends State<ViewPassword> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       'Password ',
                       style: TextStyle(

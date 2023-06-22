@@ -65,11 +65,11 @@ class AddPasswordProvider with ChangeNotifier {
 
   Future<void> get fatchdata async {
     _isloading = true;
-    final DatabaseService _databaseService = DatabaseService();
+    final DatabaseService databaseService = DatabaseService();
     _userPasswords = [];
 
     try {
-      final data = await _databaseService.passwords();
+      final data = await databaseService.passwords();
 
       if (data.isEmpty) {
         _isloading = false;
@@ -89,7 +89,7 @@ class AddPasswordProvider with ChangeNotifier {
         _isloading = false;
       }).toList();
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
     notifyListeners();
   }
@@ -108,7 +108,7 @@ class AddPasswordProvider with ChangeNotifier {
 
       _addeddate = data.addeddate;
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
     notifyListeners();
   }
@@ -117,7 +117,7 @@ class AddPasswordProvider with ChangeNotifier {
     try {
       await _databaseService.deletePassword(_id);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
     notifyListeners();
   }

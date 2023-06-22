@@ -99,7 +99,7 @@ class GeneratedPasswordProvider with ChangeNotifier {
         password: _generatedpassword,
       );
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
     notifyListeners();
   }

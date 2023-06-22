@@ -117,8 +117,8 @@ class _AddPasswordState extends State<AddPassword> {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       'Title ',
                       style: TextStyle(
@@ -167,8 +167,8 @@ class _AddPasswordState extends State<AddPassword> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       'User Name ',
                       style: TextStyle(
@@ -199,8 +199,8 @@ class _AddPasswordState extends State<AddPassword> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       'Password ',
                       style: TextStyle(
