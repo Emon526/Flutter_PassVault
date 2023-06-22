@@ -2,16 +2,16 @@ name: Releases
 on:
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - "data/**"
 
 concurrency:
-  group: "main-branch"
+  group: "master-branch"
 
 jobs:
   changelog:
-    if: github.repository == 'EddieHubCommunity/LinkFree'
+    if: github.repository == 'Emon526/Flutter_PassVault'
     runs-on: ubuntu-latest
 
     steps:
