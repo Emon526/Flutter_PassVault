@@ -1,3 +1,12 @@
+## [0.1.3](https://github.com/Emon526/Flutter_PassVault/compare/v0.1.2...v0.1.3) (2023-06-22)
+
+
+### Bug Fixes
+
+* workflow fix ([3a23ca6](https://github.com/Emon526/Flutter_PassVault/commit/3a23ca6beb2dad6b5d4ecfff0a1a3c9fee27d3fe))
+
+
+
 ## [0.1.2](https://github.com/Emon526/Flutter_PassVault/compare/v0.1.1...v0.1.2) (2023-06-22)
 
 
