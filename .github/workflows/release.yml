@@ -96,7 +96,7 @@ jobs:
       - run: |
           bash script/fetch_git_info.sh
           flutter pub get
-          flutter pub run build_runner build
+          # flutter pub run build_runner build
           flutter pub deps
           flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
