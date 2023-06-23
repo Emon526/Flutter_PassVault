@@ -1,10 +1,10 @@
 name: Release
 on:
   push:
-    branches:
-      - master
     tags:
-      - "release-v*"
+      - "v*"
+    # branches:
+    #   - master
 
 env:
   FLUTTER_VERSION: 3.10.5
