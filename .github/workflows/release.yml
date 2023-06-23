@@ -37,22 +37,6 @@ jobs:
       #     release_name: ${{ steps.changelog.outputs.tag }}
       #     body: ${{ steps.changelog.outputs.clean_changelog }}
 
-
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   if: ${{ steps.changelog.outputs.skipped == 'false' }}
-
-        # - name: Upload APK to release
-        # uses: actions/upload-release-asset@v1
-        # if: ${{ steps.changelog.outputs.skipped == 'false' }}
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # with:
-        #   upload_url: ${{ steps.create_release.outputs.upload_url }}
-        #   asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-        #   asset_name: app-release.apk
-        #   asset_content_type: application/vnd.android.package-archive
-
           
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -66,5 +50,6 @@ jobs:
               # yy-windows.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
