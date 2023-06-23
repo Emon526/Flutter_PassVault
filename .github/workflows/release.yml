@@ -138,6 +138,7 @@ jobs:
             # build/macos/Build/Products/Release/yoyo.mac.zip
             # yy-linux-x86_64.tar.gz
             # yy-windows.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
