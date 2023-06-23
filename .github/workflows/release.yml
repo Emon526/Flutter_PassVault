@@ -3,8 +3,8 @@ on:
   push:
     tags:
       - "v*"
-    # branches:
-    #   - master
+    branches:
+      - master
 
 env:
   FLUTTER_VERSION: 3.10.5
