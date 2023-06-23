@@ -13,7 +13,6 @@ A new Flutter Password Vault and Generator project using Sqflite and Provider.
 - Password Strength Meter
 - Get Website Favicon
 
-
 **Packages we are using:**
 
 
