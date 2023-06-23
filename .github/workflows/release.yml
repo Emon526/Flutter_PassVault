@@ -1,8 +1,9 @@
-name: Release
+name: master
 on:
   push:
     tags:
       - "v*.*.*"
+    
 
 env:
   FLUTTER_VERSION: 3.10.5
