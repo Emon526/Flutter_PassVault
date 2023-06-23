@@ -1,8 +1,8 @@
 name: Release
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "release-v*"
 
 env:
   FLUTTER_VERSION: 3.10.5
@@ -98,7 +98,7 @@ jobs:
           flutter pub get
           # flutter pub run build_runner build
           flutter pub deps
-          # flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+          flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
       # build all arch
       - run: flutter build apk --release
