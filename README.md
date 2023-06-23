@@ -61,7 +61,6 @@ A new Flutter Password Vault and Generator project using Sqflite and Provider.
 
 
 
-
 # Change App Icon
 ## Package - flutter_launcher_icons: [link]( https://pub.dev/packages/flutter_launcher_icons)
 
