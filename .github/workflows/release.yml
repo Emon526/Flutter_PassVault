@@ -119,9 +119,9 @@ jobs:
       #     cd build/macos/Build/Products/Release
       #     zip -r yoyo.mac.zip yoyo.app/*
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: x86_64_linux
+   #   - uses: actions/download-artifact@v3
+  #      with:
+   #       name: x86_64_linux
 
       - uses: actions/download-artifact@v3
         with:
