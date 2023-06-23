@@ -2,9 +2,7 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
-    branches:
-      - master
+      - "v*.*.*"
 
 env:
   FLUTTER_VERSION: 3.10.5
@@ -128,8 +126,8 @@ jobs:
       #   with:
       #     name: windows
 
-      - uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
           files: |
             build/app/outputs/flutter-apk/*.apk
@@ -139,3 +137,21 @@ jobs:
             # yy-windows.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # # Rest of the steps for generating changelog and creating release
+      # - name: conventional Changelog Action
+      #   id: changelog
+      #   uses: TriPSs/conventional-changelog-action@v3.7.1
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: create release
+      #   uses: actions/create-release@v1
+      #   if: ${{ steps.changelog.outputs.skipped == 'false' }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ steps.changelog.outputs.tag }}
+      #     release_name: ${{ steps.changelog.outputs.tag }}
+      #     body: ${{ steps.changelog.outputs.clean_changelog }}
+          
