@@ -76,7 +76,7 @@ A new Flutter Password Vault and Generator project using Sqflite and Provider.
 - step 1 : Replace the logo.png image with your logo. 
 - step 2 : Change the logo path in pubspec.yaml file 
 - step 3 : Run "flutter pub clean"
-- step 3 : Run "flutter pub get" 
+- step 4 : Run "flutter pub get" 
 - step 4 : Run "flutter pub run flutter_native_splash:create" 
 
 # Update Pods
