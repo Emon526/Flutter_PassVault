@@ -26,6 +26,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: 'chore(release): {version}'
           
       - name: Release
         uses: softprops/action-gh-release@v1
