@@ -1,21 +1,9 @@
-## [1.2.1](https://github.com/Emon526/Flutter_PassVault/compare/v1.2.0...v1.2.1) (2023-06-25)
-
-
-
-# [1.2.0](https://github.com/Emon526/Flutter_PassVault/compare/v1.1.0...v1.2.0) (2023-06-25)
+# [1.3.0](https://github.com/Emon526/Flutter_PassVault/compare/v1.0.1...v1.3.0) (2023-06-25)
 
 
 ### Features
 
 * Pass Vault stable release ([7abebee](https://github.com/Emon526/Flutter_PassVault/commit/7abebeed962883ef310aeaf627db2b321f414483))
-
-
-
-# [1.1.0](https://github.com/Emon526/Flutter_PassVault/compare/v1.0.1...v1.1.0) (2023-06-23)
-
-
-### Features
-
 * Pass Vault stable release ([ff2d40c](https://github.com/Emon526/Flutter_PassVault/commit/ff2d40cbf2a069c34baa5815cbae259fb1081476))
 
 
