@@ -11,7 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Add Flutter setup step if necessary
+      # Add caching for Flutter setup and dependencies
+      - name: Cache Flutter
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -42,4 +48,3 @@ jobs:
           body: ${{ steps.changelog.outputs.clean_changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
