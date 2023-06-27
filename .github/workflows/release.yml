@@ -21,7 +21,8 @@ jobs:
             distribution: "zulu"
             java-version: "11"
 
-      - uses: actions/checkout@v3
+      - name: Set up Checkout
+        uses: actions/checkout@v3
 
       # Add caching for Flutter setup and dependencies
       # - name: Cache Flutter
