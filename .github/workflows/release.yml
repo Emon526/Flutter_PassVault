@@ -36,18 +36,18 @@ jobs:
           cache: true
           channel: "stable"
 
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: ${{ runner.os }}-flutter-
+      # - name: Cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.pub-cache
+      #     key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+      #     restore-keys: ${{ runner.os }}-flutter-
 
       - name: Get Dependency
         run: |
           flutter pub get
           # flutter pub deps
-          
+
       # - name: Run build_runner
       #   run: flutter pub run build_runner build
 
