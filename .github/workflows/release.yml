@@ -48,13 +48,13 @@ jobs:
           flutter pub get
           # flutter pub deps
 
-      # - name: Run build_runner
-      #   run: flutter pub run build_runner build
+      - name: Run build_runner
+        run: flutter pub run build_runner build
 
       - name: Build Android
         run: |
-          # flutter build apk --release
-          # flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+          flutter build apk --release
+          flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
       - name: Build iOS
         run: |
@@ -77,7 +77,7 @@ jobs:
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         with:
           files: |
-            # build/app/outputs/flutter-apk/*.apk
+            build/app/outputs/flutter-apk/*.apk
             build/ios/iphoneos/app.ipa
             # build/macos/Build/Products/Release/yoyo.mac.zip
             # yy-linux-x86_64.tar.gz
