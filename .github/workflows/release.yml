@@ -47,14 +47,14 @@ jobs:
         run: |
           flutter pub get
           # flutter pub deps
-
-      - name: Run build_runner
-        run: flutter pub run build_runner build
+          
+      # - name: Run build_runner
+      #   run: flutter pub run build_runner build
 
       - name: Build Android
         run: |
-          flutter build apk --release
           flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+          flutter build apk --release
 
       - name: Build iOS
         run: |
