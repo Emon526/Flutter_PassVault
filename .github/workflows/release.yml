@@ -47,8 +47,9 @@ jobs:
         run: |
           flutter pub get
           # flutter pub deps
-      # - name: Run build_runner
-      #   run: flutter pub run build_runner build
+          
+      - name: Run build_runner
+        run: flutter pub run build_runner build
 
       - name: Build Android
         run: |
