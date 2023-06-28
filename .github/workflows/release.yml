@@ -39,9 +39,19 @@ jobs:
           cache: true
           channel: "stable"
 
-      - name: Build release APK
+      - name: Build Android release App
         run: flutter build apk --release
 
+      - name: Build IOS release App
+        run: |
+          flutter build ios --release --no-codesign
+          d build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app
+          cd ..
+          zip -r app.ipa Payload
+          
       # Rest of the steps for generating changelog and creating release
       - name: conventional Changelog Action
         id: changelog
