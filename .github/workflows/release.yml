@@ -12,25 +12,27 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest
-
-      - uses: actions/setup-java@v2
-        with:
-            distribution: "zulu"
-            java-version: "11"
 
       - name: Set up Checkout
         uses: actions/checkout@v3
 
-      # Add caching for Flutter setup and dependencies
       - name: Cache
         uses: actions/cache@v2
         with:
           path: ~/.pub-cache
           key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: ${{ runner.os }}-flutter-
+
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+            distribution: "zulu"
+            java-version: "11"
+
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -39,15 +41,18 @@ jobs:
           cache: true
           channel: "stable"
 
-      - name: Get Dependency and run build_runner
+      - name: Get Dependency
         run: |
           flutter pub get
-          # flutter pub deps
+          flutter pub deps
+
+      - name: Run build_runner
+        run: |
           flutter pub run build_runner build
 
       - name: Build Android release App
         run: |
-          flutter build apk --release
+          # flutter build apk --release
           # flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
       - name: Build IOS release App
@@ -59,20 +64,19 @@ jobs:
           ln -s ../Runner.app
           cd ..
           zip -r app.ipa Payload
-          
-      # Rest of the steps for generating changelog and creating release
-      - name: conventional Changelog Action
+
+      - name: Generate Changelog
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Release
+      - name: Release to Github
         uses: softprops/action-gh-release@v1
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         with:
           files: |
-              build/app/outputs/flutter-apk/*.apk
+              # build/app/outputs/flutter-apk/*.apk
               build/ios/iphoneos/app.ipa
               # build/macos/Build/Products/Release/yoyo.mac.zip
               # yy-linux-x86_64.tar.gz
