@@ -65,7 +65,7 @@ jobs:
           zip -r app.ipa Payload
       - name: Generate Changelog
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v3.7.1
+        uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
