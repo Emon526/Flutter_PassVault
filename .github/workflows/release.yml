@@ -44,21 +44,21 @@ jobs:
       - name: Get Dependency
         run: |
           flutter pub get
-          flutter pub deps
+          # flutter pub deps
 
       - name: Run build_runner
         run: |
           flutter pub run build_runner build
 
-      - name: Build Android release App
+      - name: Build Android
         run: |
           # flutter build apk --release
           # flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
-      - name: Build IOS release App
+      - name: Build IOS
         run: |
           flutter build ios --release --no-codesign
-          d build/ios/iphoneos
+          cd build/ios/iphoneos
           mkdir Payload
           cd Payload
           ln -s ../Runner.app
