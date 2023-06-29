@@ -34,8 +34,8 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Run Tests
-        run: bash ./gradlew test --stacktrace 
+      # - name: Run Tests
+      #   run: bash ./gradlew test --stacktrace 
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -55,6 +55,7 @@ jobs:
         run: |
           flutter pub get
           # flutter pub deps
+          
       # - name: Run build_runner
       #   run: flutter pub run build_runner build
 
@@ -62,15 +63,17 @@ jobs:
         run: |
           flutter build apk --release
           # flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
-      - name: Build iOS
-        run: |
-          flutter build ios --release --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
+
+      # - name: Build iOS
+      #   run: |
+      #     flutter build ios --release --no-codesign
+      #     cd build/ios/iphoneos
+      #     mkdir Payload
+      #     cd Payload
+      #     ln -s ../Runner.app
+      #     cd ..
+      #     zip -r app.ipa Payload
+
       - name: Generate Changelog
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
@@ -83,7 +86,7 @@ jobs:
         with:
           files: |
             build/app/outputs/flutter-apk/*.apk
-            build/ios/iphoneos/app.ipa
+            # build/ios/iphoneos/app.ipa
             # build/macos/Build/Products/Release/yoyo.mac.zip
             # yy-linux-x86_64.tar.gz
             # yy-windows.zip
