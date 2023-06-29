@@ -1,3 +1,27 @@
+# [1.0.0](https://github.com/Emon526/Flutter_PassVault/compare/v0.1.0...v1.0.0) (2023-06-29)
+
+
+### chore
+
+* Initialize major version 1.0.0 ([2d1f07b](https://github.com/Emon526/Flutter_PassVault/commit/2d1f07b6c759a74a9cb4ea359bfe2f46a4b7e604))
+* Initialize major version 1.0.0 ([aff1ece](https://github.com/Emon526/Flutter_PassVault/commit/aff1ece52ceaecda7f06710795df25e31cd6e10b))
+
+
+### BREAKING CHANGES
+
+* - The authentication system has been completely redesigned, requiring users to reset their passwords. Please follow the password reset instructions in the updated documentation.
+
+- Added core functionality for the application.
+- Created initial database schema.
+- Updated project documentation.
+* - The authentication system has been completely redesigned, requiring users to reset their passwords. Please follow the password reset instructions in the updated documentation.
+
+- Added core functionality for the application.
+- Created initial database schema.
+- Updated project documentation.
+
+
+
 # [0.1.0](https://github.com/Emon526/Flutter_PassVault/compare/3ef23bc66f2436ec6d694f57dd30442199da72bd...v0.1.0) (2023-06-27)
 
 
