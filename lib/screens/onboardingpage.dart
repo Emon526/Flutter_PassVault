@@ -5,7 +5,6 @@ import 'package:passvault/provider/themeprovider.dart';
 import 'package:provider/provider.dart';
 import '../consts/consts.dart';
 import '../widgets/custombutton.dart';
-import '../widgets/custompageroute.dart';
 import 'auth/register.dart';
 
 class OnBoardingSceen extends StatefulWidget {
@@ -115,12 +114,8 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                     if (currentIndex == contents.length - 1) {
                       Navigator.pushReplacement(
                         context,
-                        CustomPageRoute(
-                          transitionduration: const Duration(
-                            milliseconds: 800,
-                          ),
-                          direction: AxisDirection.left,
-                          child: const RegisterPage(),
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterPage(),
                         ),
                       );
                     }

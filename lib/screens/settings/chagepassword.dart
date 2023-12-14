@@ -87,8 +87,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                     decoration: InputDecoration(
+                      filled: true,
                       labelText: 'Password',
                       // border: const OutlineInputBorder(),
                       suffix: InkWell(
@@ -117,6 +118,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         .validateMatch(val!, passwordController.text.trim()),
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
+                      filled: true,
                       // border: const OutlineInputBorder(),
                       suffix: InkWell(
                         child: Icon(

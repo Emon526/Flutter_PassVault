@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/themeprovider.dart';
 import '../../widgets/custombutton.dart';
-import '../../widgets/custompageroute.dart';
 import '../homepage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,18 +20,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
-  _checkPassword(String password, BuildContext context) async {
+  Future<void> _checkPassword(String password, BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final masterpassword = prefs.getString('password');
     if (masterpassword == password) {
       Navigator.pushReplacement(
         context,
-        CustomPageRoute(
-          transitionduration: const Duration(
-            milliseconds: 800,
-          ),
-          direction: AxisDirection.left,
-          child: const HomePage(),
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
         ),
       );
     } else {
@@ -118,9 +113,10 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,
-                      validator: passwordValidator,
+                      validator: passwordValidator.call,
                       decoration: InputDecoration(
                         labelText: 'Password',
+                        filled: true,
                         border: const OutlineInputBorder(),
                         suffix: InkWell(
                           child: Icon(
@@ -141,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     CustomButton(
                       ontap: () {
+                        FocusManager.instance.primaryFocus!.unfocus();
                         validate(passwordController.text.trim(), context);
                       },
                       buttontext: 'Login',

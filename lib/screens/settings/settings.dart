@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/themeprovider.dart';
-import '../../widgets/custompageroute.dart';
 import 'chagepassword.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -36,12 +35,8 @@ class SettingsPage extends StatelessWidget {
                 ontap: () {
                   Navigator.push(
                     context,
-                    CustomPageRoute(
-                      transitionduration: const Duration(
-                        milliseconds: 800,
-                      ),
-                      direction: AxisDirection.left,
-                      child: const ChangePasswordPage(),
+                    MaterialPageRoute(
+                      builder: (context) => const ChangePasswordPage(),
                     ),
                   );
                 },

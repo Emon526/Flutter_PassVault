@@ -141,7 +141,7 @@ class _AddPasswordState extends State<AddPassword> {
                   controller: titlecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  validator: RequiredValidator(errorText: 'Title is required'),
+                  validator: RequiredValidator(errorText: 'Title is required').call,
                   decoration: const InputDecoration(
                     filled: true,
                   ),
@@ -191,7 +191,7 @@ class _AddPasswordState extends State<AddPassword> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
-                      RequiredValidator(errorText: 'User Name is required'),
+                      RequiredValidator(errorText: 'User Name is required').call,
                   decoration: const InputDecoration(
                     filled: true,
                   ),
@@ -227,7 +227,7 @@ class _AddPasswordState extends State<AddPassword> {
                     FocusScope.of(context).requestFocus(focus);
                   },
                   validator:
-                      RequiredValidator(errorText: 'Password is required'),
+                      RequiredValidator(errorText: 'Password is required').call,
                   decoration: InputDecoration(
                     filled: true,
                     suffix: InkWell(

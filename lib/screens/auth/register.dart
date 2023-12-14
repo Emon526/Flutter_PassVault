@@ -6,7 +6,6 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/custombutton.dart';
-import '../../widgets/custompageroute.dart';
 import '../homepage.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -48,12 +47,8 @@ class _RegisterPageState extends State<RegisterPage> {
       await _savePassword(confirmpasswordController.text.trim());
       Navigator.pushReplacement(
         context,
-        CustomPageRoute(
-          transitionduration: const Duration(
-            milliseconds: 800,
-          ),
-          direction: AxisDirection.left,
-          child: const HomePage(),
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
         ),
       );
     } else {
@@ -115,9 +110,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                     decoration: InputDecoration(
                       labelText: 'Password',
+                      filled: true,
                       border: const OutlineInputBorder(),
                       suffix: InkWell(
                         child: Icon(
@@ -145,6 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         .validateMatch(val!, passwordController.text.trim()),
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
+                      filled: true,
                       border: const OutlineInputBorder(),
                       suffix: InkWell(
                         child: Icon(

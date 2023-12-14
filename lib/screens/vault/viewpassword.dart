@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -168,7 +166,8 @@ class _ViewPasswordState extends State<ViewPassword> {
                   controller: titlecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  validator: RequiredValidator(errorText: 'Title is required'),
+                  validator:
+                      RequiredValidator(errorText: 'Title is required').call,
                   decoration: const InputDecoration(
                     filled: true,
                   ),
@@ -218,7 +217,8 @@ class _ViewPasswordState extends State<ViewPassword> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
-                      RequiredValidator(errorText: 'User Name is required'),
+                      RequiredValidator(errorText: 'User Name is required')
+                          .call,
                   decoration: const InputDecoration(
                     filled: true,
                   ),
@@ -254,7 +254,7 @@ class _ViewPasswordState extends State<ViewPassword> {
                     FocusScope.of(context).requestFocus(focus);
                   },
                   validator:
-                      RequiredValidator(errorText: 'Password is required'),
+                      RequiredValidator(errorText: 'Password is required').call,
                   decoration: InputDecoration(
                     filled: true,
                     suffix: InkWell(

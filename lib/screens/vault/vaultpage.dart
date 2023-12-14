@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
-import '../../widgets/custompageroute.dart';
 import '../../widgets/customsearchfield.dart';
 import 'addpassword.dart';
 import 'viewpassword.dart';
@@ -204,12 +203,8 @@ class _VaultPageState extends State<VaultPage> {
         onPressed: () {
           Navigator.push(
             context,
-            CustomPageRoute(
-              transitionduration: const Duration(
-                milliseconds: 800,
-              ),
-              direction: AxisDirection.left,
-              child: const AddPassword(),
+            MaterialPageRoute(
+              builder: (context) => const AddPassword(),
             ),
           );
         },
@@ -244,12 +239,8 @@ class _VaultPageState extends State<VaultPage> {
               .getPasswordData(id: int.parse(data.id));
           Navigator.push(
             context,
-            CustomPageRoute(
-              transitionduration: const Duration(
-                milliseconds: 800,
-              ),
-              direction: AxisDirection.left,
-              child: const ViewPassword(),
+            MaterialPageRoute(
+              builder: (context) => const ViewPassword(),
             ),
           );
         },

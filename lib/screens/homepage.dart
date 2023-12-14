@@ -6,7 +6,7 @@ import 'settings/settings.dart';
 import 'vault/vaultpage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         ],
         items: _navBarsItems(),
         navBarStyle: NavBarStyle.style6,
-        backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor!,
+        // backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor!,
       ),
     );
   }
