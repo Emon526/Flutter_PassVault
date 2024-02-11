@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../utils/utils.dart';
 import 'generatorpage.dart';
 import 'settings/settings.dart';
 import 'vault/vaultpage.dart';
@@ -18,18 +19,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: const [
-          VaultPage(),
-          GeneratorPage(),
-          SettingsPage(),
-        ],
-        items: _navBarsItems(),
-        navBarStyle: NavBarStyle.style6,
-        // backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor!,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+      child: Scaffold(
+        body: PersistentTabView(
+          context,
+          controller: _controller,
+          screens: const [
+            VaultPage(),
+            GeneratorPage(),
+            SettingsPage(),
+          ],
+          items: _navBarsItems(),
+          navBarStyle: NavBarStyle.style6,
+          // backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor!,
+        ),
       ),
     );
   }

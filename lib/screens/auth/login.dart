@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/themeprovider.dart';
+import '../../utils/utils.dart';
 import '../../widgets/custombutton.dart';
 import '../homepage.dart';
 
@@ -76,92 +77,96 @@ class _LoginPageState extends State<LoginPage> {
             ? Brightness.light
             : Brightness.dark,
       ),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.07,
-              ),
-              child: Form(
-                key: _loginformKey,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.07,
-                    ),
-                    SvgPicture.asset(
-                      'assets/secure_login.svg',
-                      height: size.height * 0.2,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    Text(
-                      'Enter master password and login',
-                      style: TextStyle(
-                        // fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                        color: Colors.grey.shade600,
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.07,
+                ),
+                child: Form(
+                  key: _loginformKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.07,
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.07,
-                    ),
-                    TextFormField(
-                      obscureText: isObsecured,
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.done,
-                      validator: passwordValidator.call,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        filled: true,
-                        border: const OutlineInputBorder(),
-                        suffix: InkWell(
-                          child: Icon(
-                            isObsecured
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              isObsecured = !isObsecured;
-                            });
-                          },
+                      SvgPicture.asset(
+                        'assets/secure_login.svg',
+                        height: size.height * 0.2,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      Text(
+                        'Enter master password and login',
+                        style: TextStyle(
+                          // fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Colors.grey.shade600,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    CustomButton(
-                      ontap: () {
-                        FocusManager.instance.primaryFocus!.unfocus();
-                        validate(passwordController.text.trim(), context);
-                      },
-                      buttontext: 'Login',
-                    ),
-                    SizedBox(
-                      height: size.height * 0.1,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                    const Text(
-                      'Once you save a password in NepPass. you\'ll '
-                      'always have it when you need it. logging in is fast '
-                      'and easy.',
-                      style: TextStyle(
-                        // fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.grey,
+                      SizedBox(
+                        height: size.height * 0.07,
                       ),
-                    ),
-                  ],
+                      TextFormField(
+                        obscureText: isObsecured,
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.done,
+                        validator: passwordValidator.call,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          filled: true,
+                          border: const OutlineInputBorder(),
+                          suffix: InkWell(
+                            child: Icon(
+                              isObsecured
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onTap: () {
+                              setState(() {
+                                isObsecured = !isObsecured;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      CustomButton(
+                        ontap: () {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          validate(passwordController.text.trim(), context);
+                        },
+                        buttontext: 'Login',
+                      ),
+                      SizedBox(
+                        height: size.height * 0.1,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      const Text(
+                        'Once you save a password in NepPass. you\'ll '
+                        'always have it when you need it. logging in is fast '
+                        'and easy.',
+                        style: TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

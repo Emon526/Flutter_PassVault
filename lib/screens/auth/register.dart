@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/utils.dart';
 import '../../widgets/custombutton.dart';
 import '../homepage.dart';
 
@@ -70,122 +71,130 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.07,
-            ),
-            child: Form(
-              key: _registerformKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.07,
-                  ),
-                  SvgPicture.asset(
-                    'assets/secure_files.svg',
-                    height: size.height * 0.2,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Text(
-                    'Register a master password',
-                    style: TextStyle(
-                      // fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Colors.grey.shade600,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.07,
+              ),
+              child: Form(
+                key: _registerformKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.07,
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.07,
-                  ),
-                  TextFormField(
-                    onFieldSubmitted: (value) {
-                      FocusScope.of(context).requestFocus(focus);
-                    },
-                    obscureText: isObsecured,
-                    controller: passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.next,
-                    validator: passwordValidator.call,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      border: const OutlineInputBorder(),
-                      suffix: InkWell(
-                        child: Icon(
-                          isObsecured ? Icons.visibility : Icons.visibility_off,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            isObsecured = !isObsecured;
-                          });
-                        },
+                    SvgPicture.asset(
+                      'assets/secure_files.svg',
+                      height: size.height * 0.2,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Text(
+                      'Register a master password',
+                      style: TextStyle(
+                        // fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Colors.grey.shade600,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.03,
-                  ),
-                  TextFormField(
-                    focusNode: focus,
-                    obscureText: isObsecured,
-                    controller: confirmpasswordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                    validator: (val) => MatchValidator(
-                            errorText: 'passwords do not match')
-                        .validateMatch(val!, passwordController.text.trim()),
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      filled: true,
-                      border: const OutlineInputBorder(),
-                      suffix: InkWell(
-                        child: Icon(
-                          isObsecured ? Icons.visibility : Icons.visibility_off,
+                    SizedBox(
+                      height: size.height * 0.07,
+                    ),
+                    TextFormField(
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(focus);
+                      },
+                      obscureText: isObsecured,
+                      controller: passwordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.next,
+                      validator: passwordValidator.call,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        filled: true,
+                        border: const OutlineInputBorder(),
+                        suffix: InkWell(
+                          child: Icon(
+                            isObsecured
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              isObsecured = !isObsecured;
+                            });
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            isObsecured = !isObsecured;
-                          });
-                        },
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.04,
-                  ),
-                  CustomButton(
-                    ontap: () {
-                      validate(context);
-                    },
-                    buttontext: 'Register',
-                  ),
-                  SizedBox(
-                    height: size.height * 0.07,
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  const Text(
-                    'Note that if the master password is lost,the stored '
-                    'data cannot be recovered because of the missing '
-                    'sync option. it is strongly recommended that you '
-                    'backup your  data at regular intervals.',
-                    style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: Colors.grey,
+                    SizedBox(
+                      height: size.height * 0.03,
                     ),
-                  ),
-                ],
+                    TextFormField(
+                      focusNode: focus,
+                      obscureText: isObsecured,
+                      controller: confirmpasswordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.done,
+                      validator: (val) => MatchValidator(
+                              errorText: 'passwords do not match')
+                          .validateMatch(val!, passwordController.text.trim()),
+                      decoration: InputDecoration(
+                        labelText: 'Confirm Password',
+                        filled: true,
+                        border: const OutlineInputBorder(),
+                        suffix: InkWell(
+                          child: Icon(
+                            isObsecured
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              isObsecured = !isObsecured;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    CustomButton(
+                      ontap: () {
+                        validate(context);
+                      },
+                      buttontext: 'Register',
+                    ),
+                    SizedBox(
+                      height: size.height * 0.07,
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    const Text(
+                      'Note that if the master password is lost,the stored '
+                      'data cannot be recovered because of the missing '
+                      'sync option. it is strongly recommended that you '
+                      'backup your  data at regular intervals.',
+                      style: TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
