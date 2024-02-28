@@ -1,9 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../consts/consts.dart';
 import '../../widgets/custombutton.dart';
 
 class ChangePasswordPage extends StatefulWidget {
@@ -36,7 +35,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     final FormState form = _loginformKey.currentState!;
     if (form.validate()) {
       await _savePassword(confirmpasswordController.text.trim());
-      Navigator.pop(context);
     } else {
       const snackbar = SnackBar(
         content: Text("Form is invalid"),
@@ -58,12 +56,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Change Password',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -91,7 +86,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     decoration: InputDecoration(
                       filled: true,
                       labelText: 'Password',
-                      // border: const OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(Consts.BORDER_RADIUS)),
                       suffix: InkWell(
                         child: Icon(
                           isObsecured ? Icons.visibility : Icons.visibility_off,
@@ -119,7 +116,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
                       filled: true,
-                      // border: const OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(Consts.BORDER_RADIUS)),
                       suffix: InkWell(
                         child: Icon(
                           isObsecured ? Icons.visibility : Icons.visibility_off,
@@ -138,6 +137,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   CustomButton(
                     ontap: () {
                       validate(context);
+                      Navigator.pop(context);
                     },
                     buttontext: 'Change Password',
                   ),

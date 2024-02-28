@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../provider/addpasswordprovider.dart';
 
 class CustomSearchField extends StatelessWidget {
   const CustomSearchField({
     super.key,
     required this.searchController,
+    required this.onChanged,
   });
 
   final TextEditingController searchController;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,7 @@ class CustomSearchField extends StatelessWidget {
             ),
             Expanded(
               child: TextFormField(
-                onChanged: (value) {
-                  context.read<AddPasswordProvider>().controllertext = value;
-                },
+                onChanged: onChanged,
                 controller: searchController,
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: TextInputType.text,

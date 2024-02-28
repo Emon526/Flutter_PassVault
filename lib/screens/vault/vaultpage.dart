@@ -38,12 +38,9 @@ class _VaultPageState extends State<VaultPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Vault',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
         ),
       ),
       body: RefreshIndicator(
@@ -71,8 +68,13 @@ class _VaultPageState extends State<VaultPage> {
                                       child: Column(
                                         children: [
                                           CustomSearchField(
-                                            searchController: searchController,
-                                          ),
+                                              searchController:
+                                                  searchController,
+                                              onChanged: (value) {
+                                                context
+                                                    .read<AddPasswordProvider>()
+                                                    .controllertext = value;
+                                              }),
                                           SizedBox(
                                             height: size.height * 0.03,
                                           ),
@@ -109,6 +111,11 @@ class _VaultPageState extends State<VaultPage> {
                                         children: [
                                           CustomSearchField(
                                             searchController: searchController,
+                                            onChanged: (value) {
+                                              context
+                                                  .read<AddPasswordProvider>()
+                                                  .controllertext = value;
+                                            },
                                           ),
                                           SizedBox(
                                             height: size.height * 0.03,

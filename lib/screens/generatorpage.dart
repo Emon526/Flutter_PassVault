@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../consts/consts.dart';
 import '../provider/generatedpassswordprovideer.dart';
+import '../utils/utils.dart';
 import '../widgets/custombutton.dart';
 
 class GeneratorPage extends StatelessWidget {
@@ -12,12 +14,9 @@ class GeneratorPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Generator',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -31,7 +30,7 @@ class GeneratorPage extends StatelessWidget {
               children: [
                 Material(
                   color: Theme.of(context).highlightColor,
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
                   child: Column(
                     children: [
                       Center(
@@ -89,11 +88,8 @@ class GeneratorPage extends StatelessWidget {
                           .watch<GeneratedPasswordProvider>()
                           .generatedpassword
                           .isEmpty
-                      ? () => ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please generate password'),
-                            ),
-                          )
+                      ? () => Utils(context)
+                          .showSnackBar(snackText: 'Please generate password')
                       : () {
                           Clipboard.setData(
                             ClipboardData(
@@ -103,30 +99,26 @@ class GeneratorPage extends StatelessWidget {
                             ),
                           ).then(
                             (value) {
-                              return ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Password copied to clipboard'),
-                                ),
-                              );
+                              return Utils(context).showSnackBar(
+                                  snackText: 'Password copied to clipboard');
                             },
                           );
                         },
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 1,
                         color: Colors.grey,
                       ),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
                       color: Theme.of(context).highlightColor,
                     ),
                     child: const Center(
                       heightFactor: 3,
-                      child: Text('Copy Password',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: Text(
+                        'Copy Password',
+                      ),
                     ),
                   ),
                 ),

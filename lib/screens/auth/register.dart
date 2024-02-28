@@ -3,8 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../consts/consts.dart';
+import '../../provider/onboardprovider.dart';
 import '../../utils/utils.dart';
 import '../../widgets/custombutton.dart';
 import '../homepage.dart';
@@ -21,11 +24,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
   bool isObsecured = true;
-  _storeOnboardInfo() async {
-    int isViewed = 0;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('onBoard', isViewed);
-  }
 
   _savePassword(String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -44,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void validate(BuildContext context) async {
     final FormState form = _registerformKey.currentState!;
     if (form.validate()) {
-      await _storeOnboardInfo();
+      context.read<OnBoardingProvider>().isBoardingCompleate = true;
       await _savePassword(confirmpasswordController.text.trim());
       Navigator.pushReplacement(
         context,
@@ -53,10 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
     } else {
-      const snackbar = SnackBar(
-        content: Text("Form is invalid"),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      Utils(context).showSnackBar(snackText: 'Form is invalid');
     }
   }
 
@@ -118,7 +113,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         labelText: 'Password',
                         filled: true,
-                        border: const OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(Consts.BORDER_RADIUS)),
                         suffix: InkWell(
                           child: Icon(
                             isObsecured
@@ -148,7 +145,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
                         filled: true,
-                        border: const OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(Consts.BORDER_RADIUS)),
                         suffix: InkWell(
                           child: Icon(
                             isObsecured

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../consts/consts.dart';
 import '../../provider/themeprovider.dart';
+import '../../utils/utils.dart';
+import '../../widgets/selectionbuttonwidget.dart';
 import 'chagepassword.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -13,13 +16,8 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Settings',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        centerTitle: true,
+        title: const Text('Settings'),
       ),
       body: SafeArea(
         child: Padding(
@@ -28,11 +26,10 @@ class SettingsPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _buildSettingList(
-                context: context,
-                title: 'Change Password',
-                icon: Icons.password_outlined,
-                ontap: () {
+              _buildListtile(
+                tiletitle: 'Change Password',
+                iconData: Icons.password_outlined,
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -44,63 +41,53 @@ class SettingsPage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.01,
               ),
-              _buildSettingList(
-                context: context,
-                title: 'Privacy Policy',
-                icon: Icons.policy_outlined,
-                ontap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon'),
-                    ),
-                  );
+              _buildListtile(
+                tiletitle: 'Privacy Policy',
+                iconData: Icons.policy_outlined,
+                onTap: () {
+                  Utils(context)
+                      .showSnackBar(snackText: 'Privacy Policy Coming Soon');
                 },
               ),
               SizedBox(
                 height: size.height * 0.01,
               ),
-              _buildSettingList(
-                context: context,
-                title: 'Backup Data',
-                icon: Icons.backup_outlined,
-                ontap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon'),
-                    ),
-                  );
+              _buildListtile(
+                tiletitle: 'Backup Data',
+                iconData: Icons.backup_outlined,
+                onTap: () {
+                  Utils(context).showSnackBar(
+                      snackText: 'Backup Data Feature Coming Soon');
                 },
               ),
               SizedBox(
                 height: size.height * 0.01,
               ),
-              _buildSettingList(
-                context: context,
-                title: 'Restore Data',
-                icon: Icons.restore_outlined,
-                ontap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon'),
-                    ),
-                  );
+              _buildListtile(
+                tiletitle: 'Restore Data',
+                iconData: Icons.restore_outlined,
+                onTap: () {
+                  Utils(context).showSnackBar(
+                      snackText: 'Restore Data Feature Coming Soon');
                 },
               ),
               SizedBox(
                 height: size.height * 0.01,
               ),
-              _buildSettingList(
-                context: context,
-                title: context.watch<ThemeProvider>().getDarkTheme
-                    ? 'Dark Theme'
-                    : "Light Theme",
-                icon: context.watch<ThemeProvider>().getDarkTheme
-                    ? Icons.dark_mode_outlined
-                    : Icons.light_mode_outlined,
-                ontap: () {
-                  context.read<ThemeProvider>().setTheme =
-                      !context.read<ThemeProvider>().getDarkTheme;
-                },
+              _buildListtile(
+                tiletitle: 'Theme',
+                iconData:
+                    context.watch<ThemeProvider>().themeMode == ThemeMode.system
+                        ? Icons.phonelink_setup_outlined
+                        : context.watch<ThemeProvider>().themeMode ==
+                                ThemeMode.light
+                            ? Icons.light_mode_outlined
+                            : Icons.dark_mode_outlined,
+                onTap: () => Utils(context).showCustomDialog(
+                  child: _themetileWidget(
+                    context: context,
+                  ),
+                ),
               ),
             ],
           ),
@@ -109,38 +96,117 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingList({
-    required String title,
-    required IconData icon,
-    required BuildContext context,
-    required VoidCallback ontap,
+  _buildListtile({
+    required IconData iconData,
+    required String tiletitle,
+    required Function onTap,
   }) {
-    return Material(
-      color: Theme.of(context).highlightColor,
-      borderRadius: BorderRadius.circular(5),
+    return Card(
       child: InkWell(
-        borderRadius: BorderRadius.circular(5),
-        onTap: ontap,
-        child: Padding(
-          padding: const EdgeInsets.all(14.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              ),
-              Icon(
-                icon,
-                color: Theme.of(context).iconTheme.color,
-              ),
-            ],
-          ),
+        borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
+        onTap: () {
+          onTap();
+        },
+        child: ListTile(
+          title: Text(tiletitle),
+          trailing: Icon(iconData),
         ),
       ),
     );
   }
+
+  _themetileWidget({required BuildContext context}) {
+    return Consumer<ThemeProvider>(builder: (context, provider, child) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Select Theme',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
+                border: Border.all(),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SelectionButtonWidget(
+                    buttontitle: 'System Theme',
+                    iconCondition: provider.themeMode == ThemeMode.system,
+                    ontap: () {
+                      provider.themeMode = ThemeMode.system;
+                    },
+                  ),
+                  const Divider(
+                    height: 0,
+                  ),
+                  SelectionButtonWidget(
+                    iconCondition: provider.themeMode == ThemeMode.light,
+                    buttontitle: 'Light Theme',
+                    ontap: () {
+                      provider.themeMode = ThemeMode.light;
+                    },
+                  ),
+                  const Divider(
+                    height: 0,
+                  ),
+                  SelectionButtonWidget(
+                    iconCondition: provider.themeMode == ThemeMode.dark,
+                    buttontitle: 'Dark Theme',
+                    ontap: () {
+                      provider.themeMode = ThemeMode.dark;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  // Widget _buildSettingList({
+  //   required String title,
+  //   required IconData icon,
+  //   required BuildContext context,
+  //   required VoidCallback ontap,
+  // }) {
+  //   return Material(
+  //     color: Theme.of(context).highlightColor,
+  //     borderRadius: BorderRadius.circular(5),
+  //     child: InkWell(
+  //       borderRadius: BorderRadius.circular(5),
+  //       onTap: ontap,
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(14.0),
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text(
+  //               title,
+  //               style: const TextStyle(
+  //                 fontWeight: FontWeight.w600,
+  //                 fontSize: 16,
+  //               ),
+  //             ),
+  //             Icon(
+  //               icon,
+  //               color: Theme.of(context).iconTheme.color,
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

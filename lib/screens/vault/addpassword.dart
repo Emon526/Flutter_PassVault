@@ -78,6 +78,10 @@ class _AddPasswordState extends State<AddPassword> {
             Navigator.pop(context);
           },
         ),
+        centerTitle: true,
+        title: const Text(
+          'Add Password',
+        ),
         actions: [
           TextButton(
             onPressed: () {
@@ -97,16 +101,6 @@ class _AddPasswordState extends State<AddPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Add Password',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
                 const Text(
                   'Fill in the details below to save the password',
                   style: TextStyle(
@@ -141,7 +135,8 @@ class _AddPasswordState extends State<AddPassword> {
                   controller: titlecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  validator: RequiredValidator(errorText: 'Title is required').call,
+                  validator:
+                      RequiredValidator(errorText: 'Title is required').call,
                   decoration: const InputDecoration(
                     filled: true,
                   ),
@@ -191,7 +186,8 @@ class _AddPasswordState extends State<AddPassword> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
-                      RequiredValidator(errorText: 'User Name is required').call,
+                      RequiredValidator(errorText: 'User Name is required')
+                          .call,
                   decoration: const InputDecoration(
                     filled: true,
                   ),

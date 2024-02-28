@@ -47,7 +47,9 @@ class AddPasswordProvider with ChangeNotifier {
     _controllertext = controllertext;
 
     for (var passwords in _userPasswords) {
-      if (passwords.title.contains(controllertext)) {
+      if (passwords.title
+          .toUpperCase()
+          .contains(controllertext.toUpperCase())) {
         _searchresult.add(passwords);
       }
     }

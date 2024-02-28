@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../consts/consts.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -13,12 +14,12 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Theme.of(context).primaryColor,
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
       child: InkWell(
         onTap: () {
           ontap();
         },
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
         child: Center(
           heightFactor: 3,
           child: Text(buttontext,

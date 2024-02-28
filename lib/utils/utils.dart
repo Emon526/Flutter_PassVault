@@ -14,12 +14,11 @@ class Utils {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          const Text(
             'Are you sure?',
             style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -35,16 +34,14 @@ class Utils {
             children: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: Text(
+                child: const Text(
                   'No',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
               ),
               TextButton(
                 onPressed: () => SystemNavigator.pop(),
-                child: Text(
+                child: const Text(
                   'Yes',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
               ),
             ],
@@ -72,7 +69,6 @@ class Utils {
                   onTap: () => Navigator.pop(context),
                   child: const Icon(
                     Icons.close,
-                    color: Colors.grey,
                     size: 20.0,
                   ),
                 ),
@@ -86,6 +82,14 @@ class Utils {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void showSnackBar({required String snackText}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(snackText),
       ),
     );
   }

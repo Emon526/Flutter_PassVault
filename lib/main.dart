@@ -1,72 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'consts/consts.dart';
 import 'consts/style.dart';
 import 'provider/addpasswordprovider.dart';
 import 'provider/generatedpassswordprovideer.dart';
+import 'provider/onboardprovider.dart';
 import 'provider/themeprovider.dart';
 import 'screens/auth/login.dart';
 import 'screens/onboardingpage.dart';
 import 'services/databaseservice.dart';
 
-int? isviewed;
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeProvider themeProvider = ThemeProvider();
-  void checkCurrentTheme() async {
-    themeProvider.setTheme = await themeProvider.themePrefrences.getTheme();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    isviewed = prefs.getInt('onBoard');
-    await Future.delayed(const Duration(seconds: 3));
-    FlutterNativeSplash.remove();
-  }
-
-  @override
-  void initState() {
-    checkCurrentTheme();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => AddPasswordProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => DatabaseService(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => GeneratedPasswordProvider(),
-        ),
-        ChangeNotifierProvider(create: (_) {
-          return themeProvider;
-        }),
-      ],
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: Consts.APP_NAME,
-          theme: Styles.themeData(
-              context.watch<ThemeProvider>().getDarkTheme, context),
-          home: isviewed != 0 ? const OnBoardingSceen() : const LoginPage(),
-        );
-      },
-    );
+        providers: [
+          ChangeNotifierProvider(create: (_) {
+            return ThemeProvider(context);
+          }),
+          ChangeNotifierProvider(create: (_) {
+            return OnBoardingProvider();
+          }),
+          ChangeNotifierProvider(
+            create: (context) => DatabaseService(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => AddPasswordProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => GeneratedPasswordProvider(),
+          ),
+        ],
+        builder: (context, child) {
+          return Consumer<ThemeProvider>(builder: (
+            context,
+            value,
+            child,
+          ) {
+            removesplash();
+
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: Consts.APP_NAME,
+              theme: Styles.themeData(
+                context: context,
+                isDarkTheme: false,
+              ),
+              darkTheme: Styles.themeData(
+                context: context,
+                isDarkTheme: true,
+              ),
+              themeMode: context.watch<ThemeProvider>().themeMode,
+              home: context.watch<OnBoardingProvider>().isBoardingCompleate
+                  ? const LoginPage()
+                  : const OnBoardingSceen(),
+            );
+          });
+        });
+  }
+
+  void removesplash() async {
+    return await Future.delayed(const Duration(seconds: 3), () {
+      FlutterNativeSplash.remove();
+    });
   }
 }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import '../provider/themeprovider.dart';
-import 'package:provider/provider.dart';
 import '../consts/consts.dart';
 import '../utils/utils.dart';
 import '../widgets/custombutton.dart';
@@ -36,107 +33,95 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: context.watch<ThemeProvider>().getDarkTheme
-            ? Colors.black
-            : Colors.white,
-        statusBarIconBrightness: context.watch<ThemeProvider>().getDarkTheme
-            ? Brightness.light
-            : Brightness.dark,
-      ),
-      child: PopScope(
-        canPop: false,
-        onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
-        child: Scaffold(
-          // appBar: AppBar(),
-          body: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: _controller,
-                    onPageChanged: (int index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                    itemCount: contents.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.07,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: size.height * 0.07,
-                            ),
-                            SvgPicture.asset(
-                              contents[index].image,
-                              height: size.height * 0.2,
-                            ),
-                            SizedBox(
-                              height: size.height * 0.07,
-                            ),
-                            Text(
-                              contents[index].title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 24,
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.07,
-                            ),
-                            Text(
-                              contents[index].description,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    contents.length,
-                    (index) => buildDots(index, context),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(30),
-                  child: CustomButton(
-                    ontap: () {
-                      if (currentIndex == contents.length - 1) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterPage(),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: _controller,
+                  onPageChanged: (int index) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
+                  itemCount: contents.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width * 0.07,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.07,
                           ),
-                        );
-                      }
-                      _controller.nextPage(
-                        duration: const Duration(
-                          microseconds: 100,
+                          SvgPicture.asset(
+                            contents[index].image,
+                            height: size.height * 0.2,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.07,
+                          ),
+                          Text(
+                            contents[index].title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 24,
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.07,
+                          ),
+                          Text(
+                            contents[index].description,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  contents.length,
+                  (index) => buildDots(index, context),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(30),
+                child: CustomButton(
+                  ontap: () {
+                    if (currentIndex == contents.length - 1) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterPage(),
                         ),
-                        curve: Curves.bounceIn,
                       );
-                    },
-                    buttontext: currentIndex == contents.length - 1
-                        ? "Continue"
-                        : 'Next',
-                  ),
-                )
-              ],
-            ),
+                    }
+                    _controller.nextPage(
+                      duration: const Duration(
+                        microseconds: 100,
+                      ),
+                      curve: Curves.bounceIn,
+                    );
+                  },
+                  buttontext:
+                      currentIndex == contents.length - 1 ? "Continue" : 'Next',
+                ),
+              )
+            ],
           ),
         ),
       ),
