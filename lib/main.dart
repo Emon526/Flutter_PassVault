@@ -41,13 +41,12 @@ class MyApp extends StatelessWidget {
           ),
         ],
         builder: (context, child) {
+          removesplash();
           return Consumer<ThemeProvider>(builder: (
             context,
             value,
             child,
           ) {
-            removesplash();
-
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: Consts.APP_NAME,

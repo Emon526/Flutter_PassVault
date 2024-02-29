@@ -7,6 +7,12 @@ class OnBoardingProvider with ChangeNotifier {
   OnBoardingProvider() {
     getOnboardInfo();
   }
+  int _currentIndex = 0;
+  int get currentIndex => _currentIndex;
+  set currentIndex(value) {
+    _currentIndex = value;
+    notifyListeners();
+  }
 
   bool _isBoardingCompleate = false;
   bool get isBoardingCompleate => _isBoardingCompleate;
