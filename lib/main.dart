@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'consts/consts.dart';
 import 'consts/style.dart';
 import 'provider/addpasswordprovider.dart';
+import 'provider/authprovider.dart';
 import 'provider/generatedpassswordprovideer.dart';
 import 'provider/onboardprovider.dart';
 import 'provider/themeprovider.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) {
             return OnBoardingProvider();
           }),
+          ChangeNotifierProvider(
+            create: (context) => AuthProvider(),
+          ),
           ChangeNotifierProvider(
             create: (context) => DatabaseService(),
           ),
