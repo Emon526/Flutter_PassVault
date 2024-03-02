@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'consts/consts.dart';
 import 'consts/style.dart';
 import 'provider/addpasswordprovider.dart';
+import 'provider/authprovider.dart';
 import 'provider/generatedpassswordprovideer.dart';
 import 'provider/onboardprovider.dart';
 import 'provider/themeprovider.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
             return OnBoardingProvider();
           }),
           ChangeNotifierProvider(
+            create: (context) => AuthProvider(),
+          ),
+          ChangeNotifierProvider(
             create: (context) => DatabaseService(),
           ),
           ChangeNotifierProvider(
@@ -41,13 +45,12 @@ class MyApp extends StatelessWidget {
           ),
         ],
         builder: (context, child) {
+          removesplash();
           return Consumer<ThemeProvider>(builder: (
             context,
             value,
             child,
           ) {
-            removesplash();
-
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: Consts.APP_NAME,

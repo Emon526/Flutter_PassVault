@@ -1,11 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import '../../consts/consts.dart';
+import '../../provider/authprovider.dart';
 import '../../utils/utils.dart';
 import '../../widgets/custombutton.dart';
 import '../homepage.dart';
@@ -19,38 +18,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
-  Future<void> _checkPassword(String password, BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final masterpassword = prefs.getString('password');
-    if (masterpassword == password) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
-    } else {
-      Utils(context).showSnackBar(snackText: 'Password not matched');
-    }
-  }
-
-  void validate(String password, BuildContext context) async {
-    final FormState form = _loginformKey.currentState!;
-    if (form.validate()) {
-      await _checkPassword(password, context);
-    } else {
-      Utils(context).showSnackBar(snackText: 'Invalid form data');
-    }
-  }
-
-  final passwordValidator = MultiValidator([
-    RequiredValidator(errorText: 'password is required'),
-    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
-    PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-        errorText: 'passwords must have at least one special character')
-  ]);
-  bool isObsecured = true;
   final GlobalKey<FormState> _loginformKey = GlobalKey<FormState>();
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'Password is required'),
+    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),
+    PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+        errorText: 'Passwords must have at least one special character'),
+  ]);
+  final passwordMatchValidator =
+      MatchValidator(errorText: 'Passwords do not match');
+
   @override
   void dispose() {
     passwordController.dispose();
@@ -60,103 +37,117 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.07,
-              ),
-              child: Form(
-                key: _loginformKey,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.07,
-                    ),
-                    SvgPicture.asset(
-                      'assets/secure_login.svg',
-                      height: size.height * 0.2,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    Text(
-                      'Enter master password and login',
-                      style: TextStyle(
-                        // fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                        color: Colors.grey.shade600,
+    return Consumer<AuthProvider>(
+        builder: (BuildContext context, provider, Widget? child) {
+      return PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.07,
+                ),
+                child: Form(
+                  key: _loginformKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.07,
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.07,
-                    ),
-                    TextFormField(
-                      obscureText: isObsecured,
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.done,
-                      validator: passwordValidator.call,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        filled: true,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(Consts.BORDER_RADIUS)),
-                        suffix: InkWell(
-                          child: Icon(
-                            isObsecured
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              isObsecured = !isObsecured;
-                            });
-                          },
+                      SvgPicture.asset(
+                        'assets/secure_login.svg',
+                        height: size.height * 0.2,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      Text(
+                        'Enter master password and login',
+                        style: TextStyle(
+                          // fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Colors.grey.shade600,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    CustomButton(
-                      ontap: () {
-                        FocusManager.instance.primaryFocus!.unfocus();
-                        validate(passwordController.text.trim(), context);
-                      },
-                      buttontext: 'Login',
-                    ),
-                    SizedBox(
-                      height: size.height * 0.1,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                    const Text(
-                      'Once you save a password in NepPass. you\'ll '
-                      'always have it when you need it. logging in is fast '
-                      'and easy.',
-                      style: TextStyle(
-                        // fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.grey,
+                      SizedBox(
+                        height: size.height * 0.07,
                       ),
-                    ),
-                  ],
+                      TextFormField(
+                        obscureText: provider.isObsecured,
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => passwordMatchValidator
+                            .validateMatch(val!, provider.masterpassword),
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(Consts.BORDER_RADIUS)),
+                          suffix: InkWell(
+                            child: Icon(
+                              provider.isObsecured
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onTap: () {
+                              provider.isObsecured = !provider.isObsecured;
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      CustomButton(
+                        ontap: () {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          validate(passwordController.text.trim());
+                        },
+                        buttontext: 'Login',
+                      ),
+                      SizedBox(
+                        height: size.height * 0.1,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      const Text(
+                        'Once you save a password in NepPass. you\'ll '
+                        'always have it when you need it. logging in is fast '
+                        'and easy.',
+                        style: TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
+  }
+
+  void validate(String password) async {
+    final FormState form = _loginformKey.currentState!;
+    if (form.validate()) {
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    }
   }
 }

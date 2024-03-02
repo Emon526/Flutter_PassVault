@@ -5,7 +5,7 @@ import '../../consts/consts.dart';
 import '../../provider/themeprovider.dart';
 import '../../utils/utils.dart';
 import '../../widgets/selectionbuttonwidget.dart';
-import 'chagepassword.dart';
+import '../auth/chagepassword.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
