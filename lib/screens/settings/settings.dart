@@ -38,39 +38,39 @@ class SettingsPage extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              _buildListtile(
-                tiletitle: 'Privacy Policy',
-                iconData: Icons.policy_outlined,
-                onTap: () {
-                  Utils(context)
-                      .showSnackBar(snackText: 'Privacy Policy Coming Soon');
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              _buildListtile(
-                tiletitle: 'Backup Data',
-                iconData: Icons.backup_outlined,
-                onTap: () {
-                  Utils(context).showSnackBar(
-                      snackText: 'Backup Data Feature Coming Soon');
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              _buildListtile(
-                tiletitle: 'Restore Data',
-                iconData: Icons.restore_outlined,
-                onTap: () {
-                  Utils(context).showSnackBar(
-                      snackText: 'Restore Data Feature Coming Soon');
-                },
-              ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // _buildListtile(
+              //   tiletitle: 'Privacy Policy',
+              //   iconData: Icons.policy_outlined,
+              //   onTap: () {
+              //     Utils(context)
+              //         .showSnackBar(snackText: 'Privacy Policy Coming Soon');
+              //   },
+              // ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // _buildListtile(
+              //   tiletitle: 'Backup Data',
+              //   iconData: Icons.backup_outlined,
+              //   onTap: () {
+              //     Utils(context).showSnackBar(
+              //         snackText: 'Backup Data Feature Coming Soon');
+              //   },
+              // ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // _buildListtile(
+              //   tiletitle: 'Restore Data',
+              //   iconData: Icons.restore_outlined,
+              //   onTap: () {
+              //     Utils(context).showSnackBar(
+              //         snackText: 'Restore Data Feature Coming Soon');
+              //   },
+              // ),
               SizedBox(
                 height: size.height * 0.01,
               ),

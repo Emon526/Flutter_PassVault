@@ -6,6 +6,7 @@ import 'consts/style.dart';
 import 'provider/addpasswordprovider.dart';
 import 'provider/authprovider.dart';
 import 'provider/generatedpassswordprovideer.dart';
+import 'provider/navbarprovider.dart';
 import 'provider/onboardprovider.dart';
 import 'provider/themeprovider.dart';
 import 'screens/auth/login.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
           }),
           ChangeNotifierProvider(create: (_) {
             return OnBoardingProvider();
+          }),
+          ChangeNotifierProvider(create: (_) {
+            return NavBarProvider();
           }),
           ChangeNotifierProvider(
             create: (context) => AuthProvider(),
