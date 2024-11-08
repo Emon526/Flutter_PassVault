@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final passwordController = TextEditingController();
+  final passwordController = TextEditingController(text: 'Abc123456@');
   final GlobalKey<FormState> _loginformKey = GlobalKey<FormState>();
   final passwordValidator = MultiValidator([
     RequiredValidator(errorText: 'Password is required'),
@@ -41,13 +41,14 @@ class _LoginPageState extends State<LoginPage> {
         builder: (BuildContext context, provider, Widget? child) {
       return PopScope(
         canPop: false,
-        onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+        onPopInvokedWithResult: (bool didPop, dynamic) =>
+            Utils(context).onWillPop(),
         child: Scaffold(
           body: SingleChildScrollView(
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.07,
+                  horizontal: size.width * 0.04,
                 ),
                 child: Form(
                   key: _loginformKey,
@@ -83,11 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                             .validateMatch(val!, provider.masterpassword),
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(Consts.BORDER_RADIUS)),
-                          suffix: InkWell(
+                          suffixIcon: InkWell(
                             child: Icon(
                               provider.isObsecured
                                   ? Icons.visibility

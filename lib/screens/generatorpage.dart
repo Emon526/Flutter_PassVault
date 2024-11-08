@@ -83,6 +83,7 @@ class GeneratorPage extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
+                //TODO:: remove hard core code for copy passwoed button
                 InkWell(
                   onTap: context
                           .watch<GeneratedPasswordProvider>()
@@ -114,11 +115,8 @@ class GeneratorPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
                       color: Theme.of(context).highlightColor,
                     ),
-                    child: const Center(
-                      heightFactor: 3,
-                      child: Text(
-                        'Copy Password',
-                      ),
+                    child: Text(
+                      'Copy Password',
                     ),
                   ),
                 ),

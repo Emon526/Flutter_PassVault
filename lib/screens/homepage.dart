@@ -20,7 +20,8 @@ class HomePage extends StatelessWidget {
     ];
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+      onPopInvokedWithResult: (bool didPop, dynamic) =>
+          Utils(context).onWillPop(),
       child:
           Consumer<NavBarProvider>(builder: (context, navBarProvider, child) {
         return Scaffold(

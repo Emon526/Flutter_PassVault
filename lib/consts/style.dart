@@ -329,10 +329,18 @@ class Styles {
       useMaterial3: true,
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      // colorScheme: ColorScheme.fromSeed(
-      //   seedColor: Color(0xfffff6e40),
-      //   brightness: isDarkTheme ? Brightness.dark : Brightness.light,
-      // ),
+      primaryColor:
+          isDarkTheme ? const Color(0xffb35a89) : const Color(0xffff80ab),
+      cardColor:
+          isDarkTheme ? const Color(0xffb35a89) : const Color(0xffff80ab),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor:
+            //   isDarkTheme ? const Color(0xffb35a89) : const Color(0xfff97316),
+            isDarkTheme
+                ? Colors.deepPurpleAccent
+                : Colors.deepOrangeAccent.shade700,
+        brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+      ),
     );
   }
 }

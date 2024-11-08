@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
 import '../../services/databaseservice.dart';
+import '../../utils/utils.dart';
 
 class ViewPassword extends StatefulWidget {
   const ViewPassword({super.key});
@@ -92,7 +93,7 @@ class _ViewPasswordState extends State<ViewPassword> {
           ),
         ),
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back,
           ),
           onPressed: () {
@@ -101,28 +102,14 @@ class _ViewPasswordState extends State<ViewPassword> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.copy,
             ),
-            onPressed: () {
-              Clipboard.setData(
-                ClipboardData(
-                  text: context.read<AddPasswordProvider>().password,
-                ),
-              ).then(
-                (value) {
-                  return ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Password copied to clipboard'),
-                    ),
-                  );
-                },
-              );
-            },
+            onPressed: () async => await copyPassword(),
           ),
           IconButton(
             icon: const Icon(
-              Icons.delete_forever_outlined,
+              Icons.delete_outline,
             ),
             onPressed: () {
               context.read<AddPasswordProvider>().deletePassword();
@@ -256,8 +243,7 @@ class _ViewPasswordState extends State<ViewPassword> {
                   validator:
                       RequiredValidator(errorText: 'Password is required').call,
                   decoration: InputDecoration(
-                    filled: true,
-                    suffix: InkWell(
+                    suffixIcon: InkWell(
                       child: Icon(
                         isObsecured ? Icons.visibility : Icons.visibility_off,
                       ),
@@ -306,5 +292,17 @@ class _ViewPasswordState extends State<ViewPassword> {
         ),
       ),
     );
+  }
+
+  Future<void> copyPassword() async {
+    final password = context.read<AddPasswordProvider>().password;
+    final utils =
+        Utils(context); // Capture the Utils instance before the async call
+
+    Clipboard.setData(
+      ClipboardData(text: password),
+    ).then((_) {
+      utils.showSnackBar(snackText: 'Password copied to clipboard');
+    });
   }
 }

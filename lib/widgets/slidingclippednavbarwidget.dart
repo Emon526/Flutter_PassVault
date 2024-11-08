@@ -18,8 +18,8 @@ class SlidingClippedNavBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlidingClippedNavBar(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      activeColor: Theme.of(context).iconTheme.color!,
-      inactiveColor: Colors.grey.shade600,
+      activeColor: Theme.of(context).primaryColor,
+      inactiveColor: Theme.of(context).primaryColor.withOpacity(0.5),
       selectedIndex: selectedIndex,
       barItems: [
         for (int i = 0; i < navBarIcon.length; i++)

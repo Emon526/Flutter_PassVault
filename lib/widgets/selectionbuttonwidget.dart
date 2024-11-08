@@ -27,11 +27,13 @@ class SelectionButtonWidget extends StatelessWidget {
               buttontitle,
             ),
             iconCondition
-                ? const Icon(
+                ? Icon(
                     Icons.check_circle,
+                    color: Theme.of(context).primaryColor,
                   )
-                : const Icon(
+                : Icon(
                     Icons.radio_button_unchecked,
+                    color: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
           ],
         ),

@@ -12,37 +12,20 @@ class CustomSearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      // color: const Color.fromRGBO(238, 238, 238, 1),
-      borderRadius: BorderRadius.circular(
-        5,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.search_outlined,
-            ),
-            Expanded(
-              child: TextFormField(
-                onChanged: onChanged,
-                controller: searchController,
-                textCapitalization: TextCapitalization.sentences,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(
-                  hintText: ' Search For Passwords',
-                  enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide.none),
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide.none),
-                ),
-              ),
-            ),
-          ],
+    return TextFormField(
+      onChanged: onChanged,
+      controller: searchController,
+      textCapitalization: TextCapitalization.sentences,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+      decoration: const InputDecoration(
+        hintText: ' Search For Passwords',
+        prefixIcon: Icon(
+          Icons.search_outlined,
         ),
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+        border: OutlineInputBorder(borderSide: BorderSide.none),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
       ),
     );
   }

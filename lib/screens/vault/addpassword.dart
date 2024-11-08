@@ -94,7 +94,7 @@ class _AddPasswordState extends State<AddPassword> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.07,
+            horizontal: size.width * 0.04,
           ),
           child: Form(
             key: _addPasswordformKey,
@@ -137,9 +137,6 @@ class _AddPasswordState extends State<AddPassword> {
                   textInputAction: TextInputAction.next,
                   validator:
                       RequiredValidator(errorText: 'Title is required').call,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
@@ -155,9 +152,6 @@ class _AddPasswordState extends State<AddPassword> {
                   controller: urlcontroller,
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
@@ -188,9 +182,6 @@ class _AddPasswordState extends State<AddPassword> {
                   validator:
                       RequiredValidator(errorText: 'User Name is required')
                           .call,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
@@ -225,8 +216,7 @@ class _AddPasswordState extends State<AddPassword> {
                   validator:
                       RequiredValidator(errorText: 'Password is required').call,
                   decoration: InputDecoration(
-                    filled: true,
-                    suffix: InkWell(
+                    suffixIcon: InkWell(
                       child: Icon(
                         isObsecured ? Icons.visibility : Icons.visibility_off,
                       ),
@@ -255,9 +245,6 @@ class _AddPasswordState extends State<AddPassword> {
                   controller: notescontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,

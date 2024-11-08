@@ -101,17 +101,12 @@ class SettingsPage extends StatelessWidget {
     required String tiletitle,
     required Function onTap,
   }) {
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
-        onTap: () {
-          onTap();
-        },
-        child: ListTile(
-          title: Text(tiletitle),
-          trailing: Icon(iconData),
-        ),
-      ),
+    return ListTile(
+      onTap: () {
+        onTap();
+      },
+      title: Text(tiletitle),
+      trailing: Icon(iconData),
     );
   }
 
@@ -122,11 +117,11 @@ class SettingsPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
               'Select Theme',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).primaryColor,
+                  ),
             ),
             const SizedBox(
               height: 20,
@@ -134,7 +129,7 @@ class SettingsPage extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
-                border: Border.all(),
+                border: Border.all(color: Theme.of(context).primaryColor),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -146,8 +141,9 @@ class SettingsPage extends StatelessWidget {
                       provider.themeMode = ThemeMode.system;
                     },
                   ),
-                  const Divider(
+                  Divider(
                     height: 0,
+                    color: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
                   SelectionButtonWidget(
                     iconCondition: provider.themeMode == ThemeMode.light,
@@ -156,8 +152,9 @@ class SettingsPage extends StatelessWidget {
                       provider.themeMode = ThemeMode.light;
                     },
                   ),
-                  const Divider(
+                  Divider(
                     height: 0,
+                    color: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
                   SelectionButtonWidget(
                     iconCondition: provider.themeMode == ThemeMode.dark,

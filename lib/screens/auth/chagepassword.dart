@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
-import '../../consts/consts.dart';
 import '../../provider/authprovider.dart';
 import '../../widgets/custombutton.dart';
 
@@ -53,7 +52,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           child: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.07,
+                horizontal: size.width * 0.04,
               ),
               child: Form(
                 key: _changePasswordFormKey,
@@ -72,12 +71,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       textInputAction: TextInputAction.next,
                       validator: passwordValidator.call,
                       decoration: InputDecoration(
-                        filled: true,
                         labelText: 'Password',
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(Consts.BORDER_RADIUS)),
-                        suffix: InkWell(
+                        suffixIcon: InkWell(
                           child: Icon(
                             provider.isObsecured
                                 ? Icons.visibility
@@ -102,11 +97,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           val!, passwordController.text.trim()),
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
-                        filled: true,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(Consts.BORDER_RADIUS)),
-                        suffix: InkWell(
+                        suffixIcon: InkWell(
                           child: Icon(
                             provider.isObsecured
                                 ? Icons.visibility

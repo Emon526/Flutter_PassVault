@@ -47,13 +47,14 @@ class _RegisterPageState extends State<RegisterPage> {
         builder: (BuildContext context, provider, Widget? child) {
       return PopScope(
         canPop: false,
-        onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+        onPopInvokedWithResult: (bool didPop, dynamic) =>
+            Utils(context).onWillPop(),
         child: Scaffold(
           body: SingleChildScrollView(
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.07,
+                  horizontal: size.width * 0.04,
                 ),
                 child: Form(
                   key: _registerformKey,
@@ -71,11 +72,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Text(
                         'Register a master password',
-                        style: TextStyle(
-                          // fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Colors.grey.shade600,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: Colors.grey.shade600,
+                                ),
                       ),
                       SizedBox(
                         height: size.height * 0.07,
@@ -91,11 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: passwordValidator.call,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(Consts.BORDER_RADIUS)),
-                          suffix: InkWell(
+                          suffixIcon: InkWell(
                             child: Icon(
                               provider.isObsecured
                                   ? Icons.visibility
@@ -121,11 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 val!, passwordController.text.trim()),
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(Consts.BORDER_RADIUS)),
-                          suffix: InkWell(
+                          suffixIcon: InkWell(
                             child: Icon(
                               provider.isObsecured
                                   ? Icons.visibility
@@ -149,23 +141,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(
                         height: size.height * 0.07,
                       ),
-                      const Divider(
-                        thickness: 1,
-                        color: Colors.black,
-                      ),
+                      Divider(color: Theme.of(context).primaryColor),
                       SizedBox(
                         height: size.height * 0.01,
                       ),
-                      const Text(
+                      Text(
                         'Note that if the master password is lost,the stored '
                         'data cannot be recovered because of the missing '
                         'sync option. it is strongly recommended that you '
                         'backup your  data at regular intervals.',
-                        style: TextStyle(
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: Colors.grey,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Colors.grey,
+                            ),
                       ),
                     ],
                   ),
