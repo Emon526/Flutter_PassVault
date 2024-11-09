@@ -1,3 +1,19 @@
+# [1.1.0](https://github.com/Emon526/Flutter_PassVault/compare/v1.0.4...v1.1.0) (2024-11-09)
+
+
+### Bug Fixes
+
+* minor bug fix ([b03d373](https://github.com/Emon526/Flutter_PassVault/commit/b03d37395874a916677a8a00f2744e2214326db8))
+* unsupported operating system removed ([8559e88](https://github.com/Emon526/Flutter_PassVault/commit/8559e8810232e8960ac344f4269e598ca86a035c))
+
+
+### Features
+
+* Responsive Application & Updated Color Scheme ([e48ccf5](https://github.com/Emon526/Flutter_PassVault/commit/e48ccf512ce4d370d561abd70fd528775f1245ab))
+* Sliding Clipped Nav Bar Added ([d59aeda](https://github.com/Emon526/Flutter_PassVault/commit/d59aeda6714092158442af06a5546014496fa80d))
+
+
+
 ## [1.0.4](https://github.com/Emon526/Flutter_PassVault/compare/v1.0.3...v1.0.4) (2024-03-02)
 
 
@@ -32,30 +48,6 @@
 ### Bug Fixes
 
 * Bug fix ([0d5e12a](https://github.com/Emon526/Flutter_PassVault/commit/0d5e12ac3a4a6e402db027f0ff46dbf023c57dc0))
-
-
-
-# [1.0.0](https://github.com/Emon526/Flutter_PassVault/compare/v0.1.0...v1.0.0) (2023-06-29)
-
-
-### chore
-
-* Initialize major version 1.0.0 ([2d1f07b](https://github.com/Emon526/Flutter_PassVault/commit/2d1f07b6c759a74a9cb4ea359bfe2f46a4b7e604))
-* Initialize major version 1.0.0 ([aff1ece](https://github.com/Emon526/Flutter_PassVault/commit/aff1ece52ceaecda7f06710795df25e31cd6e10b))
-
-
-### BREAKING CHANGES
-
-* - The authentication system has been completely redesigned, requiring users to reset their passwords. Please follow the password reset instructions in the updated documentation.
-
-- Added core functionality for the application.
-- Created initial database schema.
-- Updated project documentation.
-* - The authentication system has been completely redesigned, requiring users to reset their passwords. Please follow the password reset instructions in the updated documentation.
-
-- Added core functionality for the application.
-- Created initial database schema.
-- Updated project documentation.
 
 
 
