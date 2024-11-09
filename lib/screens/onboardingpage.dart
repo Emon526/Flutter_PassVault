@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../consts/consts.dart';
 import '../provider/onboardprovider.dart';
 import '../utils/utils.dart';
-import '../widgets/custombutton.dart';
+import '../widgets/customelevatedbutton.dart';
 import 'auth/register.dart';
 
 class OnBoardingSceen extends StatefulWidget {
@@ -37,24 +37,25 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
     return Consumer<OnBoardingProvider>(builder: (context, provider, child) {
       return PopScope(
         canPop: false,
-        onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
+        onPopInvokedWithResult: (bool didPop, dynamic) =>
+            Utils(context).onWillPop(),
         child: Scaffold(
           body: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: _controller,
-                    onPageChanged: (int index) {
-                      provider.currentIndex = index;
-                    },
-                    itemCount: contents.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.07,
-                        ),
-                        child: Column(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.04,
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _controller,
+                      onPageChanged: (int index) {
+                        provider.currentIndex = index;
+                      },
+                      itemCount: contents.length,
+                      itemBuilder: (context, index) {
+                        return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
@@ -69,10 +70,7 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                             ),
                             Text(
                               contents[index].title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 24,
-                              ),
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                             SizedBox(
                               height: size.height * 0.07,
@@ -80,32 +78,34 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                             Text(
                               contents[index].description,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    color: Colors.grey,
+                                  ),
                             ),
                           ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    contents.length,
-                    (index) => buildDots(
-                      context: context,
-                      size: size,
-                      index: index,
-                      currentIndex: provider.currentIndex,
+                        );
+                      },
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(30),
-                  child: CustomButton(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      contents.length,
+                      (index) => buildDots(
+                        context: context,
+                        size: size,
+                        index: index,
+                        currentIndex: provider.currentIndex,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  CustomElevatedButton(
                     ontap: () {
                       if (provider.currentIndex == contents.length - 1) {
                         Navigator.pushReplacement(
@@ -126,8 +126,11 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                         ? "Continue"
                         : 'Next',
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

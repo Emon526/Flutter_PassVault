@@ -54,7 +54,7 @@ class GeneratedPasswordProvider with ChangeNotifier {
   }
 
   void minimumnumberdecrement() {
-    if (_minimumnumbers > 0) {
+    if (_minimumnumbers > 1) {
       _minimumnumbers -= 1;
 
       notifyListeners();
@@ -72,7 +72,7 @@ class GeneratedPasswordProvider with ChangeNotifier {
   }
 
   void minimumspecialdecrement() {
-    if (_minimumspecial > 0) {
+    if (_minimumspecial > 1) {
       _minimumspecial -= 1;
 
       notifyListeners();

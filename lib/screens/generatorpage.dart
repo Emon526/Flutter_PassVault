@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:provider/provider.dart';
 import '../consts/consts.dart';
 import '../provider/generatedpassswordprovideer.dart';
 import '../utils/utils.dart';
-import '../widgets/custombutton.dart';
+import '../widgets/customelevatedbutton.dart';
+import '../widgets/customoutlinedbutton.dart';
 
 class GeneratorPage extends StatelessWidget {
   const GeneratorPage({super.key});
@@ -14,7 +16,6 @@ class GeneratorPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: const Text(
           'Generator',
         ),
@@ -39,9 +40,7 @@ class GeneratorPage extends StatelessWidget {
                           context
                               .watch<GeneratedPasswordProvider>()
                               .generatedpassword,
-                          style: const TextStyle(
-                            fontSize: 24,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
                       LinearProgressIndicator(
@@ -68,7 +67,7 @@ class GeneratorPage extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                CustomButton(
+                CustomElevatedButton(
                     ontap: () {
                       context
                           .read<GeneratedPasswordProvider>()
@@ -83,8 +82,8 @@ class GeneratorPage extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                InkWell(
-                  onTap: context
+                CustomOutlinedButton(
+                  ontap: context
                           .watch<GeneratedPasswordProvider>()
                           .generatedpassword
                           .isEmpty
@@ -104,23 +103,7 @@ class GeneratorPage extends StatelessWidget {
                             },
                           );
                         },
-                  borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.grey,
-                      ),
-                      borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
-                      color: Theme.of(context).highlightColor,
-                    ),
-                    child: const Center(
-                      heightFactor: 3,
-                      child: Text(
-                        'Copy Password',
-                      ),
-                    ),
-                  ),
+                  buttontext: 'Copy Password',
                 ),
                 SizedBox(
                   height: size.height * 0.02,

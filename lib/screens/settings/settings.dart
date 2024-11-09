@@ -16,7 +16,6 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: const Text('Settings'),
       ),
       body: SafeArea(
@@ -38,39 +37,39 @@ class SettingsPage extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              _buildListtile(
-                tiletitle: 'Privacy Policy',
-                iconData: Icons.policy_outlined,
-                onTap: () {
-                  Utils(context)
-                      .showSnackBar(snackText: 'Privacy Policy Coming Soon');
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              _buildListtile(
-                tiletitle: 'Backup Data',
-                iconData: Icons.backup_outlined,
-                onTap: () {
-                  Utils(context).showSnackBar(
-                      snackText: 'Backup Data Feature Coming Soon');
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              _buildListtile(
-                tiletitle: 'Restore Data',
-                iconData: Icons.restore_outlined,
-                onTap: () {
-                  Utils(context).showSnackBar(
-                      snackText: 'Restore Data Feature Coming Soon');
-                },
-              ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // _buildListtile(
+              //   tiletitle: 'Privacy Policy',
+              //   iconData: Icons.policy_outlined,
+              //   onTap: () {
+              //     Utils(context)
+              //         .showSnackBar(snackText: 'Privacy Policy Coming Soon');
+              //   },
+              // ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // _buildListtile(
+              //   tiletitle: 'Backup Data',
+              //   iconData: Icons.backup_outlined,
+              //   onTap: () {
+              //     Utils(context).showSnackBar(
+              //         snackText: 'Backup Data Feature Coming Soon');
+              //   },
+              // ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // _buildListtile(
+              //   tiletitle: 'Restore Data',
+              //   iconData: Icons.restore_outlined,
+              //   onTap: () {
+              //     Utils(context).showSnackBar(
+              //         snackText: 'Restore Data Feature Coming Soon');
+              //   },
+              // ),
               SizedBox(
                 height: size.height * 0.01,
               ),
@@ -86,6 +85,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () => Utils(context).showCustomDialog(
                   child: _themetileWidget(
                     context: context,
+                    size: size,
                   ),
                 ),
               ),
@@ -101,40 +101,38 @@ class SettingsPage extends StatelessWidget {
     required String tiletitle,
     required Function onTap,
   }) {
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
-        onTap: () {
-          onTap();
-        },
-        child: ListTile(
-          title: Text(tiletitle),
-          trailing: Icon(iconData),
-        ),
-      ),
+    return ListTile(
+      onTap: () {
+        onTap();
+      },
+      title: Text(tiletitle),
+      trailing: Icon(iconData),
     );
   }
 
-  _themetileWidget({required BuildContext context}) {
+  _themetileWidget({
+    required BuildContext context,
+    required Size size,
+  }) {
     return Consumer<ThemeProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
               'Select Theme',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).primaryColor,
+                  ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: size.height * 0.02,
             ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Consts.BORDER_RADIUS),
-                border: Border.all(),
+                border: Border.all(color: Theme.of(context).primaryColor),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -146,8 +144,9 @@ class SettingsPage extends StatelessWidget {
                       provider.themeMode = ThemeMode.system;
                     },
                   ),
-                  const Divider(
+                  Divider(
                     height: 0,
+                    color: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
                   SelectionButtonWidget(
                     iconCondition: provider.themeMode == ThemeMode.light,
@@ -156,8 +155,9 @@ class SettingsPage extends StatelessWidget {
                       provider.themeMode = ThemeMode.light;
                     },
                   ),
-                  const Divider(
+                  Divider(
                     height: 0,
+                    color: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
                   SelectionButtonWidget(
                     iconCondition: provider.themeMode == ThemeMode.dark,

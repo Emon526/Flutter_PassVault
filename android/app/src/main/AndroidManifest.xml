@@ -4,7 +4,7 @@
        android:name="${applicationName}"
        android:enableOnBackInvokedCallback="true"
        android:icon="@mipmap/ic_launcher"
-       android:label="passvault"
+       android:label="NepPass"
       >
         <activity
             android:name=".MainActivity"

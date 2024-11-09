@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
 import '../../services/databaseservice.dart';
+import '../../utils/utils.dart';
+import '../../widgets/custominputfield.dart';
 
 class ViewPassword extends StatefulWidget {
   const ViewPassword({super.key});
@@ -86,43 +88,18 @@ class _ViewPasswordState extends State<ViewPassword> {
       appBar: AppBar(
         title: Text(
           context.read<AddPasswordProvider>().title,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.copy,
             ),
-            onPressed: () {
-              Clipboard.setData(
-                ClipboardData(
-                  text: context.read<AddPasswordProvider>().password,
-                ),
-              ).then(
-                (value) {
-                  return ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Password copied to clipboard'),
-                    ),
-                  );
-                },
-              );
-            },
+            onPressed: () async => await copyPassword(),
           ),
           IconButton(
             icon: const Icon(
-              Icons.delete_forever_outlined,
+              Icons.delete_outline,
             ),
             onPressed: () {
               context.read<AddPasswordProvider>().deletePassword();
@@ -136,117 +113,53 @@ class _ViewPasswordState extends State<ViewPassword> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.07,
+            horizontal: size.width * 0.04,
           ),
           child: Form(
             key: _viewPasswordformKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
-                  children: [
-                    Text(
-                      'Title ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    )
-                  ],
-                ),
-                TextFormField(
+                CustomInputField(
+                  isRequired: true,
+                  fieldTitle: 'Title',
+                  textCapitalization: TextCapitalization.sentences,
                   controller: titlecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
                       RequiredValidator(errorText: 'Title is required').call,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Text(
-                  'URL',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                TextFormField(
+                CustomInputField(
+                  isRequired: false,
+                  fieldTitle: 'URL',
                   controller: urlcontroller,
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      'User Name ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    )
-                  ],
-                ),
-                TextFormField(
+                CustomInputField(
+                  isRequired: true,
+                  fieldTitle: 'User Name',
                   controller: usernamecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
                       RequiredValidator(errorText: 'User Name is required')
                           .call,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      'Password ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-                TextFormField(
+                CustomInputField(
                   obscureText: isObsecured,
+                  isRequired: true,
+                  fieldTitle: 'Password',
                   controller: passwordcontroller,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
@@ -256,8 +169,7 @@ class _ViewPasswordState extends State<ViewPassword> {
                   validator:
                       RequiredValidator(errorText: 'Password is required').call,
                   decoration: InputDecoration(
-                    filled: true,
-                    suffix: InkWell(
+                    suffixIcon: InkWell(
                       child: Icon(
                         isObsecured ? Icons.visibility : Icons.visibility_off,
                       ),
@@ -272,22 +184,14 @@ class _ViewPasswordState extends State<ViewPassword> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Text(
-                  'Notes',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                TextFormField(
+                CustomInputField(
                   maxLines: 2,
                   focusNode: focus,
+                  isRequired: false,
+                  fieldTitle: 'Notes',
                   controller: notescontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
@@ -306,5 +210,17 @@ class _ViewPasswordState extends State<ViewPassword> {
         ),
       ),
     );
+  }
+
+  Future<void> copyPassword() async {
+    final password = context.read<AddPasswordProvider>().password;
+    final utils =
+        Utils(context); // Capture the Utils instance before the async call
+
+    Clipboard.setData(
+      ClipboardData(text: password),
+    ).then((_) {
+      utils.showSnackBar(snackText: 'Password copied to clipboard');
+    });
   }
 }

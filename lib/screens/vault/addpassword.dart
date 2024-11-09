@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../models/addpasswordmodel.dart';
 import '../../provider/addpasswordprovider.dart';
 import '../../services/databaseservice.dart';
+import '../../widgets/custominputfield.dart';
 
 class AddPassword extends StatefulWidget {
   const AddPassword({super.key});
@@ -70,15 +71,6 @@ class _AddPasswordState extends State<AddPassword> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
         title: const Text(
           'Add Password',
         ),
@@ -94,139 +86,69 @@ class _AddPasswordState extends State<AddPassword> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.07,
+            horizontal: size.width * 0.04,
           ),
           child: Form(
             key: _addPasswordformKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Fill in the details below to save the password',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Colors.grey,
+                      ),
                 ),
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      'Title ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    )
-                  ],
-                ),
-                TextFormField(
+                CustomInputField(
+                  isRequired: true,
+                  fieldTitle: 'Title',
                   textCapitalization: TextCapitalization.sentences,
                   controller: titlecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
                       RequiredValidator(errorText: 'Title is required').call,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Text(
-                  'URL',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                TextFormField(
+                CustomInputField(
+                  isRequired: false,
+                  fieldTitle: 'URL',
                   controller: urlcontroller,
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      'User Name ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    )
-                  ],
-                ),
-                TextFormField(
+                CustomInputField(
+                  isRequired: true,
+                  fieldTitle: 'User Name',
                   controller: usernamecontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator:
                       RequiredValidator(errorText: 'User Name is required')
                           .call,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      'Password ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-                TextFormField(
-                  obscureText: isObsecured,
+                CustomInputField(
+                  isRequired: true,
+                  fieldTitle: 'Password',
                   controller: passwordcontroller,
+                  obscureText: isObsecured,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (value) {
-                    FocusScope.of(context).requestFocus(focus);
-                  },
                   validator:
                       RequiredValidator(errorText: 'Password is required').call,
                   decoration: InputDecoration(
-                    filled: true,
-                    suffix: InkWell(
+                    suffixIcon: InkWell(
                       child: Icon(
                         isObsecured ? Icons.visibility : Icons.visibility_off,
                       ),
@@ -237,27 +159,21 @@ class _AddPasswordState extends State<AddPassword> {
                       },
                     ),
                   ),
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).requestFocus(focus);
+                  },
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                const Text(
-                  'Notes',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                TextFormField(
-                  textCapitalization: TextCapitalization.sentences,
-                  maxLines: 2,
-                  focusNode: focus,
+                CustomInputField(
+                  isRequired: false,
+                  fieldTitle: 'Notes',
                   controller: notescontroller,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
+                  maxLines: 2,
+                  focusNode: focus,
                 ),
                 SizedBox(
                   height: size.height * 0.02,

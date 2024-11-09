@@ -12,5 +12,5 @@ class Consts {
   static const SUBTITLE_2 = 'NepPass uses a zero-knowledge '
       'encryption means your data remains '
       'private even from us.';
-  static const BORDER_RADIUS = 10.0;
+  static const BORDER_RADIUS = 4.0;
 }

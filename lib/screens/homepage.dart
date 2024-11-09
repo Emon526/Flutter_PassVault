@@ -1,64 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/navbarprovider.dart';
 import '../utils/utils.dart';
+import '../widgets/slidingclippednavbarwidget.dart';
 import 'generatorpage.dart';
 import 'settings/settings.dart';
 import 'vault/vaultpage.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
-
-  @override
   Widget build(BuildContext context) {
+    List<Widget> pageWidgets = [
+      const VaultPage(),
+      const GeneratorPage(),
+      const SettingsPage(),
+    ];
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) => Utils(context).onWillPop(),
-      child: Scaffold(
-        body: PersistentTabView(
-          context,
-          controller: _controller,
-          screens: const [
-            VaultPage(),
-            GeneratorPage(),
-            SettingsPage(),
-          ],
-          items: _navBarsItems(),
-          navBarStyle: NavBarStyle.style6,
-          // backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor!,
-        ),
-      ),
+      onPopInvokedWithResult: (bool didPop, dynamic) =>
+          Utils(context).onWillPop(),
+      child:
+          Consumer<NavBarProvider>(builder: (context, navBarProvider, child) {
+        return Scaffold(
+          body: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: navBarProvider.pageController,
+            children: pageWidgets,
+          ),
+          bottomNavigationBar: SlidingClippedNavBarWidget(
+            selectedIndex: navBarProvider.selectedIndex,
+            onItemSelected: (index) => navBarProvider.selectedIndex = index,
+            navBarIcon: navBarProvider.icons,
+            navBarTitle: navBarProvider.pages,
+          ),
+        );
+      }),
     );
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.lock_outline),
-        title: "Vault",
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: Colors.grey.shade600,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.generating_tokens_outlined),
-        title: "Generator",
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: Colors.grey.shade600,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.settings),
-        title: "Settings",
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: Colors.grey.shade600,
-      ),
-    ];
   }
 }

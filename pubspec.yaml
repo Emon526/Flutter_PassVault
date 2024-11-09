@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -17,10 +17,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.1.0+1
 
 environment:
- sdk: '>=3.3.0 <4.0.0'
+  sdk: ">=3.5.4 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -32,25 +32,24 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-  shared_preferences: ^2.2.2
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.3.2
   form_field_validator: ^1.1.0
-  persistent_bottom_nav_bar: ^5.0.2
   provider: ^6.1.2
-  sqflite: ^2.3.2
-  cached_network_image: ^3.3.1
+  sqflite: ^2.4.1
+  cached_network_image: ^3.4.1
   favicon: ^1.1.2
   intl: ^0.19.0
   path: ^1.9.0
-  flutter_svg: ^2.0.10
-  flutter_native_splash: ^2.3.13
+  flutter_svg: ^2.0.14
+  flutter_native_splash: ^2.4.2
+  sliding_clipped_nav_bar: ^3.1.1
 
 dev_dependencies:
-  build_runner: ^2.4.8
-  flutter_launcher_icons: ^0.13.1
+  build_runner: ^2.4.13
+  flutter_launcher_icons: ^0.14.1
 
   flutter_test:
     sdk: flutter
@@ -60,10 +59,9 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
 
 flutter_native_splash:
-
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
   # Customize the parameters below, and run the following command in the terminal:
@@ -87,7 +85,7 @@ flutter_native_splash:
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file and should be sized for 4x pixel density.
-  image:  assets/splash.png
+  image: assets/splash.png
 
   # The branding property allows you to specify an image used as branding in the splash screen.
   # It must be a png file. It is supported for Android, iOS and the Web.  For Android 12,
@@ -112,27 +110,27 @@ flutter_native_splash:
   # https://developer.android.com/guide/topics/ui/splash-screen
   # Following are Android 12 specific parameter.
   android_12:
-  # The image parameter sets the splash screen icon image.  If this parameter is not specified,
-  # the app's launcher icon will be used instead.
-  # Please note that the splash screen will be clipped to a circle on the center of the screen.
-  # App icon with an icon background: This should be 960×960 pixels, and fit within a circle
-  # 640 pixels in diameter.
-  # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
-  # 768 pixels in diameter.
+    # The image parameter sets the splash screen icon image.  If this parameter is not specified,
+    # the app's launcher icon will be used instead.
+    # Please note that the splash screen will be clipped to a circle on the center of the screen.
+    # App icon with an icon background: This should be 960×960 pixels, and fit within a circle
+    # 640 pixels in diameter.
+    # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
+    # 768 pixels in diameter.
     image: assets/splash.png
 
-  # Splash screen background color.
+    # Splash screen background color.
     color: "#ffffff"
 
-  # App icon background color.
+    # App icon background color.
     icon_background_color: "#ffffff"
 
-  # The branding property allows you to specify an image used as branding in the splash screen.
-  #branding: assets/dart.png
+    # The branding property allows you to specify an image used as branding in the splash screen.
+    #branding: assets/dart.png
 
-  # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
-  # apply when the device is in dark mode. If they are not specified, the app will use the
-  # parameters from above.
+    # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
+    # apply when the device is in dark mode. If they are not specified, the app will use the
+    # parameters from above.
     image_dark: assets/splash.png
     color_dark: "#000000"
     icon_background_color_dark: "#000000"
@@ -233,13 +231,11 @@ flutter_launcher_icons:
     generate: false
     image_path: "assets/logo.png"
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

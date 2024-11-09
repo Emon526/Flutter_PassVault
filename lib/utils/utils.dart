@@ -14,11 +14,11 @@ class Utils {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             'Are you sure?',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(
             height: 20,
