@@ -3,11 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
-import '../../consts/consts.dart';
 import '../../provider/authprovider.dart';
 import '../../provider/onboardprovider.dart';
 import '../../utils/utils.dart';
-import '../../widgets/custombutton.dart';
+import '../../widgets/customelevatedbutton.dart';
 import '../homepage.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -72,10 +71,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Text(
                         'Register a master password',
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: Colors.grey.shade600,
-                                ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.grey.shade600,
+                            ),
                       ),
                       SizedBox(
                         height: size.height * 0.07,
@@ -132,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(
                         height: size.height * 0.04,
                       ),
-                      CustomButton(
+                      CustomElevatedButton(
                         ontap: () {
                           validate();
                         },

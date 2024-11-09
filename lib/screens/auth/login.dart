@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
-
-import '../../consts/consts.dart';
 import '../../provider/authprovider.dart';
 import '../../utils/utils.dart';
-import '../../widgets/custombutton.dart';
+import '../../widgets/customelevatedbutton.dart';
 import '../homepage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -66,11 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Text(
                         'Enter master password and login',
-                        style: TextStyle(
-                          // fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.grey.shade600,
+                            ),
                       ),
                       SizedBox(
                         height: size.height * 0.07,
@@ -99,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         height: size.height * 0.05,
                       ),
-                      CustomButton(
+                      CustomElevatedButton(
                         ontap: () {
                           FocusManager.instance.primaryFocus!.unfocus();
                           validate(passwordController.text.trim());
@@ -115,15 +111,13 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         height: size.height * 0.01,
                       ),
-                      const Text(
+                      Text(
                         'Once you save a password in NepPass. you\'ll '
                         'always have it when you need it. logging in is fast '
                         'and easy.',
-                        style: TextStyle(
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Colors.grey,
+                            ),
                       ),
                     ],
                   ),

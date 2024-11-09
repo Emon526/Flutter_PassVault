@@ -16,7 +16,6 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: const Text('Settings'),
       ),
       body: SafeArea(
@@ -86,6 +85,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () => Utils(context).showCustomDialog(
                   child: _themetileWidget(
                     context: context,
+                    size: size,
                   ),
                 ),
               ),
@@ -110,7 +110,10 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  _themetileWidget({required BuildContext context}) {
+  _themetileWidget({
+    required BuildContext context,
+    required Size size,
+  }) {
     return Consumer<ThemeProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -123,8 +126,8 @@ class SettingsPage extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: size.height * 0.02,
             ),
             Container(
               decoration: BoxDecoration(

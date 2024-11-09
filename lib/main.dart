@@ -13,10 +13,7 @@ import 'screens/auth/login.dart';
 import 'screens/onboardingpage.dart';
 import 'services/databaseservice.dart';
 
-//for current versions
-//TODO:: Check Responsiveness
-
-//for future update versions
+//for future update versions v.2.0.0
 //TODO:: Add Custom Word in Password Generator
 //user can choose which authentication user will use to login.
 //1.master password 2.fingerprint 3.password,4.google/apple

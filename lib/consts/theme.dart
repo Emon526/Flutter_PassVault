@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const primaryColor = Colors.deepOrange;
 
 const secondaryColor = Colors.deepOrangeAccent;
-
+// Use system fonts like Roboto for Android and SF Pro for iOS if you want platform-native experiences
 ThemeData lightTheme = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
   useMaterial3: true,
@@ -18,25 +18,47 @@ ThemeData lightTheme = ThemeData(
     selectionHandleColor: primaryColor,
   ),
   appBarTheme: AppBarTheme(
+      centerTitle: true,
       iconTheme: IconThemeData(color: primaryColor),
       actionsIconTheme: IconThemeData(color: primaryColor)),
 
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Colors.white,
   ),
-
+  snackBarTheme: SnackBarThemeData(
+    insetPadding: EdgeInsets.symmetric(
+        horizontal: 20, vertical: 10), // Less aggressive padding
+    backgroundColor: primaryColor,
+    contentTextStyle: TextStyle(color: Colors.white),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4), // Slightly more rounded
+    ),
+    behavior: SnackBarBehavior.floating,
+  ),
   textTheme: TextTheme(
+    bodyLarge: TextStyle(
+      color: Colors.black87,
+      // fontSize: 24,
+    ),
+    bodyMedium: TextStyle(
+      color: Colors.black87,
+      //fontSize: 18,
+    ),
+    bodySmall: TextStyle(
+      color: Colors.black87,
+      // fontSize: 12,
+    ),
     titleLarge: TextStyle(
       color: Colors.black87,
-      fontSize: 24,
+      // fontSize: 24,
     ),
     titleMedium: TextStyle(
       color: Colors.black87,
-      fontSize: 18,
+      //  fontSize: 18,
     ),
     titleSmall: TextStyle(
       color: Colors.black87,
-      fontSize: 16,
+      //  fontSize: 16,
     ),
   ),
   listTileTheme: ListTileThemeData(
@@ -171,6 +193,45 @@ ThemeData lightTheme = ThemeData(
       overlayColor: WidgetStateProperty.all(primaryColor.shade100),
     ),
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      //   textStyle: WidgetStatePropertyAll(TextStyle(
+      //     color: Colors.white,
+      //   )),
+      side: WidgetStatePropertyAll(BorderSide(
+        width: 1,
+        color: primaryColor,
+      )),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+
+      foregroundColor:
+          WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
+          return null;
+        }
+        if (states.contains(WidgetState.selected)) {
+          return Colors.black;
+        }
+        return Colors.black;
+      }),
+      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
+            return Colors.grey[400]; // Disabled background color
+          }
+          if (states.contains(WidgetState.selected)) {
+            return primaryColor.withOpacity(0.1); // Selected background color
+          }
+          return primaryColor
+              .withOpacity(0.1); // Default enabled background color
+        },
+      ),
+    ),
+  ),
 );
 
 ThemeData darkTheme = ThemeData(
@@ -187,32 +248,49 @@ ThemeData darkTheme = ThemeData(
     selectionHandleColor: secondaryColor,
   ),
   appBarTheme: AppBarTheme(
+      centerTitle: true,
       iconTheme: IconThemeData(color: secondaryColor),
       actionsIconTheme: IconThemeData(color: secondaryColor)),
 
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Colors.white,
   ),
+
+  snackBarTheme: SnackBarThemeData(
+    insetPadding: EdgeInsets.symmetric(
+        horizontal: 20, vertical: 10), // Less aggressive padding
+    backgroundColor: secondaryColor,
+    contentTextStyle: TextStyle(color: Colors.white),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4), // Slightly more rounded
+    ),
+    behavior: SnackBarBehavior.floating,
+  ),
+
   textTheme: TextTheme(
+    bodyLarge: TextStyle(
+      color: Colors.white,
+      // fontSize: 24,
+    ),
     bodyMedium: TextStyle(
       color: Colors.white,
-      fontSize: 18,
+      // fontSize: 18,
     ),
     bodySmall: TextStyle(
       color: Colors.white,
-      fontSize: 12,
+      // fontSize: 12,
     ),
     titleLarge: TextStyle(
       color: Colors.white,
-      fontSize: 24,
+      // fontSize: 24,
     ),
     titleMedium: TextStyle(
       color: Colors.white,
-      fontSize: 18,
+      //  fontSize: 18,
     ),
     titleSmall: TextStyle(
       color: Colors.white,
-      fontSize: 16,
+      // fontSize: 16,
     ),
   ),
   listTileTheme: ListTileThemeData(
@@ -345,6 +423,45 @@ ThemeData darkTheme = ThemeData(
       foregroundColor:
           WidgetStateProperty.all(secondaryColor), // This sets the text color
       overlayColor: WidgetStateProperty.all(secondaryColor.shade100),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      // textStyle: WidgetStatePropertyAll(TextStyle(
+      //   color: Colors.white,
+      // )),
+      side: WidgetStatePropertyAll(BorderSide(
+        width: 1,
+        color: secondaryColor,
+      )),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+
+      foregroundColor:
+          WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
+          return null;
+        }
+        if (states.contains(WidgetState.selected)) {
+          return Colors.white;
+        }
+        return Colors.white;
+      }),
+      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
+            return Colors.grey[400]; // Disabled background color
+          }
+          if (states.contains(WidgetState.selected)) {
+            return secondaryColor.withOpacity(0.1); // Selected background color
+          }
+          return secondaryColor
+              .withOpacity(0.1); // Default enabled background color
+        },
+      ),
     ),
   ),
 );

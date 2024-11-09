@@ -3,7 +3,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/authprovider.dart';
-import '../../widgets/custombutton.dart';
+import '../../widgets/customelevatedbutton.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -112,7 +112,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     SizedBox(
                       height: size.height * 0.04,
                     ),
-                    CustomButton(
+                    CustomElevatedButton(
                       ontap: () {
                         validate();
                       },

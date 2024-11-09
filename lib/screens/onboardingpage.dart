@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../consts/consts.dart';
 import '../provider/onboardprovider.dart';
 import '../utils/utils.dart';
-import '../widgets/custombutton.dart';
+import '../widgets/customelevatedbutton.dart';
 import 'auth/register.dart';
 
 class OnBoardingSceen extends StatefulWidget {
@@ -78,10 +78,6 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                             Text(
                               contents[index].description,
                               textAlign: TextAlign.center,
-                              // style: const TextStyle(
-                              //   fontSize: 18,
-                              //   color: Colors.grey,
-                              // ),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -109,7 +105,7 @@ class _OnBoardingSceenState extends State<OnBoardingSceen> {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  CustomButton(
+                  CustomElevatedButton(
                     ontap: () {
                       if (provider.currentIndex == contents.length - 1) {
                         Navigator.pushReplacement(
