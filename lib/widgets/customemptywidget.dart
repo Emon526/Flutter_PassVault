@@ -13,23 +13,25 @@ class Customemptywidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        SizedBox(
-          height: size.height * 0.1,
-        ),
-        SvgPicture.asset(
-          svgString,
-          height: size.height * 0.4,
-        ),
-        SizedBox(
-          height: size.height * 0.01,
-        ),
-        Text(
-          emptyString,
-          style: Theme.of(context).textTheme.titleLarge,
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: size.height * 0.1,
+          ),
+          SvgPicture.asset(
+            svgString,
+            height: size.height * 0.4,
+          ),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
+          Text(
+            emptyString,
+            style: Theme.of(context).textTheme.titleLarge,
+          )
+        ],
+      ),
     );
   }
 }
