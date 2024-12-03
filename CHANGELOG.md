@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/Emon526/Flutter_PassVault/compare/v1.1.0...v1.1.1) (2024-12-03)
+
+
+### Bug Fixes
+
+* minor bug fix ([4916e8a](https://github.com/Emon526/Flutter_PassVault/commit/4916e8a582d48878dd87ed3c53bba1e245aeb402))
+
+
+
 # [1.1.0](https://github.com/Emon526/Flutter_PassVault/compare/v1.0.4...v1.1.0) (2024-11-09)
 
 
@@ -39,15 +48,6 @@
 ### Bug Fixes
 
 * Updated to latest Dart Sdk and Dependency ([d4d3500](https://github.com/Emon526/Flutter_PassVault/commit/d4d35000e0b6e57f0a389c09b96a7bbeb5cb8a1c))
-
-
-
-## [1.0.1](https://github.com/Emon526/Flutter_PassVault/compare/v1.0.0...v1.0.1) (2023-12-14)
-
-
-### Bug Fixes
-
-* Bug fix ([0d5e12a](https://github.com/Emon526/Flutter_PassVault/commit/0d5e12ac3a4a6e402db027f0ff46dbf023c57dc0))
 
 
 
