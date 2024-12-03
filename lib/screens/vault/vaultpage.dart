@@ -115,10 +115,12 @@ class _VaultPageState extends State<VaultPage> {
                                       height: size.height * 0.03,
                                     ),
                                     value.searchresult.isEmpty
-                                        ? Customemptywidget(
-                                            svgString: 'assets/empty.svg',
-                                            emptyString:
-                                                'No Matched Password Found.')
+                                        ? Expanded(
+                                            child: Customemptywidget(
+                                                svgString: 'assets/empty.svg',
+                                                emptyString:
+                                                    'No Matched Password Found.'),
+                                          )
                                         : Expanded(
                                             child: ListView.separated(
                                                 separatorBuilder: (context,

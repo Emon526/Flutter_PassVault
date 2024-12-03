@@ -1,48 +1,85 @@
 # Pass Vault
 
-A new Flutter Password Vault and Generator project using Sqflite and Provider.
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Emon526/Flutter_PassVault/blob/master/LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/Emon526/Flutter_PassVault.svg)](https://github.com/Emon526/Flutter_PassVault/issues)
+[![GitHub Forks](https://img.shields.io/github/forks/Emon526/Flutter_PassVault.svg)](https://github.com/Emon526/Flutter_PassVault/network)
+[![GitHub Stars](https://img.shields.io/github/stars/Emon526/Flutter_PassVault.svg)](https://github.com/Emon526/Flutter_PassVault/stargazers)
+[![Releases](https://github.com/Emon526/Flutter_PassVault/actions/workflows/release.yml/badge.svg)](https://github.com/Emon526/Flutter_PassVault/actions/workflows/release.yml)
 
-**Features:**
+## Overview
 
-- Dark and Light Theme mode
-- Save User Data to local Storage
-- Search Passwords
-- CRUD Passwords
-- Generate Random Password
-- Password Strength Meter
-- Get Website Favicon
-
-**Packages we are using:**
-
-- form_field_validator: [link](https://pub.dev/packages/form_field_validator)
-- persistent_bottom_nav_bar: [link](https://pub.dev/packages/persistent_bottom_nav_bar)
-- provider: [link](https://pub.dev/packages/provider)
-- sqflite: [link](https://pub.dev/packages/sqflite)
-- shared_preferences: [link](https://pub.dev/packages/shared_preferences)
-- cached_network_image: [link](https://pub.dev/packages/cached_network_image)
-- favicon: [link](https://pub.dev/packages/favicon)
-- intl: [link](https://pub.dev/packages/intl)
-- path: [link](https://pub.dev/packages/path)
-- flutter_svg: [link](https://pub.dev/packages/flutter_svg)
-- webview: [link](https://pub.dev/packages/webview_flutter)
-
-<!-- This is a complete functional application that works on both Android and iOS devices. -->
-
-# Pass Vault App UI Preview
-
-The app features a modern, clean interface with both light and dark themes. Below are the screenshots organized by functionality, showing both theme variations side by side for easy comparison.
+**Pass Vault** is a sophisticated Flutter application designed to securely manage and generate passwords. This project leverages Flutter's capabilities for cross-platform compatibility, ensuring seamless operation on both Android and iOS devices.
 
 ## Table of Contents
 
-- [Onboarding & Authentication](#onboarding--authentication)
-  - [Splash & Introduction](#splash--introduction)
-  - [Authentication](#authentication)
-- [Main Features](#main-features)
-- [Password Management](#password-management)
-- [Settings & Customization](#settings--customization)
-- [App States](#app-states)
-  - [Theme Selection](#theme-selection)
-  - [Empty States](#empty-states)
+- [Features](#features)
+- [Packages Utilized](#packages-utilized)
+- [Application Compatibility](#application-compatibility)
+- [Installation Instructions](#installation-instructions)
+- [Usage Instructions](#usage-instructions)
+- [Application Demonstration](#application-demonstration)
+- [App Screenshots](#app-screenshots)
+- [Change App Icon](#change-app-icon)
+- [Change Splash Screen](#change-splash-screen)
+- [Update Pods](#update-pods)
+- [Troubleshooting](#troubleshooting)
+- [Contribution Guidelines](#contribution-guidelines)
+- [Contact Information](#contact-information)
+
+## Features
+
+- **Data Security**: Implement robust encryption and secure storage solutions to safeguard user data.
+- **User-Friendly Interface**: An intuitive design that enhances user experience and accessibility.
+- **Password Management**: Effortlessly create, store, and manage passwords with ease.
+- **Password Generation**: Generate strong, random passwords to enhance security.
+- **Search Functionality**: Quickly locate passwords with an efficient search feature.
+- **Customizable Themes**: Choose between light and dark themes to suit user preferences.
+
+## Packages Utilized
+
+This project utilizes the following packages:
+
+- **flutter**: The core Flutter SDK for building the application.
+- **intl**: A package for internationalization and localization.
+- **sqflite**: A SQLite plugin for local database storage.
+- **cupertino_icons**: Provides iOS-style icons for the application.
+- **provider**: A state management package that enhances the efficiency of app state handling.
+- **shared_preferences**: A package for storing simple data in key-value pairs.
+- **flutter_native_splash**: Facilitates the creation of native splash screens for the application.
+
+## Application Compatibility
+
+This application is fully functional and compatible with both Android and iOS devices.
+
+## Installation Instructions
+
+To set up the project, ensure you have Flutter installed on your machine. For detailed installation guidance, please refer to the [official Flutter installation guide](https://flutter.dev/docs/get-started/install).
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Emon526/Flutter_PassVault.git
+   cd Pass-Vault
+   ```
+2. Install the necessary dependencies:
+   ```bash
+   flutter pub get
+   ```
+
+## Usage Instructions
+
+To run the application, execute the following command:
+
+```bash
+flutter run
+```
+
+## Application Demonstration
+
+The following demonstration showcases the key features of the Pass Vault application, including password management, secure data entry, and theme selection.
+
+<center>
+    <img src="preview/app_demo.gif" alt="Application Demonstration" />
+</center>
 
 ## App Screenshots
 
@@ -54,63 +91,63 @@ The initial screens users encounter when launching and setting up the app.
 
 First impressions and onboarding experience:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_splash.png" width="200" alt="Light Splash Screen"/>
   <img src="preview/dark_splash.png" width="200" alt="Dark Splash Screen"/>
   <img src="preview/light_intro1.png" width="200" alt="Light Intro Screen 1"/>
   <img src="preview/dark_intro1.png" width="200" alt="Dark Intro Screen 1"/>
-</p>
+</div>
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_intro2.png" width="200" alt="Light Intro Screen 2"/>
   <img src="preview/dark_intro2.png" width="200" alt="Dark Intro Screen 2"/>
   <img src="preview/light_login.png" width="200" alt="Light Login Screen"/>
   <img src="preview/dark_login.png" width="200" alt="Dark Login Screen"/>
-</p>
+</div>
 
 #### Authentication
 
 Secure access and account management:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_register.png" width="200" alt="Light Register Screen"/>
   <img src="preview/dark_register.png" width="200" alt="Dark Register Screen"/>
   <img src="preview/light_change_pass.png" width="200" alt="Light Change Password Screen"/>
   <img src="preview/dark_change_pass.png" width="200" alt="Dark Change Password Screen"/>
-</p>
+</div>
 
 ### Main Features
 
 Core functionality and primary user interface:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_homepage.png" width="200" alt="Light Home Screen"/>
   <img src="preview/dark_homepage.png" width="200" alt="Dark Home Screen"/>
   <img src="preview/light_datascreen.png" width="200" alt="Light Data Screen"/>
   <img src="preview/dark_datascreen.png" width="200" alt="Dark Data Screen"/>
-</p>
+</div>
 
 ### Password Management
 
 Tools for managing and generating secure passwords:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_generator.png" width="200" alt="Light Generator Screen"/>
   <img src="preview/dark_generator.png" width="200" alt="Dark Generator Screen"/>
   <img src="preview/light_input.png" width="200" alt="Light Input Screen"/>
   <img src="preview/dark_input.png" width="200" alt="Dark Input Screen"/>
-</p>
+</div>
 
 ### Settings & Customization
 
 App configuration and personalization options:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_settings.png" width="200" alt="Light Settings Screen"/>
   <img src="preview/dark_settings.png" width="200" alt="Dark Settings Screen"/>
   <img src="preview/light_search.png" width="200" alt="Light Search Screen"/>
   <img src="preview/dark_search.png" width="200" alt="Dark Search Screen"/>
-</p>
+</div>
 
 ### App States
 
@@ -120,70 +157,93 @@ Different states and visual modes of the application.
 
 Theme customization options:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_theme_pick.png" width="200" alt="Light Theme Picker"/>
   <img src="preview/dark_theme_pick.png" width="200" alt="Dark Theme Picker"/>
-</p>
+</div>
 
 #### Empty States
 
 Placeholder screens when no data is available:
 
-<p float="left">
+<div style="text-align: center;">
   <img src="preview/light_no_data.png" width="200" alt="Light No Data Screen"/>
   <img src="preview/dark_no_data.png" width="200" alt="Dark No Data Screen"/>
-</p>
+</div>
 
-# Change App Icon
+## Change App Icon
 
-## Package - flutter_launcher_icons: [link](https://pub.dev/packages/flutter_launcher_icons)
+### Package - flutter_launcher_icons: [link](https://pub.dev/packages/flutter_launcher_icons)
 
-- step 1 : Replace the logo.png image with your logo.
-- step 2 : Change the logo path in pubspec.yaml file
-- step 3 : Run "flutter pub get"
-- step 4 : Run "flutter pub run flutter_launcher_icons:main"
+1. Replace the `logo.png` image with your logo.
+2. Change the logo path in the `pubspec.yaml` file.
+3. Run:
+   ```bash
+   flutter pub get
+   ```
+4. Run:
+   ```bash
+   flutter pub run flutter_launcher_icons:main
+   ```
 
-# Change Splash Screen
+## Change Splash Screen
 
-## Package - flutter_native_splash: [link](https://pub.dev/packages/flutter_native_splash)
+### Package - flutter_native_splash: [link](https://pub.dev/packages/flutter_native_splash)
 
-- step 1 : Replace the logo.png image with your logo.
-- step 2 : Change the logo path in pubspec.yaml file
-- step 3 : Run "flutter pub clean"
-- step 4 : Run "flutter pub get"
-- step 5 : Run "flutter pub run flutter_native_splash:create"
+1. Replace the `logo.png` image with your logo.
+2. Change the logo path in the `pubspec.yaml` file.
+3. Run:
+   ```bash
+   flutter pub clean
+   ```
+4. Run:
+   ```bash
+   flutter pub get
+   ```
+5. Run:
+   ```bash
+   flutter pub run flutter_native_splash:create
+   ```
 
-# Update Pods
+## Update Pods
 
-## Run All Commands
+### Run All Commands
 
-<br>
+```bash
 cd ios
-
 pod cache clean --all
-
 rm Podfile.lock
-
 rm -rf .symlinks/
-
 cd ..
-
 flutter clean
-
 flutter pub get
-
 cd ios
-
 pod update
-
 pod repo update
-
 pod install --repo-update
-
 pod update
-
 pod install
-
 cd ..
+```
 
-## You must be in your application directory to run those commands
+## Troubleshooting
+
+If you encounter issues while using the application, consider the following solutions:
+
+- **Common Issues**:
+  - If the app crashes on startup, ensure all dependencies are correctly installed and up to date.
+  - If you experience issues with the database, try running `flutter clean` and then `flutter pub get`.
+
+## Contribution Guidelines
+
+We welcome contributions! If you wish to contribute to the Pass Vault project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Implement your changes and commit them.
+4. Push your changes to your forked repository.
+5. Submit a pull request detailing your modifications.
+
+## Contact Information
+
+For any inquiries or support, please reach out to [developer.asrafulislam@gmail.com](mailto:developer.asrafulislam@gmail.com).
